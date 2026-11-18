@@ -1,12 +1,51 @@
-# portali-immobiliari
+<p align="center">
+  <img src="assets/hero.svg" alt="portali-immobiliari: una ricerca, tredici portali" width="100%">
+</p>
 
-Plugin per Claude Code che cerca annunci immobiliari su 13 portali italiani e li restituisce in una forma unica.
-Un agente descrive la casa che cerca un cliente, Claude sceglie i portali, applica i filtri, unisce i doppioni
-e propone poche case con i link.
+<p align="center">
+  <a href="LICENSE"><img alt="Licenza MIT" src="https://img.shields.io/badge/licenza-MIT-f4a261?style=flat-square"></a>
+  <img alt="Python 3, solo libreria standard" src="https://img.shields.io/badge/python-solo%20libreria%20standard-3a4a6e?style=flat-square">
+  <img alt="Plugin per Claude Code" src="https://img.shields.io/badge/Claude%20Code-plugin-3a4a6e?style=flat-square">
+  <img alt="macOS" src="https://img.shields.io/badge/macOS-Chrome-3a4a6e?style=flat-square">
+</p>
 
-Il plugin legge soltanto. Non pubblica annunci, non entra con nessun account e non contatta gli inserzionisti.
+<p align="center">
+  <a href="#in-due-minuti">In due minuti</a> ·
+  <a href="#come-lavora">Come lavora</a> ·
+  <a href="#portali">Portali</a> ·
+  <a href="#strumenti">Strumenti</a> ·
+  <a href="#uso-responsabile">Uso responsabile</a>
+</p>
 
-## Requisiti
+<br>
+
+<h3 align="center">Descrivi la casa che cerca il tuo cliente.<br>Claude la cerca su 13 portali e ti porta poche case scelte.</h3>
+
+<br>
+
+> "Il cliente cerca un trilocale a Trieste fino a 250.000 euro, con ascensore e possibilmente vista mare."
+
+Il plugin traduce una richiesta come questa nei filtri di ogni portale, legge gli annunci, riconosce la stessa
+casa pubblicata su più portali e risponde con una selezione ragionata, ognuna con i suoi link.
+
+Legge soltanto. Non pubblica annunci, non entra con nessun account e non contatta gli inserzionisti.
+
+## In due minuti
+
+```sh
+git clone https://github.com/uppifyagency/portali-immobiliari.git
+claude --plugin-dir ./portali-immobiliari
+```
+
+Poi chiedi a Claude:
+
+```text
+è tutto pronto?
+```
+
+La skill `benvenuto` prova ogni requisito e dice cosa manca. Quando è tutto pronto, descrivi la casa che cerchi.
+
+**Requisiti**
 
 - macOS. I portali con protezione antibot si leggono da una scheda di Google Chrome, comandata con `osascript`.
 - Google Chrome, con la voce **Visualizza > Opzioni per sviluppatori > Consenti JavaScript da Eventi Apple** attiva.
@@ -14,14 +53,24 @@ Il plugin legge soltanto. Non pubblica annunci, non entra con nessun account e n
 
 Su Linux manca `osascript`, quindi restano solo i portali con trasporto `http`. Questa combinazione non è provata.
 
-## Installazione
+## Come lavora
 
-```sh
-git clone https://github.com/uppifyagency/portali-immobiliari.git
-claude --plugin-dir ./portali-immobiliari
-```
+<table>
+<tr>
+<td width="25%" valign="top"><h4>1. Capisce</h4>Separa i vincoli duri (budget, locali, ascensore) dalle preferenze (vista mare, piano alto).</td>
+<td width="25%" valign="top"><h4>2. Cerca</h4>Sceglie i portali adatti e passa a ognuno solo i filtri che quel portale applica davvero.</td>
+<td width="25%" valign="top"><h4>3. Unisce</h4>Riconosce la stessa casa su portali diversi e la propone una volta, con tutti i link.</td>
+<td width="25%" valign="top"><h4>4. Propone</h4>Da 3 a 5 case in ordine, con il perché e con quello che resta da verificare.</td>
+</tr>
+</table>
 
-Alla prima apertura chiedi "è tutto pronto?": la skill `benvenuto` prova ogni requisito e dice cosa manca.
+Tre cose lo distinguono da uno scraper:
+
+- **Filtri provati, non indovinati.** Ogni filtro di ogni portale porta la prova che il portale lo applica. Un
+  filtro che il portale ignora non viene passato: diventa un controllo sugli annunci.
+- **Un dato che manca resta mancante.** Il plugin non deduce la vista mare da "luminoso". Quello che l'annuncio
+  non dice finisce sotto "da verificare".
+- **Davanti a un blocco si ferma.** Niente CAPTCHA risolti, niente impronte false, niente tentativi ripetuti.
 
 ## Portali
 
@@ -65,12 +114,19 @@ selezione.
 
 ## Come è fatto
 
-- `motore/clienti/`: un client per portale. Traduce una richiesta nei parametri del portale e legge la lista.
-- `motore/dettaglio/`: un lettore della scheda dell'annuncio per portale.
-- `motore/filtri/`: una mappa JSON per portale. Ogni filtro porta il parametro del portale, i valori ammessi e
-  la prova che il portale lo applica. La forma è descritta in `motore/filtri/SCHEMA.md`.
-- `motore/portali/`: il modello dei dati, il comando di Chrome e l'unione dei doppioni.
-- `motore/trasporto.py`: i due trasporti.
+```text
+portali-immobiliari/
+├── server/server.py     server MCP su stdio
+├── motore/
+│   ├── clienti/         un client per portale: richiesta -> parametri del portale -> lista
+│   ├── dettaglio/       un lettore della scheda dell'annuncio per portale
+│   ├── filtri/          una mappa JSON per portale, con la prova di ogni filtro
+│   ├── portali/         modello dei dati, comando di Chrome, unione dei doppioni
+│   └── trasporto.py     i due trasporti: chrome e http
+└── skills/              benvenuto, cerca-casa
+```
+
+La forma delle mappe dei filtri è descritta in [`motore/filtri/SCHEMA.md`](motore/filtri/SCHEMA.md).
 
 ## Limiti
 
@@ -82,7 +138,7 @@ selezione.
 
 ## Uso responsabile
 
-Il plugin fa a mano più veloce quello che una persona fa nel proprio browser, una ricerca per volta.
+Il plugin fa più in fretta quello che una persona fa nel proprio browser, una ricerca per volta.
 
 - Non falsifica impronte, non ruota identità e non risolve CAPTCHA. Davanti a un blocco si ferma e lo dice.
 - Non è pensato per raccolte di massa. Non usarlo per copiare o ripubblicare gli annunci di un portale.

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" role="img" aria-labelledby="t d">
+<title id="t">portali-immobiliari</title>
+<desc id="d">Tredici portali immobiliari italiani confluiscono in una sola ricerca.</desc>
+<defs>
+  <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0d1526"/><stop offset="1" stop-color="#111c33"/>
+  </linearGradient>
+  <linearGradient id="filo" gradientUnits="userSpaceOnUse" x1="860" y1="0" x2="992" y2="0">
+    <stop offset="0" stop-color="#3a4a6e"/><stop offset="1" stop-color="#f4a261"/>
+  </linearGradient>
+  <linearGradient id="casa" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#ffd08a"/><stop offset="1" stop-color="#ee7b4f"/>
+  </linearGradient>
+  <radialGradient id="alone" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#f4a261" stop-opacity="0.34"/><stop offset="1" stop-color="#f4a261" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="luce" cx="0.12" cy="0.1" r="0.7">
+    <stop offset="0" stop-color="#3b5bdb" stop-opacity="0.20"/><stop offset="1" stop-color="#3b5bdb" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="punti" width="28" height="28" patternUnits="userSpaceOnUse">
+    <circle cx="2" cy="2" r="1" fill="#ffffff" fill-opacity="0.045"/>
+  </pattern>
+  <clipPath id="carta"><rect width="1200" height="560" rx="28"/></clipPath>
+  <style>
+    .flussi path { stroke-dasharray: 3 21; animation: scorri 2.4s linear infinite; }
+    @keyframes scorri { to { stroke-dashoffset: -48; } }
+    .alone { animation: respira 4.8s ease-in-out infinite; transform-origin: 1068px 280px; }
+    @keyframes respira { 50% { transform: scale(1.12); opacity: .75; } }
+    @media (prefers-reduced-motion: reduce) { .flussi path, .alone { animation: none; } }
+  </style>
+</defs>
+<g clip-path="url(#carta)">
+  <rect width="1200" height="560" fill="url(#fondo)"/>
+  <rect width="1200" height="560" fill="url(#punti)"/>
+  <rect width="1200" height="560" fill="url(#luce)"/>
+</g>
+<rect x="0.5" y="0.5" width="1199" height="559" rx="27.5" fill="none" stroke="#ffffff" stroke-opacity="0.09"/>
+
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif">
+  <text x="72" y="196" font-size="13" font-weight="600" letter-spacing="2.6" fill="#f4a261">PLUGIN PER CLAUDE CODE</text>
+  <text x="70" y="254" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="48" font-weight="700" fill="#f5f7fb" letter-spacing="-1">portali-immobiliari</text>
+  <text x="72" y="304" font-size="24" fill="#c3cce0">Una ricerca, tredici portali.</text>
+  <text x="72" y="338" font-size="24" fill="#8693b3">Poche case scelte, ognuna con i suoi link.</text>
+  <g font-size="14" font-weight="500" fill="#d5dcec">
+    <rect x="72" y="376" width="112" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="128" y="398" text-anchor="middle">13 portali</text>
+    <rect x="196" y="376" width="158" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="275" y="398" text-anchor="middle">6 strumenti MCP</text>
+    <rect x="366" y="376" width="196" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="464" y="398" text-anchor="middle">solo libreria standard</text>
+  </g>
+</g>
+
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" fill="#aab6d3">
+  <circle cx="706" cy="70" r="3.5" fill="#7c8db5"/><text x="720" y="74.5">immobiliare</text>
+  <circle cx="706" cy="105" r="3.5" fill="#7c8db5"/><text x="720" y="109.5">idealista</text>
+  <circle cx="706" cy="140" r="3.5" fill="#7c8db5"/><text x="720" y="144.5">casait</text>
+  <circle cx="706" cy="175" r="3.5" fill="#7c8db5"/><text x="720" y="179.5">wikicasa</text>
+  <circle cx="706" cy="210" r="3.5" fill="#7c8db5"/><text x="720" y="214.5">subito</text>
+  <circle cx="706" cy="245" r="3.5" fill="#7c8db5"/><text x="720" y="249.5">cercacasa</text>
+  <circle cx="706" cy="280" r="3.5" fill="#7c8db5"/><text x="720" y="284.5">casadaprivato</text>
+  <circle cx="706" cy="315" r="3.5" fill="#7c8db5"/><text x="720" y="319.5">bakeca</text>
+  <circle cx="706" cy="350" r="3.5" fill="#7c8db5"/><text x="720" y="354.5">tuttocasa</text>
+  <circle cx="706" cy="385" r="3.5" fill="#7c8db5"/><text x="720" y="389.5">properstar</text>
+  <circle cx="706" cy="420" r="3.5" fill="#7c8db5"/><text x="720" y="424.5">gateaway</text>
+  <circle cx="706" cy="455" r="3.5" fill="#7c8db5"/><text x="720" y="459.5">astalegale</text>
+  <circle cx="706" cy="490" r="3.5" fill="#7c8db5"/><text x="720" y="494.5">astegiudiziarie</text>
+</g>
+<g fill="none" stroke="url(#filo)" stroke-width="1.4" stroke-linecap="round" opacity="0.75">
+  <path d="M860,70 C930,70 916,280 992,280"/>
+  <path d="M860,105 C930,105 916,280 992,280"/>
+  <path d="M860,140 C930,140 916,280 992,280"/>
+  <path d="M860,175 C930,175 916,280 992,280"/>
+  <path d="M860,210 C930,210 916,280 992,280"/>
+  <path d="M860,245 C930,245 916,280 992,280"/>
+  <path d="M860,280 C930,280 916,280 992,280"/>
+  <path d="M860,315 C930,315 916,280 992,280"/>
+  <path d="M860,350 C930,350 916,280 992,280"/>
+  <path d="M860,385 C930,385 916,280 992,280"/>
+  <path d="M860,420 C930,420 916,280 992,280"/>
+  <path d="M860,455 C930,455 916,280 992,280"/>
+  <path d="M860,490 C930,490 916,280 992,280"/>
+</g>
+<g class="flussi" fill="none" stroke="#ffd9a8" stroke-width="2.2" stroke-linecap="round">
+  <path d="M860,70 C930,70 916,280 992,280" style="animation-delay:-0.00s"/>
+  <path d="M860,105 C930,105 916,280 992,280" style="animation-delay:-0.37s"/>
+  <path d="M860,140 C930,140 916,280 992,280" style="animation-delay:-0.74s"/>
+  <path d="M860,175 C930,175 916,280 992,280" style="animation-delay:-1.11s"/>
+  <path d="M860,210 C930,210 916,280 992,280" style="animation-delay:-1.48s"/>
+  <path d="M860,245 C930,245 916,280 992,280" style="animation-delay:-1.85s"/>
+  <path d="M860,280 C930,280 916,280 992,280" style="animation-delay:-2.22s"/>
+  <path d="M860,315 C930,315 916,280 992,280" style="animation-delay:-0.19s"/>
+  <path d="M860,350 C930,350 916,280 992,280" style="animation-delay:-0.56s"/>
+  <path d="M860,385 C930,385 916,280 992,280" style="animation-delay:-0.93s"/>
+  <path d="M860,420 C930,420 916,280 992,280" style="animation-delay:-1.30s"/>
+  <path d="M860,455 C930,455 916,280 992,280" style="animation-delay:-1.67s"/>
+  <path d="M860,490 C930,490 916,280 992,280" style="animation-delay:-2.04s"/>
+</g>
+
+<circle class="alone" cx="1068" cy="280" r="118" fill="url(#alone)"/>
+<circle cx="1068" cy="280" r="76" fill="#0f1930" stroke="#f4a261" stroke-opacity="0.45" stroke-width="1.5"/>
+<circle cx="1068" cy="280" r="92" fill="none" stroke="#f4a261" stroke-opacity="0.14" stroke-dasharray="2 9"/>
+<g fill="none" stroke="url(#casa)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M1028,278 L1068,242 L1108,278"/>
+  <path d="M1040,270 V314 H1096 V270"/>
+  <path d="M1060,314 V292 H1076 V314"/>
+</g>
+</svg>
