@@ -1,0 +1,890 @@
+{
+  "portale": "bakeca",
+  "descrizione": "Bacheca di annunci per provincia (qui Trieste), agenzie e privati: una ventina di case in vendita a Trieste il 03/11/2026.",
+  "url_base_ricerca": "https://trieste.bakeca.it/annunci/vendita-case/",
+  "come_si_applicano": "misto",
+  "fonte_catalogo": "form HTML #filterForm (checkbox, select range_*[]; method post, la pagina d'arrivo e' un GET con segmenti), bakecaObj.search.sectionsAndCategories per le categorie, menu ordinamento, barra di ricerca (keywords, places con lws/comune/suggestion)",
+  "filtri": [
+    {
+      "chiave": "contratto",
+      "etichetta": "Vendita o affitto (categoria del percorso)",
+      "gruppo": "contratto",
+      "parametro": "segmento categoria dopo /annunci/",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "case in vendita: /annunci/vendita-case/"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "offro casa in affitto: /annunci/offro-casa/"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/offro-casa/",
+      "evidenza": "bakeca recording.har voce 0 (documento), bakecaObj.sectionsAndCategories['1'].categorie 168 vendita-case e 5 offro-casa, link annunci/offro-casa/; scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): offro-casa ha lo stesso form con range_affittoimmobile[] e range_mqoffrocasa[] [prova_mappa \"affitto\" Trieste vendita: 19->32 (2026-11-03 15:01:42); \"vendita\" Trieste vendita: 32->19 (2026-11-03 15:01:42)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "comune",
+      "etichetta": "Comune della provincia del sottodominio (luogo)",
+      "gruppo": "luogo",
+      "parametro": "luogo/<comune>/",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/luogo/muggia/",
+      "evidenza": "bakeca recording.har voce 0 (documento), link in fondo pagina 'luogo/...' (solo i comuni con annunci). Spazi come '+'; scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): lws/comune/suggestion dà vhost trieste per i 6 comuni; luogo/milano/ su trieste.bakeca.it rimanda a milano.bakeca.it/annunci/vendita-case/ (altro sottodominio, fuori origine). '*' = tutta la provincia, senza segmento. Su trieste.bakeca.it i comuni ammessi sono Trieste, Muggia, Duino Aurisina - Devin Nabrezina, San Dorligo della Valle - Dolina, Sgonico - Zgonik, Monrupino - Repentabor; su un altro sottodominio lo slug segue la stessa regola (minuscole, spazi '+'), es. milano.bakeca.it/annunci/offro-casa/luogo/milano/ (appunti.md, sezione Luogo) [prova_mappa \"Muggia\" Trieste vendita: 19->3 (2026-11-03 15:02:00); \"Milano\" * vendita: 1545->667 (2026-11-03 15:06:53)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "Muggia",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "Milano",
+          "attesa": "meno",
+          "comune": "*",
+          "origine": "https://milano.bakeca.it"
+        }
+      ]
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "pagina",
+      "parametro": "page/<N>/",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/page/2/",
+      "evidenza": "bakeca recording.har voce 0 (documento), link .../vendita-case/page/2/ [prova_mappa 2 * affitto: 32->32 (2026-11-03 14:47:25)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina",
+        "comune": "*",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "categoria_annuncio",
+      "etichetta": "Altre categorie della sezione Case",
+      "gruppo": "contratto",
+      "parametro": "segmento categoria dopo /annunci/",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "case",
+          "etichetta": "case"
+        },
+        {
+          "valore": "cerco-camera",
+          "etichetta": "cerco-camera"
+        },
+        {
+          "valore": "cerco-casa",
+          "etichetta": "cerco-casa"
+        },
+        {
+          "valore": "offro-camera",
+          "etichetta": "offro-camera"
+        },
+        {
+          "valore": "terreni-rustici",
+          "etichetta": "terreni-rustici"
+        },
+        {
+          "valore": "capannoni-magazzini",
+          "etichetta": "capannoni-magazzini"
+        },
+        {
+          "valore": "locali-attivita-commerciali",
+          "etichetta": "locali-attivita-commerciali"
+        },
+        {
+          "valore": "box-garage",
+          "etichetta": "box-garage"
+        },
+        {
+          "valore": "case-vacanza",
+          "etichetta": "case-vacanza"
+        },
+        {
+          "valore": "case-vacanza-estero",
+          "etichetta": "case-vacanza-estero"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/terreni-rustici/",
+      "evidenza": "bakeca recording.har voce 0 (documento), bakecaObj.sectionsAndCategories['1'].categorie (route annunci/<codiceLink>/) e menu 'Seleziona una categoria'. Sostituisce la categoria del contratto; nuove-costruzioni e' la voce nuova_costruzione [prova_mappa \"terreni-rustici\" * vendita: 23->7 (2026-11-03 14:48:01)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "terreni-rustici",
+        "attesa": "diverso",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "etichetta": "Nuove costruzioni (categoria)",
+      "gruppo": "contratto",
+      "parametro": "segmento categoria nuove-costruzioni",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://trieste.bakeca.it/annunci/nuove-costruzioni/",
+      "evidenza": "bakecaObj.search.sectionsAndCategories['1'].categorie: codiceLink nuove-costruzioni, route annunci/nuove-costruzioni/ (scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md)) [prova_mappa true * vendita: 23->1 (2026-11-03 14:48:19)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "diverso",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "pubblicato_da",
+      "etichetta": "Inserzionista",
+      "gruppo": "inserzionista",
+      "parametro": "inserzionistacase/<valore>/",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "privato",
+          "etichetta": "Privato"
+        },
+        {
+          "valore": "agenzia",
+          "etichetta": "Agenzia"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/inserzionistacase/agenzia/",
+      "evidenza": "bakeca recording.har voce 0 (documento), form #filterForm checkbox inserzionistacase[] (1_2182=Privato, 2_2183=Agenzia); link .../vendita-case/inserzionistacase/agenzia/ e .../offro-casa/inserzionistacase/privato/; scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): checkbox Agenzia -> inserzionistacase/agenzia/ nell'URL dopo l'invio [prova_mappa \"agenzia\" Trieste vendita: 19->18 (2026-11-03 14:48:55); \"privato\" * affitto: 32->2 (2026-11-03 14:49:14)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "agenzia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "privato",
+          "attesa": "meno",
+          "comune": "*",
+          "contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "da_privato",
+      "etichetta": "Solo privati",
+      "gruppo": "inserzionista",
+      "parametro": "inserzionistacase/privato/",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://trieste.bakeca.it/annunci/offro-casa/inserzionistacase/privato/",
+      "evidenza": "alias di pubblicato_da=privato: checkbox inserzionistacase[] 1_2182 Privato; link .../offro-casa/inserzionistacase/privato/ nell'HAR [prova_mappa true * affitto: 32->2 (2026-11-03 14:49:32)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "*",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia immobile",
+      "gruppo": "tipologia",
+      "parametro": "tipoimmobile/<slug>/ (piu' valori: tipoimmobile/<id>,<id>/)",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "monolocale",
+          "etichetta": "Monolocale"
+        },
+        {
+          "valore": "bilocale",
+          "etichetta": "Bilocale"
+        },
+        {
+          "valore": "trilocale",
+          "etichetta": "Trilocale"
+        },
+        {
+          "valore": "quadrilocale",
+          "etichetta": "Quadrilocale"
+        },
+        {
+          "valore": "cinque-o-piu-locali",
+          "etichetta": "Cinque e più locali"
+        },
+        {
+          "valore": "attico",
+          "etichetta": "Attico"
+        },
+        {
+          "valore": "mansarda",
+          "etichetta": "Mansarda"
+        },
+        {
+          "valore": "villa",
+          "etichetta": "Villa"
+        },
+        {
+          "valore": "altro",
+          "etichetta": "Altro (segmento 20)"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/luogo/trieste/prezzoimmobile/0-300000/tipoimmobile/trilocale/",
+      "evidenza": "bakeca recording.har voce 0 (documento), form #filterForm checkbox tipoimmobile[] (valore form <slug>_<id>); unico link visto: tipoimmobile/20/ per 'Altro' (form 20_70), quindi il segmento e' la parte prima di '_'. Gli altri slug seguono la stessa regola ma non hanno un link nell'HAR; scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): Trilocale -> tipoimmobile/trilocale/, Bilocale+Trilocale -> tipoimmobile/52,54/ (id dopo '_' nel value del form) [prova_mappa \"monolocale\" * affitto: 32->11 (2026-11-03 15:02:36); \"bilocale\" * vendita: 23->2 (2026-11-03 15:03:13); \"trilocale\" * vendita: 23->3 (2026-11-03 15:03:31); \"quadrilocale\" * vendita: 23->2 (2026-11-03 15:03:49); \"cinque-o-piu-locali\" * vendita: 23->4 (2026-11-03 15:04:07); \"attico\" * vendita: 1545->35 (2026-11-03 15:07:11); \"mansarda\" * vendita: 23->1 (2026-11-03 15:04:25); \"villa\" * vendita: 23->2 (2026-11-03 15:04:43); \"altro\" * vendita: 23->9 (2026-11-03 15:05:01)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "monolocale",
+          "attesa": "meno",
+          "comune": "*",
+          "contratto": "affitto"
+        },
+        {
+          "valore": "bilocale",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "trilocale",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "quadrilocale",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "cinque-o-piu-locali",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "attico",
+          "attesa": "meno",
+          "comune": "*",
+          "origine": "https://milano.bakeca.it"
+        },
+        {
+          "valore": "mansarda",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "villa",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "altro",
+          "attesa": "meno",
+          "comune": "*"
+        }
+      ]
+    },
+    {
+      "chiave": "arredato",
+      "etichetta": "Arredato",
+      "gruppo": "arredamento",
+      "parametro": "arredato/<slug>/ (piu' valori: arredato/<id>,<id>/)",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "nonarredato",
+          "etichetta": "Non arredato"
+        },
+        {
+          "valore": "parzialmentearredato",
+          "etichetta": "Parzialmente arredato"
+        },
+        {
+          "valore": "completamentearredato",
+          "etichetta": "Completamente arredato"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/arredato/completamentearredato/",
+      "evidenza": "bakeca recording.har voce 0 (documento), form #filterForm checkbox arredato[]; link .../arredato/completamentearredato/ nella 'Lista filtri'. Piu' valori come id separati da virgola, stessa regola vista per tipoimmobile [prova_mappa \"completamentearredato\" * affitto: 32->31 (2026-11-03 14:49:50)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "completamentearredato",
+        "attesa": "meno",
+        "comune": "*",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo minimo",
+      "gruppo": "prezzo",
+      "parametro": "prezzoimmobile/<min>-<max>/ (affitto: affittoimmobile/)",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "50000",
+          "etichetta": "50000 €"
+        },
+        {
+          "valore": "80000",
+          "etichetta": "80000 €"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000 €"
+        },
+        {
+          "valore": "130000",
+          "etichetta": "130000 €"
+        },
+        {
+          "valore": "160000",
+          "etichetta": "160000 €"
+        },
+        {
+          "valore": "190000",
+          "etichetta": "190000 €"
+        },
+        {
+          "valore": "220000",
+          "etichetta": "220000 €"
+        },
+        {
+          "valore": "250000",
+          "etichetta": "250000 €"
+        },
+        {
+          "valore": "300000",
+          "etichetta": "300000 €"
+        },
+        {
+          "valore": "350000",
+          "etichetta": "350000 €"
+        },
+        {
+          "valore": "400000",
+          "etichetta": "400000 €"
+        },
+        {
+          "valore": "450000",
+          "etichetta": "450000 €"
+        },
+        {
+          "valore": "500000",
+          "etichetta": "500000 €"
+        },
+        {
+          "valore": "750000",
+          "etichetta": "750000 €"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000 €"
+        },
+        {
+          "valore": "1500000",
+          "etichetta": "1500000 €"
+        },
+        {
+          "valore": "2000000",
+          "etichetta": "2000000 €"
+        },
+        {
+          "valore": "2500000",
+          "etichetta": "2500000 €"
+        },
+        {
+          "valore": "3000000",
+          "etichetta": "3000000 €"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/prezzoimmobile/100000-0/",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): form POST #filterForm con range_prezzoimmobile[]=100000,0 -> la pagina d'arrivo e' GET .../prezzoimmobile/100000-0/ (0 = senza limite). Le soglie sono quelle della vendita [prova_mappa 100000 Trieste vendita: 19->14 (2026-11-03 15:05:19)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo massimo",
+      "gruppo": "prezzo",
+      "parametro": "prezzoimmobile/<min>-<max>/ (affitto: affittoimmobile/)",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "50000",
+          "etichetta": "50000 €"
+        },
+        {
+          "valore": "80000",
+          "etichetta": "80000 €"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000 €"
+        },
+        {
+          "valore": "130000",
+          "etichetta": "130000 €"
+        },
+        {
+          "valore": "160000",
+          "etichetta": "160000 €"
+        },
+        {
+          "valore": "190000",
+          "etichetta": "190000 €"
+        },
+        {
+          "valore": "220000",
+          "etichetta": "220000 €"
+        },
+        {
+          "valore": "250000",
+          "etichetta": "250000 €"
+        },
+        {
+          "valore": "300000",
+          "etichetta": "300000 €"
+        },
+        {
+          "valore": "350000",
+          "etichetta": "350000 €"
+        },
+        {
+          "valore": "400000",
+          "etichetta": "400000 €"
+        },
+        {
+          "valore": "450000",
+          "etichetta": "450000 €"
+        },
+        {
+          "valore": "500000",
+          "etichetta": "500000 €"
+        },
+        {
+          "valore": "750000",
+          "etichetta": "750000 €"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000 €"
+        },
+        {
+          "valore": "1500000",
+          "etichetta": "1500000 €"
+        },
+        {
+          "valore": "2000000",
+          "etichetta": "2000000 €"
+        },
+        {
+          "valore": "2500000",
+          "etichetta": "2500000 €"
+        },
+        {
+          "valore": "3000000",
+          "etichetta": "3000000 €"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/prezzoimmobile/0-300000/",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): form POST con range_prezzoimmobile[]=0,300000 -> GET .../prezzoimmobile/0-300000/ (14 annunci su 23) [prova_mappa 300000 Trieste vendita: 19->12 (2026-11-03 15:05:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 300000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie minima",
+      "gruppo": "superficie",
+      "parametro": "mqcaseinvendita/<min>-<max>/ (affitto: mqoffrocasa/)",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "40",
+          "etichetta": "40 mq"
+        },
+        {
+          "valore": "50",
+          "etichetta": "50 mq"
+        },
+        {
+          "valore": "60",
+          "etichetta": "60 mq"
+        },
+        {
+          "valore": "70",
+          "etichetta": "70 mq"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80 mq"
+        },
+        {
+          "valore": "90",
+          "etichetta": "90 mq"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100 mq"
+        },
+        {
+          "valore": "150",
+          "etichetta": "150 mq"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300 mq"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500 mq"
+        },
+        {
+          "valore": "750",
+          "etichetta": "750 mq"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000 mq"
+        },
+        {
+          "valore": "1500",
+          "etichetta": "1500 mq"
+        },
+        {
+          "valore": "2000",
+          "etichetta": "2000 mq"
+        },
+        {
+          "valore": "5000",
+          "etichetta": "5000 mq"
+        },
+        {
+          "valore": "10000",
+          "etichetta": "10000 mq"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/mqcaseinvendita/60-0/",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): form POST con range_mqcaseinvendita[]=60,0 -> GET .../mqcaseinvendita/60-0/ (20 annunci su 23) [prova_mappa 60 Trieste vendita: 19->16 (2026-11-03 15:05:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 60,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie massima",
+      "gruppo": "superficie",
+      "parametro": "mqcaseinvendita/<min>-<max>/ (affitto: mqoffrocasa/)",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "40",
+          "etichetta": "40 mq"
+        },
+        {
+          "valore": "50",
+          "etichetta": "50 mq"
+        },
+        {
+          "valore": "60",
+          "etichetta": "60 mq"
+        },
+        {
+          "valore": "70",
+          "etichetta": "70 mq"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80 mq"
+        },
+        {
+          "valore": "90",
+          "etichetta": "90 mq"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100 mq"
+        },
+        {
+          "valore": "150",
+          "etichetta": "150 mq"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300 mq"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500 mq"
+        },
+        {
+          "valore": "750",
+          "etichetta": "750 mq"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000 mq"
+        },
+        {
+          "valore": "1500",
+          "etichetta": "1500 mq"
+        },
+        {
+          "valore": "2000",
+          "etichetta": "2000 mq"
+        },
+        {
+          "valore": "5000",
+          "etichetta": "5000 mq"
+        },
+        {
+          "valore": "10000",
+          "etichetta": "10000 mq"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/mqcaseinvendita/0-100/",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): stesso segmento di mq_min, secondo valore [prova_mappa 100 Trieste vendita: 19->12 (2026-11-03 15:06:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "parola_chiave",
+      "etichetta": "Parola chiave",
+      "gruppo": "testo",
+      "parametro": "keyword",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/?keyword=aste",
+      "evidenza": "bakeca recording.har voce 0 (documento), link ?keyword=appartamenti, ?keyword=aste; input name=keywords nella barra di ricerca [prova_mappa \"terrazzo\" * vendita: 23->4 (2026-11-03 14:50:08)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "terrazzo",
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordinamento",
+      "gruppo": "ordinamento",
+      "parametro": "sorting/<codice>/nope/true/",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "SBPRICEA",
+          "etichetta": "Prezzo più basso"
+        },
+        {
+          "valore": "SBPRICED",
+          "etichetta": "Prezzo più alto"
+        },
+        {
+          "valore": "SBMQA",
+          "etichetta": "Mq più piccoli"
+        },
+        {
+          "valore": "SBMQD",
+          "etichetta": "Mq più grandi"
+        }
+      ],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/sorting/SBPRICEA/nope/true/",
+      "evidenza": "bakeca recording.har voce 0 (documento), menu ordinamento con window.location.href='.../sorting/<codice>/nope/true/'; 'Dal piu' recente' riporta all'URL senza segmento; scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md): su una ricerca filtrata il menu porta a .../tipoimmobile/trilocale/sorting/SBPRICEA/nope/true/. 'Dal più recente' e' l'URL senza segmento (ordinamento omesso). SBVET 'In evidenza' non riordina: toglie gli annunci fuori vetrina (prova 03/11: 23 -> 11), quindi e' la voce solo_in_evidenza [prova_mappa \"SBPRICEA\" * vendita: 23->22 (2026-11-03 14:50:26); \"SBPRICED\" * vendita: 23->22 (2026-11-03 14:50:44); \"SBMQA\" * vendita: 23->23 (2026-11-03 14:51:03); \"SBMQD\" * vendita: 23->23 (2026-11-03 14:51:21)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "SBPRICEA",
+          "attesa": "ordine_asc",
+          "comune": "*"
+        },
+        {
+          "valore": "SBPRICED",
+          "attesa": "ordine_desc",
+          "comune": "*"
+        },
+        {
+          "valore": "SBMQA",
+          "attesa": "ordine_diverso",
+          "comune": "*"
+        },
+        {
+          "valore": "SBMQD",
+          "attesa": "ordine_diverso",
+          "comune": "*"
+        }
+      ]
+    },
+    {
+      "chiave": "solo_in_evidenza",
+      "etichetta": "Solo annunci in evidenza (voce 'In evidenza' del menu ordinamento)",
+      "gruppo": "vetrina",
+      "parametro": "sorting/SBVET/nope/true/",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://trieste.bakeca.it/annunci/vendita-case/sorting/SBVET/nope/true/",
+      "evidenza": "menu ordinamento del documento (bakeca recording.har voce 0, window.location.href='.../sorting/SBVET/nope/true/'); scoperta al clic 03/11/2026 (risultati/scoperta/bakeca/appunti.md); prova 13:10 e 14:04 come ordinamento: 23 -> 11, solo annunci in vetrina [prova_mappa true * vendita: 23->11 (2026-11-03 14:51:39)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "*"
+      },
+      "note": "Sta nel menu ordinamento ma restringe: la pagina mostra solo gli annunci in vetrina. Occupa il segmento sorting/, quindi con ordinamento il client solleva ValueError; ordinamento='SBVET' e' rifiutato con un rimando a questa chiave."
+    }
+  ],
+  "non_trovati": [
+    "Ricerca nella barra (input keywords): l'invio dalla barra non ha cambiato URL nella prova; il client usa ?keyword= dei link della pagina"
+  ],
+  "note": "Grammatica dell'URL vista al clic: /annunci/<categoria>/ poi i segmenti <nome>/<valore>/ in ordine alfabetico di nome (arredato, inserzionistacase, luogo, mqcaseinvendita, prezzoimmobile, tipoimmobile), poi sorting/<codice>/nope/true/, poi page/N/, poi ?keyword=. Un solo valore di checkbox va come slug, piu' valori come id numerici separati da virgola (tipoimmobile/52,54/). Intervalli <min>-<max>, 0 = senza limite. In affitto (offro-casa) i nomi degli intervalli sono affittoimmobile e mqoffrocasa. La provincia e' il sottodominio (trieste.bakeca.it, milano.bakeca.it): il client cerca sull'origine del trasporto che riceve, quindi chi chiama sceglie la provincia aprendo il trasporto su <provincia>.bakeca.it (prova con 'origine'). Un comune di un'altra provincia porta a un altro sottodominio: su trieste.bakeca.it il client accetta i 6 comuni noti (o '*'), sugli altri sottodomini controlla la risposta e solleva ValueError se il sito rimanda altrove. La voce 'provincia' (sottodominio) non e' un filtro: e' l'origine del trasporto. Bakeca non ha un filtro locali numerico: la tipologia (monolocale..cinque e piu' locali) fa da filtro locali.",
+  "assenti": [
+    {
+      "chiave": "zona",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo di zona o quartiere; la ricerca luogo (lws/comune/suggestion) offre solo comuni, province e regioni"
+    },
+    {
+      "chiave": "locali_min",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo numerico per i locali; c'e' solo la tipologia (monolocale..cinque e piu' locali), mappata come tipologia"
+    },
+    {
+      "chiave": "locali_max",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo numerico per i locali; c'e' solo la tipologia, mappata come tipologia"
+    },
+    {
+      "chiave": "bagni_min",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per i bagni"
+    },
+    {
+      "chiave": "piano",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il piano"
+    },
+    {
+      "chiave": "ascensore",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per l'ascensore"
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il balcone"
+    },
+    {
+      "chiave": "terrazzo",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il terrazzo (resta la parola chiave)"
+    },
+    {
+      "chiave": "giardino",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il giardino"
+    },
+    {
+      "chiave": "box_auto",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il box (esiste solo la categoria box-garage, mappata in categoria_annuncio)"
+    },
+    {
+      "chiave": "posto_auto",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il posto auto"
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per la cantina"
+    },
+    {
+      "chiave": "stato_immobile",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per lo stato dell'immobile"
+    },
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per la classe energetica"
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il riscaldamento"
+    },
+    {
+      "chiave": "aria_condizionata",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per l'aria condizionata"
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per la vista mare"
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per le aste (c'e' solo il link ?keyword=aste, cioe' una parola chiave)"
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per la nuda proprieta'"
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per gli immobili a reddito"
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per immobile libero"
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per gli annunci con foto"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per la planimetria"
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per i video"
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il virtual tour"
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per i ribassi"
+    },
+    {
+      "chiave": "raggio",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per il raggio di distanza"
+    },
+    {
+      "chiave": "mappa_area",
+      "evidenza": "https://trieste.bakeca.it/annunci/vendita-case/ e /annunci/offro-casa/, 03/11/2026: il form #filterForm ha solo Inserzionista, Tipologia immobile, Prezzo/Affitto, Metri quadri, Arredato; nessun controllo per disegnare un'area: la pagina non ha una mappa di ricerca"
+    }
+  ]
+}

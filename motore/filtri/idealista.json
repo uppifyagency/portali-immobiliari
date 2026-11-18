@@ -1,0 +1,1590 @@
+{
+  "portale": "idealista",
+  "descrizione": "Secondo portale per numero di annunci, soprattutto agenzie: a Trieste circa 720 case in vendita il 03/11/2026, molte presenti anche su immobiliare.",
+  "url_base_ricerca": "https://www.idealista.it/vendita-case/trieste-trieste/",
+  "come_si_applicano": "segmenti di percorso: /<contratto>-<tipologia>/<comune>-<provincia>/con-<token1>,<token2>/lista-<N>.htm; zona: /<contratto>-case/<comune>/<zona>/; area disegnata: /aree/<radice>/?shape=; solo ordinamento e shape sono in query.",
+  "fonte_catalogo": "HTML SSR, form#filter-form (input name=adfilter_*, liste li id qa_<campo>_option_N); token URL scoperti cliccando ogni controllo nel Chrome vero (risultati/scoperta/idealista/scopri.py, piano1-5) e da ricette/idealista-filtri.json del repo MVP.",
+  "filtri": [
+    {
+      "chiave": "contratto",
+      "etichetta": "Contratto",
+      "gruppo": "contratto",
+      "parametro": "radice <contratto>-case",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "Vendita (/vendita-case/, ricerca base)"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "Affitto (/affitto-case/)"
+        }
+      ],
+      "esempio": "https://www.idealista.it/affitto-case/trieste-trieste/",
+      "evidenza": "URL della voce 0 /vendita-case/; link /affitto-case/trieste-trieste/ nella pagina; piano4/5 caricano /affitto-case/trieste-trieste/ [prova_mappa \"affitto\" Trieste vendita: 718->259 (2026-11-03 15:11:49); \"vendita\" Trieste vendita: 259->718 (2026-11-03 15:11:49)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "comune",
+      "etichetta": "Comune",
+      "gruppo": "luogo",
+      "parametro": "segmento <comune>-<provincia>",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/",
+      "evidenza": "URL della voce 0 /trieste-trieste/; datalayer voce 3 geoLocationId 0-EU-IT-TS-01-001-006 [prova_mappa \"Milano\" Trieste vendita: 718->15865 (2026-11-03 15:12:09)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Milano",
+        "attesa": "diverso"
+      }
+    },
+    {
+      "chiave": "zona",
+      "etichetta": "Zona",
+      "gruppo": "luogo",
+      "parametro": "segmento /<comune>/<zona>/",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "altipiano-est-opicina",
+          "etichetta": "Altipiano Est - Opicina"
+        },
+        {
+          "valore": "altipiano-ovest-barcola",
+          "etichetta": "Altipiano Ovest - Barcola"
+        },
+        {
+          "valore": "barriera-vecchia-san-giacomo",
+          "etichetta": "Barriera Vecchia - San Giacomo"
+        },
+        {
+          "valore": "centro-san-vito",
+          "etichetta": "Centro - San Vito"
+        },
+        {
+          "valore": "san-giovanni-rozzol",
+          "etichetta": "San Giovanni - Rozzol"
+        },
+        {
+          "valore": "scorcola-roiano",
+          "etichetta": "Scorcola - Roiano"
+        },
+        {
+          "valore": "servola-borgo-san-sergio",
+          "etichetta": "Servola - Borgo San Sergio"
+        },
+        {
+          "valore": "triestino-nord",
+          "etichetta": "Triestino Nord (location-id provinciale 0-EU-IT-TS-03)"
+        },
+        {
+          "valore": "triestino-sud",
+          "etichetta": "Triestino Sud (location-id provinciale 0-EU-IT-TS-02)"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste/centro-san-vito/",
+      "evidenza": "breadcrumb delle zone nella voce 0 (li data-location-id, a href): /vendita-case/trieste/<zona>/ (il comune perde il suffisso -trieste) [prova_mappa \"centro-san-vito\" Trieste vendita: 718->276 (2026-11-03 15:12:27)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "centro-san-vito",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia di immobile",
+      "gruppo": "tipologia",
+      "parametro": "radice del percorso",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "nuove_costruzioni",
+          "etichetta": "Nuove costruzioni (/vendita-nuove_costruzioni/)"
+        },
+        {
+          "valore": "uffici",
+          "etichetta": "Uffici"
+        },
+        {
+          "valore": "negozi",
+          "etichetta": "Locali o capannoni"
+        },
+        {
+          "valore": "attivita",
+          "etichetta": "Cessioni di attività (/cessione-attivita/, solo vendita)"
+        },
+        {
+          "valore": "garage",
+          "etichetta": "Garage o posti auto"
+        },
+        {
+          "valore": "terreni",
+          "etichetta": "Terreni"
+        },
+        {
+          "valore": "cantine",
+          "etichetta": "Cantine"
+        },
+        {
+          "valore": "edifici",
+          "etichetta": "Edifici"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-uffici/trieste-trieste/",
+      "evidenza": "form#filter-form lista typology: li data-value con data-href /vendita-<radice>/trieste-trieste/. Case (typology 1) è la radice di base <contratto>-case: si ottiene omettendo la tipologia. [prova_mappa \"nuove_costruzioni\" Trieste vendita: 718->1 (2026-11-03 15:12:46); \"uffici\" Trieste vendita: 718->15 (2026-11-03 15:13:04); \"negozi\" Trieste vendita: 718->130 (2026-11-03 15:13:22); \"attivita\" Trieste vendita: 718->15 (2026-11-03 15:13:42); \"garage\" Trieste vendita: 718->84 (2026-11-03 15:14:00); \"terreni\" Trieste vendita: 718->37 (2026-11-03 15:14:18); \"cantine\" Trieste vendita: 718->9 (2026-11-03 15:14:37); \"edifici\" Trieste vendita: 718->8 (2026-11-03 15:14:55)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "nuove_costruzioni",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "uffici",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "negozi",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "attivita",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "garage",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "terreni",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "cantine",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "edifici",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo minimo",
+      "gruppo": "prezzo",
+      "parametro": "con-prezzo-min_<valore>",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "40000",
+          "etichetta": "40000"
+        },
+        {
+          "valore": "60000",
+          "etichetta": "60000"
+        },
+        {
+          "valore": "80000",
+          "etichetta": "80000"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000"
+        },
+        {
+          "valore": "120000",
+          "etichetta": "120000"
+        },
+        {
+          "valore": "140000",
+          "etichetta": "140000"
+        },
+        {
+          "valore": "160000",
+          "etichetta": "160000"
+        },
+        {
+          "valore": "180000",
+          "etichetta": "180000"
+        },
+        {
+          "valore": "200000",
+          "etichetta": "200000"
+        },
+        {
+          "valore": "220000",
+          "etichetta": "220000"
+        },
+        {
+          "valore": "240000",
+          "etichetta": "240000"
+        },
+        {
+          "valore": "260000",
+          "etichetta": "260000"
+        },
+        {
+          "valore": "280000",
+          "etichetta": "280000"
+        },
+        {
+          "valore": "300000",
+          "etichetta": "300000"
+        },
+        {
+          "valore": "320000",
+          "etichetta": "320000"
+        },
+        {
+          "valore": "350000",
+          "etichetta": "350000"
+        },
+        {
+          "valore": "400000",
+          "etichetta": "400000"
+        },
+        {
+          "valore": "450000",
+          "etichetta": "450000"
+        },
+        {
+          "valore": "500000",
+          "etichetta": "500000"
+        },
+        {
+          "valore": "550000",
+          "etichetta": "550000"
+        },
+        {
+          "valore": "600000",
+          "etichetta": "600000"
+        },
+        {
+          "valore": "650000",
+          "etichetta": "650000"
+        },
+        {
+          "valore": "700000",
+          "etichetta": "700000"
+        },
+        {
+          "valore": "800000",
+          "etichetta": "800000"
+        },
+        {
+          "valore": "900000",
+          "etichetta": "900000"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000"
+        },
+        {
+          "valore": "1250000",
+          "etichetta": "1250000"
+        },
+        {
+          "valore": "1500000",
+          "etichetta": "1500000"
+        },
+        {
+          "valore": "2000000",
+          "etichetta": "2000000"
+        },
+        {
+          "valore": "2500000",
+          "etichetta": "2500000"
+        },
+        {
+          "valore": "3000000",
+          "etichetta": "3000000"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-prezzo-min_200000/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento prezzo_min_e_mq: clic nel Chrome vero il 03/11/2026, URL con-prezzo-min_100000,dimensione_80,dimensione-max_200,...; soglie dalle liste qa_adfilter_*_option_N del modulo più il campo 'Altro' (maxlength 11 per il prezzo, 9 per i m²) [prova_mappa 200000 Trieste vendita: 718->529 (2026-11-03 15:15:13)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "attesa": "meno"
+      },
+      "unita": "EUR"
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo massimo",
+      "gruppo": "prezzo",
+      "parametro": "con-prezzo_<valore>",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "40000",
+          "etichetta": "40000"
+        },
+        {
+          "valore": "60000",
+          "etichetta": "60000"
+        },
+        {
+          "valore": "80000",
+          "etichetta": "80000"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000"
+        },
+        {
+          "valore": "120000",
+          "etichetta": "120000"
+        },
+        {
+          "valore": "140000",
+          "etichetta": "140000"
+        },
+        {
+          "valore": "160000",
+          "etichetta": "160000"
+        },
+        {
+          "valore": "180000",
+          "etichetta": "180000"
+        },
+        {
+          "valore": "200000",
+          "etichetta": "200000"
+        },
+        {
+          "valore": "220000",
+          "etichetta": "220000"
+        },
+        {
+          "valore": "240000",
+          "etichetta": "240000"
+        },
+        {
+          "valore": "260000",
+          "etichetta": "260000"
+        },
+        {
+          "valore": "280000",
+          "etichetta": "280000"
+        },
+        {
+          "valore": "300000",
+          "etichetta": "300000"
+        },
+        {
+          "valore": "320000",
+          "etichetta": "320000"
+        },
+        {
+          "valore": "350000",
+          "etichetta": "350000"
+        },
+        {
+          "valore": "400000",
+          "etichetta": "400000"
+        },
+        {
+          "valore": "450000",
+          "etichetta": "450000"
+        },
+        {
+          "valore": "500000",
+          "etichetta": "500000"
+        },
+        {
+          "valore": "550000",
+          "etichetta": "550000"
+        },
+        {
+          "valore": "600000",
+          "etichetta": "600000"
+        },
+        {
+          "valore": "650000",
+          "etichetta": "650000"
+        },
+        {
+          "valore": "700000",
+          "etichetta": "700000"
+        },
+        {
+          "valore": "800000",
+          "etichetta": "800000"
+        },
+        {
+          "valore": "900000",
+          "etichetta": "900000"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000"
+        },
+        {
+          "valore": "1250000",
+          "etichetta": "1250000"
+        },
+        {
+          "valore": "1500000",
+          "etichetta": "1500000"
+        },
+        {
+          "valore": "2000000",
+          "etichetta": "2000000"
+        },
+        {
+          "valore": "2500000",
+          "etichetta": "2500000"
+        },
+        {
+          "valore": "3000000",
+          "etichetta": "3000000"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-prezzo_300000/",
+      "evidenza": "recording.har voce 0 /vendita-case/trieste-trieste/con-prezzo_300000/ [prova_mappa 300000 Trieste vendita: 718->359 (2026-11-03 15:15:32)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 300000,
+        "attesa": "meno"
+      },
+      "unita": "EUR"
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie minima",
+      "gruppo": "superficie",
+      "parametro": "con-dimensione_<valore>",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "60",
+          "etichetta": "60"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100"
+        },
+        {
+          "valore": "120",
+          "etichetta": "120"
+        },
+        {
+          "valore": "140",
+          "etichetta": "140"
+        },
+        {
+          "valore": "160",
+          "etichetta": "160"
+        },
+        {
+          "valore": "180",
+          "etichetta": "180"
+        },
+        {
+          "valore": "200",
+          "etichetta": "200"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300"
+        },
+        {
+          "valore": "400",
+          "etichetta": "400"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500"
+        },
+        {
+          "valore": "600",
+          "etichetta": "600"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-dimensione_80/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento prezzo_min_e_mq: clic nel Chrome vero il 03/11/2026, URL con-prezzo-min_100000,dimensione_80,dimensione-max_200,...; soglie dalle liste qa_adfilter_*_option_N del modulo più il campo 'Altro' (maxlength 11 per il prezzo, 9 per i m²) [prova_mappa 80 Trieste vendita: 718->520 (2026-11-03 15:15:50)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      },
+      "unita": "m²"
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie massima",
+      "gruppo": "superficie",
+      "parametro": "con-dimensione-max_<valore>",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "60",
+          "etichetta": "60"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100"
+        },
+        {
+          "valore": "120",
+          "etichetta": "120"
+        },
+        {
+          "valore": "140",
+          "etichetta": "140"
+        },
+        {
+          "valore": "160",
+          "etichetta": "160"
+        },
+        {
+          "valore": "180",
+          "etichetta": "180"
+        },
+        {
+          "valore": "200",
+          "etichetta": "200"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300"
+        },
+        {
+          "valore": "400",
+          "etichetta": "400"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500"
+        },
+        {
+          "valore": "600",
+          "etichetta": "600"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-dimensione-max_100/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento prezzo_min_e_mq: clic nel Chrome vero il 03/11/2026, URL con-prezzo-min_100000,dimensione_80,dimensione-max_200,...; soglie dalle liste qa_adfilter_*_option_N del modulo più il campo 'Altro' (maxlength 11 per il prezzo, 9 per i m²) [prova_mappa 100 Trieste vendita: 718->353 (2026-11-03 15:16:08)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100,
+        "attesa": "meno"
+      },
+      "unita": "m²"
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Locali (minimo)",
+      "gruppo": "locali",
+      "parametro": "con-<token dei tagli da N in su>",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "monolocali-1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "bilocali-2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "trilocali-3"
+        },
+        {
+          "valore": "4",
+          "etichetta": "quadrilocali-4"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5-locali-o-piu"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-trilocali-3,quadrilocali-4,5-locali-o-piu/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento locali_1: clic nel Chrome vero il 03/11/2026, URL con-monolocali-1; risultati/scoperta/idealista/piano2.esiti.json, esperimento locali_3 e locali_2_e_4_max: clic nel Chrome vero il 03/11/2026, URL con-trilocali-3,quadrilocali-4,5-locali-o-piu e con-monolocali-1,bilocali-2,quadrilocali-4: ogni casella è un token, il modulo accetta qualunque insieme [prova_mappa 3 Trieste vendita: 718->542 (2026-11-03 15:16:27)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 3,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Locali (massimo)",
+      "gruppo": "locali",
+      "parametro": "con-<token dei tagli fino a N>",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "monolocali-1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "bilocali-2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "trilocali-3"
+        },
+        {
+          "valore": "4",
+          "etichetta": "quadrilocali-4"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5-locali-o-piu"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-monolocali-1,bilocali-2/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento locali_1: clic nel Chrome vero il 03/11/2026, URL con-monolocali-1; risultati/scoperta/idealista/piano2.esiti.json, esperimento locali_3 e locali_2_e_4_max: clic nel Chrome vero il 03/11/2026, URL con-trilocali-3,quadrilocali-4,5-locali-o-piu e con-monolocali-1,bilocali-2,quadrilocali-4: ogni casella è un token, il modulo accetta qualunque insieme [prova_mappa 2 Trieste vendita: 718->176 (2026-11-03 15:16:46)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_min",
+      "etichetta": "Bagni (minimo)",
+      "gruppo": "bagni",
+      "parametro": "con-bagno-N,...,bagno-3",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "bagno-1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "bagno-2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "bagno-3 (3 o più)"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-bagno-2,bagno-3/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento bagni_1 e bagni_2_3: clic nel Chrome vero il 03/11/2026, URL con-bagno-1,bagno-2,bagno-3 e con-bagno-2,bagno-3: un clic su N spunta anche i tagli maggiori [prova_mappa 2 Trieste vendita: 718->384 (2026-11-03 15:17:04)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipo_casa",
+      "etichetta": "Tipo di casa",
+      "gruppo": "tipologia",
+      "parametro": "con-<token>[,<token>]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "appartamenti",
+          "etichetta": "Appartamenti, attici e duplex (casella madre)"
+        },
+        {
+          "valore": "solo-appartamenti",
+          "etichetta": "Appartamenti"
+        },
+        {
+          "valore": "attici",
+          "etichetta": "Attici"
+        },
+        {
+          "valore": "appartamenti-due-livelli",
+          "etichetta": "Appartamenti su due piani"
+        },
+        {
+          "valore": "ville",
+          "etichetta": "Case, ville e villette (casella madre)"
+        },
+        {
+          "valore": "case-indipendenti",
+          "etichetta": "Case indipendenti"
+        },
+        {
+          "valore": "villette-bifamiliari",
+          "etichetta": "Villette bifamiliari"
+        },
+        {
+          "valore": "villette-a-schiera",
+          "etichetta": "Villette a schiera"
+        },
+        {
+          "valore": "ville-indipendenti",
+          "etichetta": "Ville"
+        },
+        {
+          "valore": "rustici",
+          "etichetta": "Case rustiche"
+        },
+        {
+          "valore": "mansarde",
+          "etichetta": "Mansarde (solo vendita)"
+        },
+        {
+          "valore": "loft-open-space",
+          "etichetta": "Loft (solo vendita)"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-appartamenti/",
+      "evidenza": "risultati/scoperta/idealista/piano3.esiti.json, esperimento onlyflats ... countryhouses: clic nel Chrome vero il 03/11/2026, URL con-solo-appartamenti,case-indipendenti,villette-bifamiliari,villette-a-schiera,ville-indipendenti,attici; con-rustici,appartamenti-due-livelli; piano2 homes_padre con-appartamenti, chalets_padre con-appartamenti,ville, tipo_casa_figli con-loft-open-space,mansarde [prova_mappa \"attici\" Trieste vendita: 718->45 (2026-11-03 15:17:23)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "attici",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "stato_immobile",
+      "etichetta": "Stato",
+      "gruppo": "stato",
+      "parametro": "con-<token>[,<token>]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "nuova-costruzione",
+          "etichetta": "Nuova costruzione"
+        },
+        {
+          "valore": "buono-stato",
+          "etichetta": "In buono stato"
+        },
+        {
+          "valore": "ristrutturare",
+          "etichetta": "Da ristrutturare"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-nuova-costruzione/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP, clic nel Chrome vero con strumenti/scopri_filtri_idealista.py): newconstruction nuova-costruzione, goodcondition buono-stato, toberestored ristrutturare [prova_mappa \"ristrutturare\" Trieste vendita: 718->56 (2026-11-03 15:17:42)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "ristrutturare",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "etichetta": "Nuova costruzione (stato)",
+      "gruppo": "stato",
+      "parametro": "con-nuova-costruzione",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-nuova-costruzione/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP): casella newconstruction -> nuova-costruzione. La tipologia nuove_costruzioni (/vendita-nuove_costruzioni/, i cantieri) è un'altra cosa e sta in tipologia. [prova_mappa true Trieste vendita: 718->91 (2026-11-03 15:18:00)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piano",
+      "etichetta": "Piano",
+      "gruppo": "piano",
+      "parametro": "con-<token>[,<token>]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "ultimo-piano",
+          "etichetta": "Ultimo piano"
+        },
+        {
+          "valore": "piani-intermedi",
+          "etichetta": "Piani intermedi"
+        },
+        {
+          "valore": "piano-terra",
+          "etichetta": "Piano terra"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-ultimo-piano/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP): top_floor ultimo-piano, intermediate_floor piani-intermedi, ground_floor piano-terra [prova_mappa \"ultimo-piano\" Trieste vendita: 718->114 (2026-11-03 15:18:18)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "ultimo-piano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "classe_energetica",
+      "etichetta": "Efficienza energetica",
+      "gruppo": "energia",
+      "parametro": "con-<token>[,<token>]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "alta-efficienza",
+          "etichetta": "Alta"
+        },
+        {
+          "valore": "media-efficienza",
+          "etichetta": "Media"
+        },
+        {
+          "valore": "bassa-efficienza",
+          "etichetta": "Bassa"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-alta-efficienza/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento energia: clic nel Chrome vero il 03/11/2026, URL con-alta-efficienza,media-efficienza,bassa-efficienza [prova_mappa \"alta-efficienza\" Trieste vendita: 718->173 (2026-11-03 15:18:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "alta-efficienza",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "box_auto",
+      "etichetta": "Box",
+      "gruppo": "parcheggio",
+      "parametro": "con-<token>[,<token>]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "garage",
+          "etichetta": "Box o posto auto (casella madre, qualunque)"
+        },
+        {
+          "valore": "box-singolo",
+          "etichetta": "Box singolo"
+        },
+        {
+          "valore": "box-doppio",
+          "etichetta": "Box doppio"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-garage/",
+      "evidenza": "risultati/scoperta/idealista/piano3.esiti.json, esperimento parkingspace, parking_single: clic nel Chrome vero il 03/11/2026, URL con-garage, ...box-singolo...; piano2 box_3figli ...box-doppio [prova_mappa \"garage\" Trieste vendita: 718->208 (2026-11-03 15:18:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "garage",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "posto_auto",
+      "etichetta": "Posto auto",
+      "gruppo": "parcheggio",
+      "parametro": "con-<token>[,<token>]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "posto-auto-coperto",
+          "etichetta": "Posto auto coperto"
+        },
+        {
+          "valore": "posto-auto-scoperto",
+          "etichetta": "Posto auto scoperto"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-posto-auto-coperto/",
+      "evidenza": "risultati/scoperta/idealista/piano3.esiti.json, esperimento parking_outdoor_covered: clic nel Chrome vero il 03/11/2026, URL ...posto-auto-coperto...; piano2 scoperto_giardino_priv ...posto-auto-scoperto [prova_mappa \"posto-auto-coperto\" Trieste vendita: 718->138 (2026-11-03 15:19:13)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "posto-auto-coperto",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "giardino",
+      "etichetta": "Giardino",
+      "gruppo": "esterni",
+      "parametro": "con-<token>[,<token>]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "giardino",
+          "etichetta": "Giardino privato o comune (casella madre)"
+        },
+        {
+          "valore": "giardino-privato",
+          "etichetta": "Privato"
+        },
+        {
+          "valore": "giardino-comune",
+          "etichetta": "Comune"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-giardino/",
+      "evidenza": "risultati/scoperta/idealista/piano3.esiti.json, esperimento garden, garden_private: clic nel Chrome vero il 03/11/2026, URL con-giardino, ...giardino-privato; piano2 giardino_comune_affittato ...giardino-comune,inquilino [prova_mappa \"giardino\" Trieste vendita: 718->178 (2026-11-03 15:19:32)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "giardino",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "balcone",
+      "etichetta": "Balcone",
+      "gruppo": "esterni",
+      "parametro": "con-balcone",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-balcone/",
+      "evidenza": "risultati/scoperta/idealista/piano3.esiti.json, esperimento balcony: clic nel Chrome vero il 03/11/2026, URL con-balcone [prova_mappa true Trieste vendita: 718->215 (2026-11-03 15:19:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "terrazzo",
+      "etichetta": "Terrazzo",
+      "gruppo": "esterni",
+      "parametro": "con-terrazza",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-terrazza/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento balcone_terrazzo: clic nel Chrome vero il 03/11/2026, URL con-terrazza [prova_mappa true Trieste vendita: 718->258 (2026-11-03 15:20:11)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "balcone_o_terrazzo",
+      "etichetta": "Balcone e terrazzo (casella madre)",
+      "gruppo": "esterni",
+      "parametro": "con-terrazza-e-balcone",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-terrazza-e-balcone/",
+      "evidenza": "risultati/scoperta/idealista/piano3.esiti.json, esperimento exterior_domestic_space_type: clic nel Chrome vero il 03/11/2026, URL con-terrazza-e-balcone [prova_mappa true Trieste vendita: 718->381 (2026-11-03 15:20:30)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piscina",
+      "etichetta": "Piscina",
+      "gruppo": "dotazioni",
+      "parametro": "con-piscina",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-piscina/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento caselle_varie: clic nel Chrome vero il 03/11/2026, URL con-piscina,lusso,visita-virtuale,case-accessibili,armadi-muro,planimetria [prova_mappa true Trieste vendita: 718->19 (2026-11-03 15:20:48)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "lusso",
+      "etichetta": "Casa di lusso",
+      "gruppo": "dotazioni",
+      "parametro": "con-lusso",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-lusso/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento caselle_varie: clic nel Chrome vero il 03/11/2026, URL con-piscina,lusso,visita-virtuale,case-accessibili,armadi-muro,planimetria [prova_mappa true Trieste vendita: 718->10 (2026-11-03 15:21:09)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "etichetta": "Con visita virtuale",
+      "gruppo": "multimedia",
+      "parametro": "con-visita-virtuale",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-visita-virtuale/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento caselle_varie: clic nel Chrome vero il 03/11/2026, URL con-piscina,lusso,visita-virtuale,case-accessibili,armadi-muro,planimetria [prova_mappa true Trieste vendita: 718->54 (2026-11-03 15:21:27)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "casa_accessibile",
+      "etichetta": "Casa accessibile",
+      "gruppo": "dotazioni",
+      "parametro": "con-case-accessibili",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-case-accessibili/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento caselle_varie: clic nel Chrome vero il 03/11/2026, URL con-piscina,lusso,visita-virtuale,case-accessibili,armadi-muro,planimetria [prova_mappa true Trieste vendita: 718->64 (2026-11-03 15:21:45)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "armadi_a_muro",
+      "etichetta": "Armadi a muro",
+      "gruppo": "dotazioni",
+      "parametro": "con-armadi-muro",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-armadi-muro/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento caselle_varie: clic nel Chrome vero il 03/11/2026, URL con-piscina,lusso,visita-virtuale,case-accessibili,armadi-muro,planimetria [prova_mappa true Trieste vendita: 718->91 (2026-11-03 15:22:03)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_planimetria",
+      "etichetta": "Con planimetria",
+      "gruppo": "multimedia",
+      "parametro": "con-planimetria",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-planimetria/",
+      "evidenza": "risultati/scoperta/idealista/piano1.esiti.json, esperimento caselle_varie: clic nel Chrome vero il 03/11/2026, URL con-piscina,lusso,visita-virtuale,case-accessibili,armadi-muro,planimetria [prova_mappa true Trieste vendita: 718->573 (2026-11-03 15:22:21)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "a_reddito",
+      "etichetta": "Affittato a inquilini con contratto in vigore (solo vendita)",
+      "gruppo": "situazione",
+      "parametro": "con-inquilino",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-inquilino/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento giardino_comune_affittato: clic nel Chrome vero il 03/11/2026, URL con-inquilino [prova_mappa true Trieste vendita: 718->25 (2026-11-03 15:22:39)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ascensore",
+      "etichetta": "Ascensore",
+      "gruppo": "dotazioni",
+      "parametro": "con-ascensori",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-ascensori/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP, clic nel Chrome vero): casella lift -> ascensori [prova_mappa true Trieste vendita: 718->431 (2026-11-03 15:22:57)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vista_mare",
+      "etichetta": "Vista mare",
+      "gruppo": "dotazioni",
+      "parametro": "con-vista-mare",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-vista-mare/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP, clic nel Chrome vero): casella seaviews -> vista-mare [prova_mappa true Trieste vendita: 718->132 (2026-11-03 15:23:16)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "aria_condizionata",
+      "etichetta": "Aria condizionata",
+      "gruppo": "dotazioni",
+      "parametro": "con-ariacondizionata",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-ariacondizionata/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP, clic nel Chrome vero): casella hasairconditioning -> ariacondizionata [prova_mappa true Trieste vendita: 718->357 (2026-11-03 15:23:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "cantina",
+      "etichetta": "Cantina",
+      "gruppo": "dotazioni",
+      "parametro": "con-ripostiglio",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-ripostiglio/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP, clic nel Chrome vero): casella boxroom -> ripostiglio [prova_mappa true Trieste vendita: 718->198 (2026-11-03 15:23:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "etichetta": "Nuda proprietà (solo vendita)",
+      "gruppo": "situazione",
+      "parametro": "con-nuda-proprieta",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-nuda-proprieta/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP, clic nel Chrome vero): casella bareOwnership -> nuda-proprieta [prova_mappa true Trieste vendita: 718->24 (2026-11-03 15:24:12)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "libero",
+      "etichetta": "Disponibile, senza restrizioni (solo vendita)",
+      "gruppo": "situazione",
+      "parametro": "con-senza-inquilini",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-senza-inquilini/",
+      "evidenza": "ricette/idealista-filtri.json (repo MVP, clic nel Chrome vero): casella free -> senza-inquilini [prova_mappa true Trieste vendita: 718->642 (2026-11-03 15:24:30)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "asta",
+      "etichetta": "Aste (solo vendita)",
+      "gruppo": "situazione",
+      "parametro": "con-aste_no | con-aste_giudiziarie",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "escludi",
+          "etichetta": "Escludi aste"
+        },
+        {
+          "valore": "solo",
+          "etichetta": "Vedi solo aste"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-aste_giudiziarie/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento asta_escludi e asta_solo: clic nel Chrome vero il 03/11/2026, URL ...aste_no e ...aste_giudiziarie [prova_mappa \"solo\" Trieste vendita: 718->20 (2026-11-03 15:24:48)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "solo",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "pubblicato_entro",
+      "etichetta": "Data di pubblicazione",
+      "gruppo": "pubblicazione",
+      "parametro": "con-pubblicato_ultime-48-ore | con-pubblicato_ultima-settimana | con-pubblicato_ultimo-mese",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "48-ore",
+          "etichetta": "Ultime 48 ore"
+        },
+        {
+          "valore": "settimana",
+          "etichetta": "Ultima settimana"
+        },
+        {
+          "valore": "mese",
+          "etichetta": "Ultimo mese"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/con-pubblicato_ultima-settimana/",
+      "evidenza": "risultati/scoperta/idealista/piano2.esiti.json, esperimento pubblicato_1/2/3: clic nel Chrome vero il 03/11/2026, URL ...pubblicato_ultime-48-ore, ..._ultima-settimana, ..._ultimo-mese [prova_mappa \"settimana\" Trieste vendita: 718->68 (2026-11-03 15:25:06)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "settimana",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "arredato",
+      "etichetta": "Arredamento (solo affitto)",
+      "gruppo": "arredamento",
+      "parametro": "con-arredamento_ammobiliato | con-arredamento_solo-cucina-arredata",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "ammobiliato",
+          "etichetta": "Arredato"
+        },
+        {
+          "valore": "solo-cucina",
+          "etichetta": "Solo cucina arredata"
+        }
+      ],
+      "esempio": "https://www.idealista.it/affitto-case/trieste-trieste/con-arredamento_ammobiliato/",
+      "evidenza": "risultati/scoperta/idealista/piano5.esiti.json, esperimento amenity_2 e amenity_1: clic nel Chrome vero il 03/11/2026, URL con-arredamento_ammobiliato e con-arredamento_solo-cucina-arredata [prova_mappa \"ammobiliato\" Trieste affitto: 259->216 (2026-11-03 15:25:24)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "ammobiliato",
+        "attesa": "meno",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "animali_ammessi",
+      "etichetta": "Sono ammessi animali (solo affitto)",
+      "gruppo": "affitto",
+      "parametro": "con-animali",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/affitto-case/trieste-trieste/con-animali/",
+      "evidenza": "risultati/scoperta/idealista/piano5.esiti.json, esperimento housingpetsallowed: clic nel Chrome vero il 03/11/2026, URL con-animali [prova_mappa true Trieste affitto: 259->7 (2026-11-03 15:25:42)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "affitto_lungo_termine",
+      "etichetta": "Residenziale a lungo termine (solo affitto)",
+      "gruppo": "affitto",
+      "parametro": "con-affitto-lungo-termine",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/affitto-case/trieste-trieste/con-affitto-lungo-termine/",
+      "evidenza": "risultati/scoperta/idealista/piano5.esiti.json, esperimento longTermRental: clic nel Chrome vero il 03/11/2026, URL con-affitto-lungo-termine [prova_mappa true Trieste affitto: 259->196 (2026-11-03 15:26:00)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "affitto_transitorio",
+      "etichetta": "Stagionale / transitorio (solo affitto)",
+      "gruppo": "affitto",
+      "parametro": "con-affitto-transitorio",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.idealista.it/affitto-case/trieste-trieste/con-affitto-transitorio/",
+      "evidenza": "risultati/scoperta/idealista/piano5.esiti.json, esperimento seasonalRental: clic nel Chrome vero il 03/11/2026, URL con-affitto-transitorio [prova_mappa true Trieste affitto: 259->63 (2026-11-03 15:26:18)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina",
+      "gruppo": "ordinamento",
+      "parametro": "ordine",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "prezzi-asc",
+          "etichetta": "Più economici"
+        },
+        {
+          "valore": "prezzi-desc",
+          "etichetta": "Con prezzo più alto"
+        },
+        {
+          "valore": "pubblicazione-desc",
+          "etichetta": "Recenti"
+        },
+        {
+          "valore": "pubblicazione-asc",
+          "etichetta": "Vecchi"
+        },
+        {
+          "valore": "da-privati-asc",
+          "etichetta": "Privati prima"
+        },
+        {
+          "valore": "da-privati-desc",
+          "etichetta": "Agenzie prima"
+        },
+        {
+          "valore": "queda-desc",
+          "etichetta": "Con lo sconto"
+        },
+        {
+          "valore": "prezzoMedio-asc",
+          "etichetta": "Meno cari euro/m²"
+        },
+        {
+          "valore": "prezzoMedio-desc",
+          "etichetta": "Più cari euro/m²"
+        },
+        {
+          "valore": "area-desc",
+          "etichetta": "Grandi"
+        },
+        {
+          "valore": "area-asc",
+          "etichetta": "Piccoli"
+        },
+        {
+          "valore": "piano-desc",
+          "etichetta": "Piani alti"
+        },
+        {
+          "valore": "piano-asc",
+          "etichetta": "Piani bassi"
+        }
+      ],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/?ordine=prezzi-asc",
+      "evidenza": "voce 0: menu ordinamento, link ?ordine=<valore>; omesso = Rilevanza (datalayer resultsOrderBy=relevance). Privati/Agenzie e Con lo sconto esistono solo come ordinamento. [prova_mappa \"prezzi-asc\" Trieste vendita: 718->718 (2026-11-03 15:28:58); \"prezzi-desc\" Trieste vendita: 718->718 (2026-11-03 15:29:16); \"pubblicazione-desc\" Trieste vendita: 718->718 (2026-11-03 15:29:34); \"pubblicazione-asc\" Trieste vendita: 718->718 (2026-11-03 15:29:52); \"da-privati-asc\" Trieste vendita: 718->718 (2026-11-03 15:30:10); \"da-privati-desc\" Trieste vendita: 718->718 (2026-11-03 15:30:28); \"queda-desc\" Trieste vendita: 718->718 (2026-11-03 15:30:46); \"prezzoMedio-asc\" Trieste vendita: 718->718 (2026-11-03 15:31:04); \"prezzoMedio-desc\" Trieste vendita: 718->718 (2026-11-03 15:31:22); \"area-desc\" Trieste vendita: 718->718 (2026-11-03 15:31:40); \"area-asc\" Trieste vendita: 718->718 (2026-11-03 15:31:58); \"piano-desc\" Trieste vendita: 718->718 (2026-11-03 15:32:17); \"piano-asc\" Trieste vendita: 718->718 (2026-11-03 15:32:35)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "prezzi-asc",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "prezzi-desc",
+          "attesa": "ordine_desc"
+        },
+        {
+          "valore": "pubblicazione-desc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "pubblicazione-asc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "da-privati-asc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "da-privati-desc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "queda-desc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "prezzoMedio-asc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "prezzoMedio-desc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "area-desc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "area-asc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "piano-desc",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "piano-asc",
+          "attesa": "ordine_diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "paginazione",
+      "parametro": "lista-<N>.htm",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.idealista.it/vendita-case/trieste-trieste/lista-2.htm",
+      "evidenza": "recording.har voce 6 .../lista-2.htm; link lista-N.htm nella paginazione [prova_mappa 2 Trieste vendita: 718->718 (2026-11-03 15:26:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Disegna la tua zona (area su mappa)",
+      "gruppo": "luogo",
+      "parametro": "/aree/<radice>/?shape=((<polilinea>))",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.idealista.it/aree/vendita-case/?shape=((...))",
+      "evidenza": "valore: punti 'lat,lon;lat,lon;...' (almeno 3) che il client codifica in Google Encoded Polyline. Config JS della voce 0: urlShapeValidation /it/ajax/listingcontroller/validateshape.ajax. La forma /aree/...?shape= non è stata vista con un clic (il disegno a mano libera sulla mappa non si simula con un clic): la prova end to end è l'unica evidenza. [prova_mappa \"45.6560,13.7620;45.6560,13.7780;45.6440,13.7780;45.6440,13.7620\" Trieste vendita: 718->175 (2026-11-03 15:26:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.6560,13.7620;45.6560,13.7780;45.6440,13.7780;45.6440,13.7620",
+        "attesa": "meno"
+      }
+    }
+  ],
+  "non_trovati": [],
+  "note": "Tutti i filtri a casella e a soglia stanno nello stesso segmento con-, separati da virgola; il client li scrive nell'ordine osservato negli URL del modulo. Locali: ogni taglio è un token (monolocali-1 ... 5-locali-o-piu), il client ne fa minimo e massimo. Bagni: un clic su N spunta anche i tagli maggiori, quindi bagni_min. La zona cambia il comune nel percorso (/trieste-trieste/ diventa /trieste/<zona>/). La tipologia cambia la radice e per le tipologie diverse da case il modulo mostra altri filtri, non mappati qui. Tolte dalla mappa: ordine_privati_prima e ordine_scontati_prima (erano doppioni dei valori da-privati-* e queda-desc di ordinamento); pubblicato_da con valori del radio published diventa pubblicato_entro (la data, non chi pubblica). Il valore vendita di contratto, case di tipologia e rilevanza di ordinamento sono la ricerca base: si ottengono omettendo il filtro e non hanno prova propria. Filtri dello stesso gruppo di token: misura dal vivo in 'combinazioni' (A da solo, B da solo, A e B insieme; un totale sopra il maggiore vuol dire O, sotto il minore E). In O (situazione, parcheggio, stato) il client rifiuta le chiavi insieme con ValueError; esterni, dotazioni e multimedia sono in E. Una ricerca senza annunci risponde HTTP 404 con h1 'Non ci sono annunci': il client la restituisce come totale 0 senza annunci. Un comune non capoluogo senza provincia (/muggia-muggia/) è un 404 senza quell'h1: ValueError; un reindirizzamento a un altro percorso è ValueError.",
+  "assenti": [
+    {
+      "chiave": "da_privato",
+      "evidenza": "Modulo form#filter-form di /vendita-case/trieste-trieste/ e /affitto-case/trieste-trieste/ (inventario-vendita.json, inventario-affitto.json, 03/11/2026): nessuna casella privato/agenzia; esiste solo l'ordinamento ?ordine=da-privati-asc (voce ordinamento)."
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "Come da_privato: chi pubblica non è un filtro, solo l'ordinamento da-privati-asc / da-privati-desc. La data di pubblicazione è la voce pubblicato_entro."
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "Nessuna casella di ribasso nel modulo (inventari del 03/11/2026); 'Con lo sconto' è solo l'ordinamento ?ordine=queda-desc."
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "Nessun controllo riscaldamento negli inventari del modulo vendita e affitto del 03/11/2026."
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "Nessuna casella 'con foto' negli inventari del 03/11/2026; ci sono solo Con planimetria e Con visita virtuale."
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "Nessuna casella 'con video' negli inventari del 03/11/2026; il controllo più vicino è Con visita virtuale (voce con_virtual_tour)."
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "Nessun campo di testo visibile nel modulo (inventari del 03/11/2026): c'è solo input hidden freeText, che la barra di ricerca risolve lato server in un URL normale con /ajax/freetexturlretriever.ajax (config JS della voce 0). Non filtra il testo degli annunci."
+    },
+    {
+      "chiave": "raggio",
+      "evidenza": "Nessun controllo di raggio o distanza negli inventari del 03/11/2026; l'unica ricerca geografica libera è l'area disegnata (mappa_area)."
+    }
+  ],
+  "combinazioni": [
+    {
+      "chiavi": [
+        "nuda_proprieta",
+        "a_reddito",
+        "libero"
+      ],
+      "gruppo": "situazione",
+      "esito": "o",
+      "misura": "nuda_proprieta 24, a_reddito 25, insieme 49: sopra il maggiore, il portale unisce in O"
+    },
+    {
+      "chiavi": [
+        "box_auto",
+        "posto_auto"
+      ],
+      "gruppo": "parcheggio",
+      "esito": "o",
+      "misura": "box_auto garage 208, posto_auto posto-auto-coperto 138, insieme 208: in E non potrebbe superare 138; nella scoperta box-singolo 38 diventa 56 aggiungendo posto-auto-coperto"
+    },
+    {
+      "chiavi": [
+        "nuova_costruzione",
+        "stato_immobile"
+      ],
+      "gruppo": "stato",
+      "esito": "o",
+      "misura": "nuova_costruzione 91, stato_immobile ristrutturare 56, insieme 147: sopra il maggiore, il portale unisce in O"
+    },
+    {
+      "chiavi": [
+        "balcone",
+        "terrazzo"
+      ],
+      "gruppo": "esterni",
+      "esito": "e",
+      "misura": "balcone 215, terrazzo 258, insieme 92: sotto il minore, il portale interseca (E); balcone_o_terrazzo 381 = 215 + 258 - 92, cioè l'unione"
+    },
+    {
+      "chiavi": [
+        "ascensore",
+        "aria_condizionata"
+      ],
+      "gruppo": "dotazioni",
+      "esito": "e",
+      "misura": "ascensore 431, aria_condizionata 357, insieme 250: sotto il minore, il portale interseca (E)"
+    },
+    {
+      "chiavi": [
+        "con_virtual_tour",
+        "con_planimetria"
+      ],
+      "gruppo": "multimedia",
+      "esito": "e",
+      "misura": "con_virtual_tour 54, con_planimetria 573, insieme 50: sotto il minore, il portale interseca (E)"
+    }
+  ]
+}

@@ -1,0 +1,1068 @@
+{
+  "portale": "casadaprivato",
+  "descrizione": "Solo annunci di privati, senza agenzie: a Trieste una trentina di case in vendita il 03/11/2026. Per chi vuole trattare con il proprietario.",
+  "url_base_ricerca": "https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste",
+  "come_si_applicano": "misto",
+  "fonte_catalogo": "form#frmRicerca (select cmb*, checkbox chkTipologia*) riempito da /js/ricerca e dagli handler loadtipologie/loadprovince/loadcomuni/loadzone; l'URL lo costruisce /handler/ricerca.ashx",
+  "filtri": [
+    {
+      "chiave": "contratto",
+      "etichetta": "Vendita / Affitto",
+      "gruppo": "contratto",
+      "parametro": "segmento 1 del percorso annunci-<contratto>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "Vendita"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "Affitto"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-affitto/immobili/trieste-trieste",
+      "evidenza": "HAR voce 0 select#cmbContratto (1 Vendita, 2 Affitto) e link /annunci-affitto/; risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt [prova_mappa \"affitto\" Trieste vendita: 30->33 (2026-11-03 13:52:06); \"vendita\" Trieste vendita: 33->30 (2026-11-03 13:52:06)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "comune",
+      "etichetta": "Provincia e comune",
+      "gruppo": "luogo",
+      "parametro": "segmento 3 del percorso <provincia>-<comune> | <provincia>-provincia",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/immobili/milano-milano",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt (comune=-1 -> trieste-provincia, comune=4621 -> trieste-muggia); select#cmbProvincia 107 province [prova_mappa \"Milano\" Trieste vendita: 30->321 (2026-11-03 13:27:03)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "Milano",
+          "attesa": "diverso"
+        }
+      ],
+      "note": "Valore: un comune ('Trieste') o 'Provincia di Trieste'. Un comune che non e' capoluogo vuole la sua provincia (Richiesta.provincia): Muggia in provincia di Trieste -> trieste-muggia."
+    },
+    {
+      "chiave": "zona",
+      "etichetta": "Zona",
+      "gruppo": "luogo",
+      "parametro": "segmento 3 del percorso <comune>-zona-<zona con _>",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/immobili/milano-zona-centro_storico",
+      "evidenza": "risultati/scoperta/casadaprivato/zone-milano.json (handler/loadzone.ashx?comuni_id=4181); risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt (zona=12 -> milano-zona-centro_storico) [prova_mappa \"Centro Storico\" Milano vendita: 321->8 (2026-11-03 13:27:13)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Centro Storico",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Trieste non ha zone (loadzone.ashx?comuni_id=7459 vuoto, select#cmbZona solo 'Tutte le zone'). Nome di zona sbagliato: il sito risponde 404 e il client solleva ValueError."
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia",
+      "gruppo": "tipologia",
+      "parametro": "segmento 2 del percorso <slug> | immobili?tipologie=<id,id>",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "appartamenti",
+          "etichetta": "Appartamenti"
+        },
+        {
+          "valore": "attici-mansarde",
+          "etichetta": "Attici/Mansarde"
+        },
+        {
+          "valore": "case-indipendenti",
+          "etichetta": "Case indipendenti"
+        },
+        {
+          "valore": "loft-open-space",
+          "etichetta": "Loft/Open Space"
+        },
+        {
+          "valore": "rustici-casali",
+          "etichetta": "Rustici/Casali"
+        },
+        {
+          "valore": "ville-singole-e-a-schiera",
+          "etichetta": "Ville singole e a schiera"
+        },
+        {
+          "valore": "altro-residenziale",
+          "etichetta": "Altro residenziale"
+        },
+        {
+          "valore": "box-garage-posti-auto",
+          "etichetta": "Box/Garage/Posti auto"
+        },
+        {
+          "valore": "palazzi-stabili",
+          "etichetta": "Palazzi/Stabili"
+        },
+        {
+          "valore": "nuove-costruzioni",
+          "etichetta": "Nuove costruzioni"
+        },
+        {
+          "valore": "immobili-attivita-commerciali",
+          "etichetta": "Immobili e attività commerciali"
+        },
+        {
+          "valore": "terreni",
+          "etichetta": "Terreni"
+        },
+        {
+          "valore": "case-vacanza",
+          "etichetta": "Case vacanza"
+        },
+        {
+          "valore": "stanze-posti-letto",
+          "etichetta": "Stanze e posti letto"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste?tipologie=1%2c2",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; handler/loadtipologie.ashx?contratti_id=1 e =2 (risultati/scoperta/casadaprivato/tipologie-affitto.json) [prova_mappa \"appartamenti\" Trieste vendita: 30->16 (2026-11-03 13:52:16); \"attici-mansarde\" Roma vendita: 1300->66 (2026-11-03 13:52:36); \"case-indipendenti\" Trieste vendita: 30->2 (2026-11-03 13:52:47); \"loft-open-space\" Roma vendita: 1300->6 (2026-11-03 13:52:57); \"rustici-casali\" Roma vendita: 1300->7 (2026-11-03 13:53:07); \"ville-singole-e-a-schiera\" Trieste vendita: 30->2 (2026-11-03 13:53:18); \"altro-residenziale\" Roma vendita: 1300->25 (2026-11-03 13:53:28); \"box-garage-posti-auto\" Roma vendita: 1300->49 (2026-11-03 13:53:38); \"palazzi-stabili\" Trieste vendita: 30->2 (2026-11-03 13:53:49); \"nuove-costruzioni\" Trieste vendita: 30->2 (2026-11-03 13:53:59); \"immobili-attivita-commerciali\" Trieste vendita: 30->6 (2026-11-03 13:54:09); \"terreni\" Trieste vendita: 30->2 (2026-11-03 13:54:19); \"case-vacanza\" Roma affitto: 1664->125 (2026-11-03 13:54:41); \"stanze-posti-letto\" Trieste affitto: 33->11 (2026-11-03 13:54:51)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "appartamenti",
+          "attesa": "meno"
+        },
+        {
+          "valore": "attici-mansarde",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "case-indipendenti",
+          "attesa": "meno"
+        },
+        {
+          "valore": "loft-open-space",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "rustici-casali",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "ville-singole-e-a-schiera",
+          "attesa": "meno"
+        },
+        {
+          "valore": "altro-residenziale",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "box-garage-posti-auto",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "palazzi-stabili",
+          "attesa": "meno"
+        },
+        {
+          "valore": "nuove-costruzioni",
+          "attesa": "meno"
+        },
+        {
+          "valore": "immobili-attivita-commerciali",
+          "attesa": "meno"
+        },
+        {
+          "valore": "terreni",
+          "attesa": "meno"
+        },
+        {
+          "valore": "case-vacanza",
+          "attesa": "meno",
+          "contratto": "affitto",
+          "comune": "Roma"
+        },
+        {
+          "valore": "stanze-posti-letto",
+          "attesa": "meno",
+          "contratto": "affitto"
+        }
+      ],
+      "note": "Più valori insieme solo tra i residenziali (checkbox sotto 'Case'). case-vacanza e stanze-posti-letto solo in affitto."
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie minima",
+      "gruppo": "mq",
+      "parametro": "mqmin",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 20,
+          "etichetta": "20 mq"
+        },
+        {
+          "valore": 40,
+          "etichetta": "40 mq"
+        },
+        {
+          "valore": 60,
+          "etichetta": "60 mq"
+        },
+        {
+          "valore": 80,
+          "etichetta": "80 mq"
+        },
+        {
+          "valore": 100,
+          "etichetta": "100 mq"
+        },
+        {
+          "valore": 150,
+          "etichetta": "150 mq"
+        },
+        {
+          "valore": 200,
+          "etichetta": "200 mq"
+        },
+        {
+          "valore": 300,
+          "etichetta": "300 mq"
+        },
+        {
+          "valore": 500,
+          "etichetta": "500 mq"
+        },
+        {
+          "valore": 750,
+          "etichetta": "750 mq"
+        },
+        {
+          "valore": 1000,
+          "etichetta": "1000 mq"
+        },
+        {
+          "valore": 1500,
+          "etichetta": "1500 mq"
+        },
+        {
+          "valore": 2000,
+          "etichetta": "2000 mq"
+        },
+        {
+          "valore": 5000,
+          "etichetta": "5000 mq"
+        },
+        {
+          "valore": 10000,
+          "etichetta": "10000 mq"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?mqmin=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 100 Trieste vendita: 30->18 (2026-11-03 13:27:23)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100,
+        "attesa": "meno"
+      },
+      "note": "Soglie fisse; il client converte i mq nel codice posizionale."
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie massima",
+      "gruppo": "mq",
+      "parametro": "mqmax",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 20,
+          "etichetta": "20 mq"
+        },
+        {
+          "valore": 40,
+          "etichetta": "40 mq"
+        },
+        {
+          "valore": 60,
+          "etichetta": "60 mq"
+        },
+        {
+          "valore": 80,
+          "etichetta": "80 mq"
+        },
+        {
+          "valore": 100,
+          "etichetta": "100 mq"
+        },
+        {
+          "valore": 150,
+          "etichetta": "150 mq"
+        },
+        {
+          "valore": 200,
+          "etichetta": "200 mq"
+        },
+        {
+          "valore": 300,
+          "etichetta": "300 mq"
+        },
+        {
+          "valore": 500,
+          "etichetta": "500 mq"
+        },
+        {
+          "valore": 750,
+          "etichetta": "750 mq"
+        },
+        {
+          "valore": 1000,
+          "etichetta": "1000 mq"
+        },
+        {
+          "valore": 1500,
+          "etichetta": "1500 mq"
+        },
+        {
+          "valore": 2000,
+          "etichetta": "2000 mq"
+        },
+        {
+          "valore": 5000,
+          "etichetta": "5000 mq"
+        },
+        {
+          "valore": 10000,
+          "etichetta": "10000 mq"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?mqmax=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 60 Trieste vendita: 30->5 (2026-11-03 13:27:33)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 60,
+        "attesa": "meno"
+      },
+      "note": "Soglie fisse; il client converte i mq nel codice posizionale."
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo minimo",
+      "gruppo": "prezzo",
+      "parametro": "prezzomin",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 20000,
+          "etichetta": "20000 EUR (vendita)"
+        },
+        {
+          "valore": 50000,
+          "etichetta": "50000 EUR (vendita)"
+        },
+        {
+          "valore": 100000,
+          "etichetta": "100000 EUR (vendita)"
+        },
+        {
+          "valore": 130000,
+          "etichetta": "130000 EUR (vendita)"
+        },
+        {
+          "valore": 150000,
+          "etichetta": "150000 EUR (vendita)"
+        },
+        {
+          "valore": 170000,
+          "etichetta": "170000 EUR (vendita)"
+        },
+        {
+          "valore": 190000,
+          "etichetta": "190000 EUR (vendita)"
+        },
+        {
+          "valore": 220000,
+          "etichetta": "220000 EUR (vendita)"
+        },
+        {
+          "valore": 250000,
+          "etichetta": "250000 EUR (vendita)"
+        },
+        {
+          "valore": 290000,
+          "etichetta": "290000 EUR (vendita)"
+        },
+        {
+          "valore": 350000,
+          "etichetta": "350000 EUR (vendita)"
+        },
+        {
+          "valore": 450000,
+          "etichetta": "450000 EUR (vendita)"
+        },
+        {
+          "valore": 750000,
+          "etichetta": "750000 EUR (vendita)"
+        },
+        {
+          "valore": 1000000,
+          "etichetta": "1000000 EUR (vendita)"
+        },
+        {
+          "valore": 3000000,
+          "etichetta": "3000000 EUR (vendita)"
+        },
+        {
+          "valore": 100,
+          "etichetta": "100 EUR (affitto)"
+        },
+        {
+          "valore": 300,
+          "etichetta": "300 EUR (affitto)"
+        },
+        {
+          "valore": 500,
+          "etichetta": "500 EUR (affitto)"
+        },
+        {
+          "valore": 600,
+          "etichetta": "600 EUR (affitto)"
+        },
+        {
+          "valore": 700,
+          "etichetta": "700 EUR (affitto)"
+        },
+        {
+          "valore": 800,
+          "etichetta": "800 EUR (affitto)"
+        },
+        {
+          "valore": 900,
+          "etichetta": "900 EUR (affitto)"
+        },
+        {
+          "valore": 1000,
+          "etichetta": "1000 EUR (affitto)"
+        },
+        {
+          "valore": 1250,
+          "etichetta": "1250 EUR (affitto)"
+        },
+        {
+          "valore": 1500,
+          "etichetta": "1500 EUR (affitto)"
+        },
+        {
+          "valore": 2000,
+          "etichetta": "2000 EUR (affitto)"
+        },
+        {
+          "valore": 2500,
+          "etichetta": "2500 EUR (affitto)"
+        },
+        {
+          "valore": 3000,
+          "etichetta": "3000 EUR (affitto)"
+        },
+        {
+          "valore": 4000,
+          "etichetta": "4000 EUR (affitto)"
+        },
+        {
+          "valore": 5000,
+          "etichetta": "5000 EUR (affitto)"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?prezzomin=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 150000 Trieste vendita: 30->14 (2026-11-03 13:27:44)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 150000,
+        "attesa": "meno"
+      },
+      "note": "Soglie fisse, diverse per vendita e affitto; il client converte l'euro nel codice posizionale."
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo massimo",
+      "gruppo": "prezzo",
+      "parametro": "prezzomax",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 20000,
+          "etichetta": "20000 EUR (vendita)"
+        },
+        {
+          "valore": 50000,
+          "etichetta": "50000 EUR (vendita)"
+        },
+        {
+          "valore": 100000,
+          "etichetta": "100000 EUR (vendita)"
+        },
+        {
+          "valore": 130000,
+          "etichetta": "130000 EUR (vendita)"
+        },
+        {
+          "valore": 150000,
+          "etichetta": "150000 EUR (vendita)"
+        },
+        {
+          "valore": 170000,
+          "etichetta": "170000 EUR (vendita)"
+        },
+        {
+          "valore": 190000,
+          "etichetta": "190000 EUR (vendita)"
+        },
+        {
+          "valore": 220000,
+          "etichetta": "220000 EUR (vendita)"
+        },
+        {
+          "valore": 250000,
+          "etichetta": "250000 EUR (vendita)"
+        },
+        {
+          "valore": 290000,
+          "etichetta": "290000 EUR (vendita)"
+        },
+        {
+          "valore": 350000,
+          "etichetta": "350000 EUR (vendita)"
+        },
+        {
+          "valore": 450000,
+          "etichetta": "450000 EUR (vendita)"
+        },
+        {
+          "valore": 750000,
+          "etichetta": "750000 EUR (vendita)"
+        },
+        {
+          "valore": 1000000,
+          "etichetta": "1000000 EUR (vendita)"
+        },
+        {
+          "valore": 3000000,
+          "etichetta": "3000000 EUR (vendita)"
+        },
+        {
+          "valore": 100,
+          "etichetta": "100 EUR (affitto)"
+        },
+        {
+          "valore": 300,
+          "etichetta": "300 EUR (affitto)"
+        },
+        {
+          "valore": 500,
+          "etichetta": "500 EUR (affitto)"
+        },
+        {
+          "valore": 600,
+          "etichetta": "600 EUR (affitto)"
+        },
+        {
+          "valore": 700,
+          "etichetta": "700 EUR (affitto)"
+        },
+        {
+          "valore": 800,
+          "etichetta": "800 EUR (affitto)"
+        },
+        {
+          "valore": 900,
+          "etichetta": "900 EUR (affitto)"
+        },
+        {
+          "valore": 1000,
+          "etichetta": "1000 EUR (affitto)"
+        },
+        {
+          "valore": 1250,
+          "etichetta": "1250 EUR (affitto)"
+        },
+        {
+          "valore": 1500,
+          "etichetta": "1500 EUR (affitto)"
+        },
+        {
+          "valore": 2000,
+          "etichetta": "2000 EUR (affitto)"
+        },
+        {
+          "valore": 2500,
+          "etichetta": "2500 EUR (affitto)"
+        },
+        {
+          "valore": 3000,
+          "etichetta": "3000 EUR (affitto)"
+        },
+        {
+          "valore": 4000,
+          "etichetta": "4000 EUR (affitto)"
+        },
+        {
+          "valore": 5000,
+          "etichetta": "5000 EUR (affitto)"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?prezzomax=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 150000 Trieste vendita: 30->17 (2026-11-03 13:27:54)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 150000,
+        "attesa": "meno"
+      },
+      "note": "Soglie fisse, diverse per vendita e affitto; il client converte l'euro nel codice posizionale."
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Locali minimi",
+      "gruppo": "locali",
+      "parametro": "localimin",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 1,
+          "etichetta": "1"
+        },
+        {
+          "valore": 2,
+          "etichetta": "2"
+        },
+        {
+          "valore": 3,
+          "etichetta": "3"
+        },
+        {
+          "valore": 4,
+          "etichetta": "4"
+        },
+        {
+          "valore": 5,
+          "etichetta": "5"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?localimin=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 3 Trieste vendita: 30->21 (2026-11-03 13:28:04)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 3,
+        "attesa": "meno"
+      },
+      "note": "Il codice coincide con il numero. Non esiste per box-garage-posti-auto, terreni, case-vacanza, stanze-posti-letto."
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Locali massimi",
+      "gruppo": "locali",
+      "parametro": "localimax",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 1,
+          "etichetta": "1"
+        },
+        {
+          "valore": 2,
+          "etichetta": "2"
+        },
+        {
+          "valore": 3,
+          "etichetta": "3"
+        },
+        {
+          "valore": 4,
+          "etichetta": "4"
+        },
+        {
+          "valore": 5,
+          "etichetta": "5"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?localimax=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 2 Trieste vendita: 30->7 (2026-11-03 13:28:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      },
+      "note": "Il codice coincide con il numero. Non esiste per box-garage-posti-auto, terreni, case-vacanza, stanze-posti-letto."
+    },
+    {
+      "chiave": "posti_letto_min",
+      "etichetta": "Posti letto minimi",
+      "gruppo": "posti",
+      "parametro": "postilettomin",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 1,
+          "etichetta": "1"
+        },
+        {
+          "valore": 2,
+          "etichetta": "2"
+        },
+        {
+          "valore": 3,
+          "etichetta": "3"
+        },
+        {
+          "valore": 4,
+          "etichetta": "4"
+        },
+        {
+          "valore": 5,
+          "etichetta": "5"
+        },
+        {
+          "valore": 6,
+          "etichetta": "6"
+        },
+        {
+          "valore": 7,
+          "etichetta": "7"
+        },
+        {
+          "valore": 8,
+          "etichetta": "8"
+        },
+        {
+          "valore": 9,
+          "etichetta": "9"
+        },
+        {
+          "valore": 10,
+          "etichetta": "10"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?postilettomin=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 4 Roma affitto: 1664->81 (2026-11-03 13:28:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 4,
+        "attesa": "meno",
+        "contratto": "affitto",
+        "comune": "Roma"
+      },
+      "note": "Il codice coincide con il numero. Solo per case-vacanza in affitto: il client sceglie quella tipologia se manca."
+    },
+    {
+      "chiave": "posti_letto_max",
+      "etichetta": "Posti letto massimi",
+      "gruppo": "posti",
+      "parametro": "postilettomax",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 1,
+          "etichetta": "1"
+        },
+        {
+          "valore": 2,
+          "etichetta": "2"
+        },
+        {
+          "valore": 3,
+          "etichetta": "3"
+        },
+        {
+          "valore": 4,
+          "etichetta": "4"
+        },
+        {
+          "valore": 5,
+          "etichetta": "5"
+        },
+        {
+          "valore": 6,
+          "etichetta": "6"
+        },
+        {
+          "valore": 7,
+          "etichetta": "7"
+        },
+        {
+          "valore": 8,
+          "etichetta": "8"
+        },
+        {
+          "valore": 9,
+          "etichetta": "9"
+        },
+        {
+          "valore": 10,
+          "etichetta": "10"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/appartamenti/trieste-trieste?postilettomax=5",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt; risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa 2 Roma affitto: 1664->28 (2026-11-03 13:28:45)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno",
+        "contratto": "affitto",
+        "comune": "Roma"
+      },
+      "note": "Il codice coincide con il numero. Solo per case-vacanza in affitto: il client sceglie quella tipologia se manca."
+    },
+    {
+      "chiave": "tipo_stanza",
+      "etichetta": "Tipo stanza",
+      "gruppo": "stanze",
+      "parametro": "tipostanza",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "singola",
+          "etichetta": "singola"
+        },
+        {
+          "valore": "doppia",
+          "etichetta": "doppia"
+        },
+        {
+          "valore": "tripla",
+          "etichetta": "tripla"
+        },
+        {
+          "valore": "posto-letto",
+          "etichetta": "posto letto"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-affitto/stanze-posti-letto/trieste-trieste?tipostanza=2",
+      "evidenza": "risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt (tipologia=13&tipostanza=2 -> /annunci-affitto/stanze-posti-letto/trieste-trieste?tipostanza=2); risultati/scoperta/casadaprivato/ricerca.js (Ricerca.c soglie prezzo per contratto, b() quali campi per tipologia) e select-dom.json (opzioni nel DOM) [prova_mappa \"singola\" Trieste affitto: 33->7 (2026-11-03 13:28:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "singola",
+        "contratto": "affitto",
+        "attesa": "meno"
+      },
+      "note": "Solo per stanze-posti-letto in affitto: il client sceglie quella tipologia se manca."
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina per",
+      "gruppo": "ordinamento",
+      "parametro": "sort",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "data-desc",
+          "etichetta": "Più recente"
+        },
+        {
+          "valore": "data",
+          "etichetta": "Meno recente"
+        },
+        {
+          "valore": "prezzo-desc",
+          "etichetta": "Più costoso"
+        },
+        {
+          "valore": "prezzo",
+          "etichetta": "Meno costoso"
+        },
+        {
+          "valore": "piace-desc",
+          "etichetta": "Piace di più"
+        },
+        {
+          "valore": "piace",
+          "etichetta": "Piace di meno"
+        }
+      ],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste?sort=prezzo",
+      "evidenza": "HAR voce 0 select#sort_by; risultati/scoperta/casadaprivato/jsscriptsvew.js sortMode (percorso senza /pagina-N + ?sort=); risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter: il bottone Cerca chiama /handler/ricerca.ashx?datatype=2&contratto=..&tipologia=..&mqmin=..&prezzomin=..&localimin=..&postilettomin=..&tipostanza=..&sort=..&residenziale=.. e va all'URL che riceve; risposte in risultati/scoperta/casadaprivato/costruttore-1.txt [prova_mappa \"prezzo\" Trieste vendita: 30->30 (2026-11-03 13:29:05); \"prezzo-desc\" Trieste vendita: 30->30 (2026-11-03 13:29:15); \"data\" Trieste vendita: 30->30 (2026-11-03 13:29:26)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "prezzo",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "prezzo-desc",
+          "attesa": "ordine_desc"
+        },
+        {
+          "valore": "data",
+          "attesa": "ordine_diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "paginazione",
+      "parametro": "/pagina-<N>",
+      "posizione": "percorso",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste/pagina-2",
+      "evidenza": "HAR voce 0 link /trieste-trieste/pagina-2 [prova_mappa 2 Trieste vendita: 30->30 (2026-11-03 13:29:36)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    }
+  ],
+  "non_trovati": [],
+  "assenti": [
+    {
+      "chiave": "a_reddito",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "aria_condizionata",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "arredato",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "ascensore",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "bagni_min",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "box_auto",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Non è un filtro a sé: è la tipologia 'box-garage-posti-auto'."
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "da_privato",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Il portale pubblica solo annunci di privati: non c'è nulla da filtrare."
+    },
+    {
+      "chiave": "giardino",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "mappa_area",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Non è un filtro a sé: è la tipologia 'nuove-costruzioni'."
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "piano",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "posto_auto",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Non è un filtro a sé: è la tipologia 'box-garage-posti-auto'."
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "raggio",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "stato_immobile",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "terrazzo",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "pagina https://www.casadaprivato.it/annunci-vendita/immobili/trieste-trieste del 03/11/2026, form#frmRicerca: il bottone Cerca manda a /handler/ricerca.ashx solo contratto, tipologia, provincia, comune, zona, mq, prezzo, locali, posti letto, tipo stanza, sort e residenziale (risultati/scoperta/casadaprivato/jsscriptsvew.js createFilter). Nessun controllo per questo filtro."
+    }
+  ],
+  "note": "Percorso /annunci-<contratto>/<tipologia>/<luogo>[/pagina-N] e filtri in query con codici posizionali (prezzomax=5 vuol dire 150.000 EUR in vendita): il client riceve euro e mq e li converte. L'interfaccia mostra prezzo, mq e locali solo dopo aver scelto una tipologia, ma il sito li applica anche su /immobili/ (sonda: ?prezzomax=5 30 -> 17). Con zero risultati il sito mostra annunci 'simili nelle vicinanze' di un altro comune senza totale: il client restituisce zero (pagina salvata rustici-trieste.html). Tolte le voci provincia (cmbProvincia), comune (cmbComune), zona (cmbZona) e sottotipologia_residenziale (chkTipologia): sono i campi del form, l'URL usa gli slug di percorso e ?tipologie=. Il valore 'vendita' di contratto è la base delle altre prove: si prova 'affitto'."
+}

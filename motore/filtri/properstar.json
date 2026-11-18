@@ -1,0 +1,2078 @@
+{
+  "portale": "properstar",
+  "descrizione": "Vetrina internazionale che ripubblica annunci di agenzie per acquirenti esteri: nella provincia di Trieste circa 75 case in vendita il 03/11/2026.",
+  "url_base_ricerca": "https://www.properstar.it/italia/uti-giuliana/in-vendita/appartamento-casa",
+  "come_si_applicano": "misto: luogo, contratto e tipo nel percorso; tutti gli altri filtri in query string (chiavi piatte col punto, liste come chiavi ripetute)",
+  "fonte_catalogo": "window.__INITIAL_STATE__: search.currentDescriptor.filters (forma dei filtri), translations.repositories e filterableRepositories (valori), translations.slugsTranslations.subType (slug), translations.terms.it SearchFilters.* e SearchSort.* (etichette); link SEO 'Filtri popolari' per i segmenti di percorso; nomi dei parametri da generateSearchUrl e dal parser della query in /assets/app.*.js (risultati/scoperta/properstar/); ricerca su area della mappa: POST search-api.listglobally.com/api/v2/searches (risultati/scoperta/properstar/mappa_area.md)",
+  "filtri": [
+    {
+      "chiave": "comune",
+      "etichetta": "Comune (o area esplicita: Provincia di Trieste, Friuli-Venezia Giulia, Italia)",
+      "gruppo": "luogo",
+      "parametro": "/italia/<slug luogo>/",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?exactLocation=true",
+      "evidenza": "link della pagina (HAR voce 0): /italia/trieste-loc/ (entities.place type locality, il comune), /italia/uti-giuliana/ (administrative_area_level_2, la provincia con Muggia e Duino-Aurisina), /italia/muggia/, /italia/friuli-venezia-giulia/. 'Trieste' -> trieste-loc, 'Provincia di Trieste' -> uti-giuliana; lo slug 'trieste' risolve negli USA. Fetch 03/11 (luogo.py, stato-trieste-loc*.json, stato-muggia*.json): per un comune il sito include i dintorni (Muggia 28 annunci, 16 dei primi 20 con city Trieste e senza isNearby), con exactLocation=true 3 (gli altri marcati isNearby, che il client scarta); trieste-loc 76 con e senza exactLocation, i primi 20 tutti city Trieste. Il client manda exactLocation=true per ogni comune e rifiuta (ValueError) uno slug che il sito risolve fuori Italia o su un tipo diverso da locality/administrative_area_level_3 [prova_mappa \"Milano\" Trieste vendita: 76->502 (2026-11-03 14:47:36); \"Provincia di Trieste\" Trieste vendita: 76->89 (2026-11-03 14:47:58)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "Milano",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "Provincia di Trieste",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "contratto",
+      "etichetta": "Compra / Affitta",
+      "gruppo": "contratto",
+      "parametro": "segmento dopo il luogo (in-vendita | affitare)",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "Compra (in-vendita, transactionType Sell)"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "Affitta (affitare, transactionType Rent)"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/affitare/appartamento-casa?exactLocation=true",
+      "evidenza": "HAR voce 0, link /in-vendita/ e /affitare/; repositories.TransactionType; tabella S.W3 in app.js [prova_mappa \"affitto\" Trieste vendita: 76->46 (2026-11-03 14:48:19); \"vendita\" Trieste vendita: 46->76 (2026-11-03 14:48:19)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina dei risultati",
+      "gruppo": "pagina",
+      "parametro": "p",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?p=2&exactLocation=true",
+      "evidenza": "HAR voce 2 (?p=2); generateSearchUrl p:Oe>1?Oe:null [prova_mappa 2 Trieste vendita: 76->76 (2026-11-03 14:48:40)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipo di immobile",
+      "gruppo": "tipologia",
+      "parametro": "segmento dopo il contratto (slug del tipo)",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "proprieta",
+          "etichetta": "Tutti i tipi"
+        },
+        {
+          "valore": "appartamento",
+          "etichetta": "Appartamento"
+        },
+        {
+          "valore": "casa",
+          "etichetta": "Casa"
+        },
+        {
+          "valore": "edificio",
+          "etichetta": "Edificio"
+        },
+        {
+          "valore": "terreno",
+          "etichetta": "Terreno"
+        },
+        {
+          "valore": "parcheggio",
+          "etichetta": "Parcheggio"
+        },
+        {
+          "valore": "locale-commerciale",
+          "etichetta": "Commerciale"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/casa?exactLocation=true",
+      "evidenza": "tabella degli slug dei tipi in app.js (tipi_slug.txt): proprieta=tutti, appartamento-casa=Apartment+House (predefinito, si ottiene senza tipologia), appartamento, casa, edificio, terreno, parcheggio, locale-commerciale, camera, barca. Cantina (Cellar) non ha slug: l'interfaccia passa a /search con placeId [prova_mappa \"proprieta\" Trieste vendita: 76->104 (2026-11-03 14:49:21); \"appartamento\" Trieste vendita: 76->64 (2026-11-03 14:49:42); \"casa\" Trieste vendita: 76->12 (2026-11-03 14:50:18); \"edificio\" Trieste vendita: 76->16 (2026-11-03 14:50:38); \"terreno\" Trieste vendita: 76->2 (2026-11-03 14:50:58); \"parcheggio\" Milano vendita: 502->14 (2026-11-03 14:51:17); \"locale-commerciale\" Milano vendita: 502->42 (2026-11-03 14:51:38)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "proprieta",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "appartamento",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "casa",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "edificio",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "terreno",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "parcheggio",
+          "attesa": "diverso",
+          "comune": "Milano"
+        },
+        {
+          "valore": "locale-commerciale",
+          "attesa": "diverso",
+          "comune": "Milano"
+        }
+      ]
+    },
+    {
+      "chiave": "sottotipologia",
+      "etichetta": "Tipi di immobili (sottotipo)",
+      "gruppo": "tipologia",
+      "parametro": "st",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "Apartment",
+          "etichetta": "Appartamento"
+        },
+        {
+          "valore": "TerracedApartment",
+          "etichetta": "Appartamento a schiera"
+        },
+        {
+          "valore": "Attic",
+          "etichetta": "Attico"
+        },
+        {
+          "valore": "Room",
+          "etichetta": "Stanza"
+        },
+        {
+          "valore": "Duplex",
+          "etichetta": "Duplex"
+        },
+        {
+          "valore": "Loft",
+          "etichetta": "Loft"
+        },
+        {
+          "valore": "StudioApartment",
+          "etichetta": "Monolocale"
+        },
+        {
+          "valore": "Penthouse",
+          "etichetta": "Attico"
+        },
+        {
+          "valore": "House",
+          "etichetta": "Casa"
+        },
+        {
+          "valore": "Bungalow",
+          "etichetta": "Bungalow"
+        },
+        {
+          "valore": "Chalet",
+          "etichetta": "Chalet"
+        },
+        {
+          "valore": "Castle",
+          "etichetta": "Castello"
+        },
+        {
+          "valore": "Farmhouse",
+          "etichetta": "Azienda agricola"
+        },
+        {
+          "valore": "MansionHouse",
+          "etichetta": "Villa di lusso"
+        },
+        {
+          "valore": "TerracedHouse",
+          "etichetta": "Casa con terrazzo"
+        },
+        {
+          "valore": "Cottage",
+          "etichetta": "Casa rurale"
+        },
+        {
+          "valore": "Villa",
+          "etichetta": "Villa"
+        },
+        {
+          "valore": "AdjacentHouse",
+          "etichetta": "Villetta a schiera"
+        },
+        {
+          "valore": "DetachedHouse",
+          "etichetta": "Casa indipendente"
+        },
+        {
+          "valore": "TwinHouse",
+          "etichetta": "Casa doppia"
+        },
+        {
+          "valore": "Semi-detachedHouse",
+          "etichetta": "Casa semi-indipendente"
+        },
+        {
+          "valore": "Townhouse",
+          "etichetta": "Casa a schiera"
+        },
+        {
+          "valore": "Plot",
+          "etichetta": "Appezzamento"
+        },
+        {
+          "valore": "Garage",
+          "etichetta": "Garage"
+        },
+        {
+          "valore": "Office",
+          "etichetta": "Ufficio"
+        },
+        {
+          "valore": "Farm",
+          "etichetta": "Fattoria"
+        },
+        {
+          "valore": "PlotOfLand",
+          "etichetta": "Appezzamento di terra"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?st=Villa&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"Villa\"] Trieste vendita: 76->11 (2026-11-03 14:51:57)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "Villa"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo minimo",
+      "gruppo": "prezzo",
+      "parametro": "price.min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "unita": "EUR",
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?price.min=200000&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 200000 Trieste vendita: 76->72 (2026-11-03 14:52:18)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo massimo",
+      "gruppo": "prezzo",
+      "parametro": "price.max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "unita": "EUR",
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?price.max=200000&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 200000 Trieste vendita: 76->4 (2026-11-03 14:52:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie minima",
+      "gruppo": "superficie",
+      "parametro": "area.living.min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "unita": "m2",
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?area.living.min=80&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 80 Trieste vendita: 76->63 (2026-11-03 14:52:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie massima",
+      "gruppo": "superficie",
+      "parametro": "area.living.max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "unita": "m2",
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?area.living.max=80&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 80 Trieste vendita: 76->13 (2026-11-03 14:53:15)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Camere (locali) minimo",
+      "gruppo": "locali",
+      "parametro": "numberOf.rooms.min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?numberOf.rooms.min=3&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 3 Trieste vendita: 76->61 (2026-11-03 14:53:34)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 3,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Camere (locali) massimo",
+      "gruppo": "locali",
+      "parametro": "numberOf.rooms.max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?numberOf.rooms.max=3&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 3 Trieste vendita: 76->46 (2026-11-03 14:53:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 3,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "camere_letto_min",
+      "etichetta": "Camere da letto minimo",
+      "gruppo": "locali",
+      "parametro": "numberOf.bedrooms.min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?numberOf.bedrooms.min=2&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 2 Trieste vendita: 76->61 (2026-11-03 14:54:13)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "camere_letto_max",
+      "etichetta": "Camere da letto massimo",
+      "gruppo": "locali",
+      "parametro": "numberOf.bedrooms.max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?numberOf.bedrooms.max=2&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 2 Trieste vendita: 76->47 (2026-11-03 14:54:33)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_min",
+      "etichetta": "Bagni minimo",
+      "gruppo": "locali",
+      "parametro": "numberOf.bathrooms.min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?numberOf.bathrooms.min=2&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 2 Trieste vendita: 76->46 (2026-11-03 14:54:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_max",
+      "etichetta": "Bagni massimo",
+      "gruppo": "locali",
+      "parametro": "numberOf.bathrooms.max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?numberOf.bathrooms.max=1&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa 1 Trieste vendita: 76->25 (2026-11-03 14:55:15)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 1,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "dotazioni",
+      "etichetta": "Strutture (indispensabili)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "AirConditioning",
+          "etichetta": "Aria condizionata"
+        },
+        {
+          "valore": "Alarm",
+          "etichetta": "Allarme"
+        },
+        {
+          "valore": "Concierge",
+          "etichetta": "Concierge 24/7"
+        },
+        {
+          "valore": "DiningRoom",
+          "etichetta": "Sala da pranzo"
+        },
+        {
+          "valore": "Dishwasher",
+          "etichetta": "Lavastoviglie"
+        },
+        {
+          "valore": "ElectricVehicleCharging",
+          "etichetta": "Ricarica veicoli elettrici"
+        },
+        {
+          "valore": "FitnessCenter",
+          "etichetta": "Centro fitness"
+        },
+        {
+          "valore": "Furnished",
+          "etichetta": "Ammobiliato"
+        },
+        {
+          "valore": "Garage",
+          "etichetta": "Garage"
+        },
+        {
+          "valore": "Garden",
+          "etichetta": "Giardino"
+        },
+        {
+          "valore": "HotTub",
+          "etichetta": "Vasca idromassaggio"
+        },
+        {
+          "valore": "Lift",
+          "etichetta": "Ascensore"
+        },
+        {
+          "valore": "Sauna",
+          "etichetta": "Sauna"
+        },
+        {
+          "valore": "Security",
+          "etichetta": "Sicurezza"
+        },
+        {
+          "valore": "SteamRoom",
+          "etichetta": "Bagno turco"
+        },
+        {
+          "valore": "SwimmingPool",
+          "etichetta": "Piscina"
+        },
+        {
+          "valore": "Tennis",
+          "etichetta": "Campo da tennis"
+        },
+        {
+          "valore": "Terrace",
+          "etichetta": "Terrazza"
+        },
+        {
+          "valore": "WashingMachine",
+          "etichetta": "Lavatrice"
+        },
+        {
+          "valore": "WineCellar",
+          "etichetta": "Cantina dei vini"
+        },
+        {
+          "valore": "YogaStudio",
+          "etichetta": "Studio di yoga"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=WineCellar&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5); Balcony e Parking tolti dai valori: filtro largo, vedi balcone_o_affini e posto_auto_o_affini [prova_mappa [\"WineCellar\"] Trieste vendita: 76->5 (2026-11-03 14:55:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "WineCellar"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ascensore",
+      "etichetta": "Ascensore (indispensabile)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=Lift",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=Lift&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Trieste vendita: 76->30 (2026-11-03 14:55:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "balcone_o_affini",
+      "etichetta": "Balcone o dotazioni affini (filtro largo del portale)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=Balcony",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=Balcony&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5); amenities=Balcony non e' stretto: restituisce piu' annunci di quelli che le faccette della stessa ricerca contano con Balcony (misura in assenti, chiave balcone), quindi la chiave dice 'o affini' [prova_mappa true Trieste vendita: 76->41 (2026-11-03 14:56:16)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "terrazzo",
+      "etichetta": "Terrazza (indispensabile)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=Terrace",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=Terrace&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Trieste vendita: 76->23 (2026-11-03 14:56:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "giardino",
+      "etichetta": "Giardino (indispensabile)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=Garden",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=Garden&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Trieste vendita: 76->14 (2026-11-03 14:56:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "box_auto",
+      "etichetta": "Garage (indispensabile)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=Garage",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=Garage&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Trieste vendita: 76->16 (2026-11-03 14:57:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "posto_auto_o_affini",
+      "etichetta": "Parcheggio o dotazioni affini (filtro largo del portale)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=Parking",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=Parking&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5); amenities=Parking non e' stretto: restituisce piu' annunci di quelli che le faccette della stessa ricerca contano con Parking (misura in assenti, chiave posto_auto), quindi la chiave dice 'o affini' [prova_mappa true Trieste vendita: 76->27 (2026-11-03 14:57:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "arredato",
+      "etichetta": "Ammobiliato (indispensabile)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=Furnished",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=Furnished&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Trieste vendita: 76->5 (2026-11-03 14:57:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "aria_condizionata",
+      "etichetta": "Aria condizionata (indispensabile)",
+      "gruppo": "dotazioni",
+      "parametro": "amenities=AirConditioning",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?amenities=AirConditioning&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Trieste vendita: 76->14 (2026-11-03 14:58:16)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vista_mare",
+      "etichetta": "Vista mare",
+      "gruppo": "vista",
+      "parametro": "viewLandscapes=Sea",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?viewLandscapes=Sea&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Trieste vendita: 76->10 (2026-11-03 14:58:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vista_paesaggio",
+      "etichetta": "Vista (paesaggio)",
+      "gruppo": "vista",
+      "parametro": "viewLandscapes",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "Mountains",
+          "etichetta": "Montagne"
+        },
+        {
+          "valore": "SkiSlopes",
+          "etichetta": "Piste da sci"
+        },
+        {
+          "valore": "Greenery",
+          "etichetta": "Vegetazione"
+        },
+        {
+          "valore": "Sky",
+          "etichetta": "Cielo"
+        },
+        {
+          "valore": "SwimmingPool",
+          "etichetta": "Piscina"
+        },
+        {
+          "valore": "City",
+          "etichetta": "Città"
+        },
+        {
+          "valore": "Countryside",
+          "etichetta": "Campagna"
+        },
+        {
+          "valore": "Hills",
+          "etichetta": "Colline"
+        },
+        {
+          "valore": "Garden",
+          "etichetta": "Giardino"
+        },
+        {
+          "valore": "Forest",
+          "etichetta": "Foresta"
+        },
+        {
+          "valore": "Village",
+          "etichetta": "Villaggio"
+        },
+        {
+          "valore": "Street",
+          "etichetta": "Strada"
+        },
+        {
+          "valore": "Courtyard",
+          "etichetta": "Cortile"
+        },
+        {
+          "valore": "Sea",
+          "etichetta": "Mare"
+        },
+        {
+          "valore": "Harbor",
+          "etichetta": "Porto"
+        },
+        {
+          "valore": "Lake",
+          "etichetta": "Lago"
+        },
+        {
+          "valore": "Monument",
+          "etichetta": "Monumento"
+        },
+        {
+          "valore": "Park",
+          "etichetta": "Parco"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?viewLandscapes=City&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"City\"] Trieste vendita: 76->7 (2026-11-03 14:58:54)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "City"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipo_vista",
+      "etichetta": "Tipo di vista",
+      "gruppo": "vista",
+      "parametro": "viewTypes",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "Unobstructed",
+          "etichetta": "Non ostruito"
+        },
+        {
+          "valore": "Panoramic",
+          "etichetta": "Panoramico"
+        },
+        {
+          "valore": "Obstructed",
+          "etichetta": "Ostruito"
+        },
+        {
+          "valore": "Slight",
+          "etichetta": "Lieve"
+        },
+        {
+          "valore": "Outstanding",
+          "etichetta": "Eccezionale"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?viewTypes=Outstanding&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"Outstanding\"] Milano vendita: 502->26 (2026-11-03 14:59:17)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "Outstanding"
+        ],
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "esposizione",
+      "etichetta": "Esposizione",
+      "gruppo": "esposizione",
+      "parametro": "orientations",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "West",
+          "etichetta": "Ovest"
+        },
+        {
+          "valore": "North",
+          "etichetta": "Nord"
+        },
+        {
+          "valore": "South",
+          "etichetta": "Sud"
+        },
+        {
+          "valore": "SouthWest",
+          "etichetta": "Southwest"
+        },
+        {
+          "valore": "NorthEast",
+          "etichetta": "Northeast"
+        },
+        {
+          "valore": "East",
+          "etichetta": "Est"
+        },
+        {
+          "valore": "NorthWest",
+          "etichetta": "Northwest"
+        },
+        {
+          "valore": "SouthEast",
+          "etichetta": "Southeast"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?orientations=South&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"South\"] Milano vendita: 502->94 (2026-11-03 14:59:36)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "South"
+        ],
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "piano",
+      "etichetta": "Piano",
+      "gruppo": "piano",
+      "parametro": "floors",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "Basement",
+          "etichetta": "Seminterrato"
+        },
+        {
+          "valore": "GardenLevel",
+          "etichetta": "Livello giardino"
+        },
+        {
+          "valore": "GroundFloor",
+          "etichetta": "Piano terra"
+        },
+        {
+          "valore": "SingleStorey",
+          "etichetta": "Ad un solo piano"
+        },
+        {
+          "valore": "SplitLevel",
+          "etichetta": "Due livelli"
+        },
+        {
+          "valore": "TopFloor",
+          "etichetta": "Ultimo piano"
+        },
+        {
+          "valore": "-10",
+          "etichetta": "-10"
+        },
+        {
+          "valore": "-9",
+          "etichetta": "-9"
+        },
+        {
+          "valore": "-8",
+          "etichetta": "-8"
+        },
+        {
+          "valore": "-7",
+          "etichetta": "-7"
+        },
+        {
+          "valore": "-6",
+          "etichetta": "-6"
+        },
+        {
+          "valore": "-5",
+          "etichetta": "-5"
+        },
+        {
+          "valore": "-4",
+          "etichetta": "-4"
+        },
+        {
+          "valore": "-3",
+          "etichetta": "-3"
+        },
+        {
+          "valore": "-2",
+          "etichetta": "-2"
+        },
+        {
+          "valore": "-1",
+          "etichetta": "-1"
+        },
+        {
+          "valore": "0",
+          "etichetta": "0"
+        },
+        {
+          "valore": "1",
+          "etichetta": "1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "3"
+        },
+        {
+          "valore": "4",
+          "etichetta": "4"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5"
+        },
+        {
+          "valore": "6",
+          "etichetta": "6"
+        },
+        {
+          "valore": "7",
+          "etichetta": "7"
+        },
+        {
+          "valore": "8",
+          "etichetta": "8"
+        },
+        {
+          "valore": "9",
+          "etichetta": "9"
+        },
+        {
+          "valore": "10",
+          "etichetta": "10"
+        },
+        {
+          "valore": "11",
+          "etichetta": "11"
+        },
+        {
+          "valore": "12",
+          "etichetta": "12"
+        },
+        {
+          "valore": "13",
+          "etichetta": "13"
+        },
+        {
+          "valore": "14",
+          "etichetta": "14"
+        },
+        {
+          "valore": "15",
+          "etichetta": "15"
+        },
+        {
+          "valore": "16",
+          "etichetta": "16"
+        },
+        {
+          "valore": "17",
+          "etichetta": "17"
+        },
+        {
+          "valore": "18",
+          "etichetta": "18"
+        },
+        {
+          "valore": "19",
+          "etichetta": "19"
+        },
+        {
+          "valore": "20",
+          "etichetta": "20"
+        },
+        {
+          "valore": "21",
+          "etichetta": "21"
+        },
+        {
+          "valore": "22",
+          "etichetta": "22"
+        },
+        {
+          "valore": "23",
+          "etichetta": "23"
+        },
+        {
+          "valore": "24",
+          "etichetta": "24"
+        },
+        {
+          "valore": "25",
+          "etichetta": "25"
+        },
+        {
+          "valore": "26",
+          "etichetta": "26"
+        },
+        {
+          "valore": "27",
+          "etichetta": "27"
+        },
+        {
+          "valore": "28",
+          "etichetta": "28"
+        },
+        {
+          "valore": "29",
+          "etichetta": "29"
+        },
+        {
+          "valore": "30",
+          "etichetta": "30"
+        },
+        {
+          "valore": "31",
+          "etichetta": "31"
+        },
+        {
+          "valore": "32",
+          "etichetta": "32"
+        },
+        {
+          "valore": "33",
+          "etichetta": "33"
+        },
+        {
+          "valore": "34",
+          "etichetta": "34"
+        },
+        {
+          "valore": "35",
+          "etichetta": "35"
+        },
+        {
+          "valore": "36",
+          "etichetta": "36"
+        },
+        {
+          "valore": "37",
+          "etichetta": "37"
+        },
+        {
+          "valore": "38",
+          "etichetta": "38"
+        },
+        {
+          "valore": "39",
+          "etichetta": "39"
+        },
+        {
+          "valore": "40",
+          "etichetta": "40"
+        },
+        {
+          "valore": "41",
+          "etichetta": "41"
+        },
+        {
+          "valore": "42",
+          "etichetta": "42"
+        },
+        {
+          "valore": "43",
+          "etichetta": "43"
+        },
+        {
+          "valore": "44",
+          "etichetta": "44"
+        },
+        {
+          "valore": "45",
+          "etichetta": "45"
+        },
+        {
+          "valore": "46",
+          "etichetta": "46"
+        },
+        {
+          "valore": "47",
+          "etichetta": "47"
+        },
+        {
+          "valore": "48",
+          "etichetta": "48"
+        },
+        {
+          "valore": "49",
+          "etichetta": "49"
+        },
+        {
+          "valore": "50",
+          "etichetta": "50"
+        },
+        {
+          "valore": "51",
+          "etichetta": "51"
+        },
+        {
+          "valore": "52",
+          "etichetta": "52"
+        },
+        {
+          "valore": "53",
+          "etichetta": "53"
+        },
+        {
+          "valore": "54",
+          "etichetta": "54"
+        },
+        {
+          "valore": "55",
+          "etichetta": "55"
+        },
+        {
+          "valore": "56",
+          "etichetta": "56"
+        },
+        {
+          "valore": "57",
+          "etichetta": "57"
+        },
+        {
+          "valore": "58",
+          "etichetta": "58"
+        },
+        {
+          "valore": "59",
+          "etichetta": "59"
+        },
+        {
+          "valore": "60",
+          "etichetta": "60"
+        },
+        {
+          "valore": "61",
+          "etichetta": "61"
+        },
+        {
+          "valore": "62",
+          "etichetta": "62"
+        },
+        {
+          "valore": "63",
+          "etichetta": "63"
+        },
+        {
+          "valore": "64",
+          "etichetta": "64"
+        },
+        {
+          "valore": "65",
+          "etichetta": "65"
+        },
+        {
+          "valore": "66",
+          "etichetta": "66"
+        },
+        {
+          "valore": "67",
+          "etichetta": "67"
+        },
+        {
+          "valore": "68",
+          "etichetta": "68"
+        },
+        {
+          "valore": "69",
+          "etichetta": "69"
+        },
+        {
+          "valore": "70",
+          "etichetta": "70"
+        },
+        {
+          "valore": "71",
+          "etichetta": "71"
+        },
+        {
+          "valore": "72",
+          "etichetta": "72"
+        },
+        {
+          "valore": "73",
+          "etichetta": "73"
+        },
+        {
+          "valore": "74",
+          "etichetta": "74"
+        },
+        {
+          "valore": "75",
+          "etichetta": "75"
+        },
+        {
+          "valore": "76",
+          "etichetta": "76"
+        },
+        {
+          "valore": "77",
+          "etichetta": "77"
+        },
+        {
+          "valore": "78",
+          "etichetta": "78"
+        },
+        {
+          "valore": "79",
+          "etichetta": "79"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80"
+        },
+        {
+          "valore": "81",
+          "etichetta": "81"
+        },
+        {
+          "valore": "82",
+          "etichetta": "82"
+        },
+        {
+          "valore": "83",
+          "etichetta": "83"
+        },
+        {
+          "valore": "84",
+          "etichetta": "84"
+        },
+        {
+          "valore": "85",
+          "etichetta": "85"
+        },
+        {
+          "valore": "86",
+          "etichetta": "86"
+        },
+        {
+          "valore": "87",
+          "etichetta": "87"
+        },
+        {
+          "valore": "88",
+          "etichetta": "88"
+        },
+        {
+          "valore": "89",
+          "etichetta": "89"
+        },
+        {
+          "valore": "90",
+          "etichetta": "90"
+        },
+        {
+          "valore": "91",
+          "etichetta": "91"
+        },
+        {
+          "valore": "92",
+          "etichetta": "92"
+        },
+        {
+          "valore": "93",
+          "etichetta": "93"
+        },
+        {
+          "valore": "94",
+          "etichetta": "94"
+        },
+        {
+          "valore": "95",
+          "etichetta": "95"
+        },
+        {
+          "valore": "96",
+          "etichetta": "96"
+        },
+        {
+          "valore": "97",
+          "etichetta": "97"
+        },
+        {
+          "valore": "98",
+          "etichetta": "98"
+        },
+        {
+          "valore": "99",
+          "etichetta": "99"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100"
+        },
+        {
+          "valore": "101",
+          "etichetta": "101"
+        },
+        {
+          "valore": "102",
+          "etichetta": "102"
+        },
+        {
+          "valore": "103",
+          "etichetta": "103"
+        },
+        {
+          "valore": "104",
+          "etichetta": "104"
+        },
+        {
+          "valore": "105",
+          "etichetta": "105"
+        },
+        {
+          "valore": "106",
+          "etichetta": "106"
+        },
+        {
+          "valore": "107",
+          "etichetta": "107"
+        },
+        {
+          "valore": "108",
+          "etichetta": "108"
+        },
+        {
+          "valore": "109",
+          "etichetta": "109"
+        },
+        {
+          "valore": "110",
+          "etichetta": "110"
+        },
+        {
+          "valore": "111",
+          "etichetta": "111"
+        },
+        {
+          "valore": "112",
+          "etichetta": "112"
+        },
+        {
+          "valore": "113",
+          "etichetta": "113"
+        },
+        {
+          "valore": "114",
+          "etichetta": "114"
+        },
+        {
+          "valore": "115",
+          "etichetta": "115"
+        },
+        {
+          "valore": "116",
+          "etichetta": "116"
+        },
+        {
+          "valore": "117",
+          "etichetta": "117"
+        },
+        {
+          "valore": "118",
+          "etichetta": "118"
+        },
+        {
+          "valore": "119",
+          "etichetta": "119"
+        },
+        {
+          "valore": "120",
+          "etichetta": "120"
+        },
+        {
+          "valore": "121",
+          "etichetta": "121"
+        },
+        {
+          "valore": "122",
+          "etichetta": "122"
+        },
+        {
+          "valore": "123",
+          "etichetta": "123"
+        },
+        {
+          "valore": "124",
+          "etichetta": "124"
+        },
+        {
+          "valore": "125",
+          "etichetta": "125"
+        },
+        {
+          "valore": "126",
+          "etichetta": "126"
+        },
+        {
+          "valore": "127",
+          "etichetta": "127"
+        },
+        {
+          "valore": "128",
+          "etichetta": "128"
+        },
+        {
+          "valore": "129",
+          "etichetta": "129"
+        },
+        {
+          "valore": "130",
+          "etichetta": "130"
+        },
+        {
+          "valore": "131",
+          "etichetta": "131"
+        },
+        {
+          "valore": "132",
+          "etichetta": "132"
+        },
+        {
+          "valore": "133",
+          "etichetta": "133"
+        },
+        {
+          "valore": "134",
+          "etichetta": "134"
+        },
+        {
+          "valore": "135",
+          "etichetta": "135"
+        },
+        {
+          "valore": "136",
+          "etichetta": "136"
+        },
+        {
+          "valore": "137",
+          "etichetta": "137"
+        },
+        {
+          "valore": "138",
+          "etichetta": "138"
+        },
+        {
+          "valore": "139",
+          "etichetta": "139"
+        },
+        {
+          "valore": "140",
+          "etichetta": "140"
+        },
+        {
+          "valore": "141",
+          "etichetta": "141"
+        },
+        {
+          "valore": "142",
+          "etichetta": "142"
+        },
+        {
+          "valore": "143",
+          "etichetta": "143"
+        },
+        {
+          "valore": "144",
+          "etichetta": "144"
+        },
+        {
+          "valore": "145",
+          "etichetta": "145"
+        },
+        {
+          "valore": "146",
+          "etichetta": "146"
+        },
+        {
+          "valore": "147",
+          "etichetta": "147"
+        },
+        {
+          "valore": "148",
+          "etichetta": "148"
+        },
+        {
+          "valore": "149",
+          "etichetta": "149"
+        },
+        {
+          "valore": "150",
+          "etichetta": "150"
+        },
+        {
+          "valore": "151",
+          "etichetta": "151"
+        },
+        {
+          "valore": "152",
+          "etichetta": "152"
+        },
+        {
+          "valore": "153",
+          "etichetta": "153"
+        },
+        {
+          "valore": "154",
+          "etichetta": "154"
+        },
+        {
+          "valore": "155",
+          "etichetta": "155"
+        },
+        {
+          "valore": "156",
+          "etichetta": "156"
+        },
+        {
+          "valore": "157",
+          "etichetta": "157"
+        },
+        {
+          "valore": "158",
+          "etichetta": "158"
+        },
+        {
+          "valore": "159",
+          "etichetta": "159"
+        },
+        {
+          "valore": "160",
+          "etichetta": "160"
+        },
+        {
+          "valore": "161",
+          "etichetta": "161"
+        },
+        {
+          "valore": "162",
+          "etichetta": "162"
+        },
+        {
+          "valore": "163",
+          "etichetta": "163"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?floors=TopFloor&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"TopFloor\"] Milano vendita: 502->13 (2026-11-03 14:59:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "TopFloor"
+        ],
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "vicinanza",
+      "etichetta": "Vicinanze",
+      "gruppo": "vicinanza",
+      "parametro": "proximities",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "Highway",
+          "etichetta": "Autostrada"
+        },
+        {
+          "valore": "SkiSlope",
+          "etichetta": "Pista da sci"
+        },
+        {
+          "valore": "Airport",
+          "etichetta": "Aeroporto"
+        },
+        {
+          "valore": "Station",
+          "etichetta": "Stazione treni ad alta velocità"
+        },
+        {
+          "valore": "DayCare",
+          "etichetta": "Assistenza diurna"
+        },
+        {
+          "valore": "Golf",
+          "etichetta": "Campo da golf"
+        },
+        {
+          "valore": "PublicPool",
+          "etichetta": "Piscina pubblica"
+        },
+        {
+          "valore": "PublicParking",
+          "etichetta": "Parcheggio pubblico"
+        },
+        {
+          "valore": "Tennis",
+          "etichetta": "Campo da tennis"
+        },
+        {
+          "valore": "University",
+          "etichetta": "Università"
+        },
+        {
+          "valore": "SportCenter",
+          "etichetta": "Centro sportivo"
+        },
+        {
+          "valore": "Movies",
+          "etichetta": "Film"
+        },
+        {
+          "valore": "PrimarySchool",
+          "etichetta": "Scuola elementare"
+        },
+        {
+          "valore": "Sea",
+          "etichetta": "Mare"
+        },
+        {
+          "valore": "TGVStation",
+          "etichetta": "Stazione treni ad alta velocità"
+        },
+        {
+          "valore": "TownCentre",
+          "etichetta": "Centro città"
+        },
+        {
+          "valore": "MiddleSchool",
+          "etichetta": "Scuola media"
+        },
+        {
+          "valore": "SeaPort",
+          "etichetta": "Porto marittimo"
+        },
+        {
+          "valore": "Supermarket",
+          "etichetta": "Supermarket"
+        },
+        {
+          "valore": "Taxi",
+          "etichetta": "Taxi"
+        },
+        {
+          "valore": "Lake",
+          "etichetta": "Lago"
+        },
+        {
+          "valore": "Doctor",
+          "etichetta": "Dottore"
+        },
+        {
+          "valore": "PublicTransport",
+          "etichetta": "Trasporti pubblici"
+        },
+        {
+          "valore": "Park",
+          "etichetta": "Parco"
+        },
+        {
+          "valore": "Beach",
+          "etichetta": "Spiaggia"
+        },
+        {
+          "valore": "ConventionCenter",
+          "etichetta": "Centro congressi"
+        },
+        {
+          "valore": "HospitalClinic",
+          "etichetta": "Clinica ospedaliera"
+        },
+        {
+          "valore": "Shops",
+          "etichetta": "Negozi"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?proximities=PublicTransport&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"PublicTransport\"] Milano vendita: 502->52 (2026-11-03 15:00:17)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "PublicTransport"
+        ],
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "stato_immobile",
+      "etichetta": "Condizioni",
+      "gruppo": "stato",
+      "parametro": "conditionId",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "New",
+          "etichetta": "Nuovo"
+        },
+        {
+          "valore": "Renovated",
+          "etichetta": "Ristrutturato"
+        },
+        {
+          "valore": "GoodCondition",
+          "etichetta": "Buone condizioni"
+        },
+        {
+          "valore": "ToRenovate",
+          "etichetta": "Da ristrutturare"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?conditionId=Renovated&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"Renovated\"] Milano vendita: 502->15 (2026-11-03 15:00:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "Renovated"
+        ],
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "anno_costruzione",
+      "etichetta": "Anno di costruzione",
+      "gruppo": "stato",
+      "parametro": "constructionYear.<i>.min / .max",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "2027Plus",
+          "etichetta": "2027+"
+        },
+        {
+          "valore": "2020s",
+          "etichetta": "anni 2020"
+        },
+        {
+          "valore": "2010s",
+          "etichetta": "anni 2010"
+        },
+        {
+          "valore": "2000s",
+          "etichetta": "anni 2000"
+        },
+        {
+          "valore": "1990s",
+          "etichetta": "anni '90"
+        },
+        {
+          "valore": "1980s",
+          "etichetta": "anni '80"
+        },
+        {
+          "valore": "1970s",
+          "etichetta": "anni '70"
+        },
+        {
+          "valore": "1960s",
+          "etichetta": "anni '60"
+        },
+        {
+          "valore": "1950s",
+          "etichetta": "anni '50"
+        },
+        {
+          "valore": "Pre1950s",
+          "etichetta": "Prima degli anni '50"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?constructionYear.0.min=2000&constructionYear.0.max=2009&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa [\"2000s\"] Milano vendita: 502->18 (2026-11-03 15:00:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "2000s"
+        ],
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "disponibile_entro",
+      "etichetta": "Disponibile entro (data)",
+      "gruppo": "disponibilita",
+      "parametro": "availableFrom.max",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/affitare/appartamento-casa?availableFrom.max=2026-12-31&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa \"2026-12-31\" Milano affitto: 6536->4833 (2026-11-03 15:01:34)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2026-12-31",
+        "attesa": "meno",
+        "comune": "Milano",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "lusso",
+      "etichetta": "Lusso",
+      "gruppo": "categoria",
+      "parametro": "segmento /lusso dopo il tipo",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/milano/in-vendita/appartamento-casa/lusso",
+      "evidenza": "generateSearchUrl: luxurySlug nel percorso (luxury in query solo nella forma /search); luxury=true in query non applicato (prova_mappa 13:18, ErroreStruttura), /lusso applicato (leggi_url.py 13:20 Milano 502 -> 108, filters.luxury true) [prova_mappa true Milano vendita: 502->108 (2026-11-03 15:01:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "monolocale",
+      "etichetta": "Monolocale",
+      "gruppo": "categoria",
+      "parametro": "segmento /studio dopo il tipo (e dopo /lusso)",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/milano/in-vendita/appartamento-casa/studio",
+      "evidenza": "generateSearchUrl: numberOfSlug studio nel percorso e delete He.studios; pe() ordina tipo/progetti/lusso/studio; studios=true in query non applicato (prova_mappa 13:31, ErroreStruttura) [prova_mappa true Milano vendita: 502->14 (2026-11-03 15:02:17)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "etichetta": "Nuove costruzioni",
+      "gruppo": "categoria",
+      "parametro": "projects=true",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?projects=true&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5) [prova_mappa true Italia vendita: 27724->1 (2026-11-03 15:02:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Italia"
+      }
+    },
+    {
+      "chiave": "includi_dintorni",
+      "etichetta": "Includi i dintorni del comune (senza: solo il comune)",
+      "gruppo": "luogo",
+      "parametro": "exactLocation (omesso)",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.properstar.it/italia/muggia/in-vendita/appartamento-casa",
+      "evidenza": "app.js generateSearchUrl: exactLocation:(x.exact)&&!Fe, cioe' il parametro compare solo se l'esattezza non e' il modo predefinito del luogo; per un comune il predefinito include i dintorni. Il client manda exactLocation=true per ogni comune e con includi_dintorni=True lo omette, come l'interfaccia senza la spunta. Fetch 03/11: Muggia 3 annunci esatti, 28 con i dintorni (luogo.py). Solo per un comune: per un'area ValueError [prova_mappa true Muggia vendita: 3->28 (2026-11-03 15:03:38)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "diverso",
+        "comune": "Muggia"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina per",
+      "gruppo": "ordinamento",
+      "parametro": "sort",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "updateDate",
+          "etichetta": "Piu' recente"
+        },
+        {
+          "valore": "priceAsc",
+          "etichetta": "Prezzo crescente"
+        },
+        {
+          "valore": "priceDesc",
+          "etichetta": "Prezzo decrescente"
+        },
+        {
+          "valore": "biggestPriceDrops",
+          "etichetta": "Maggiori ribassi"
+        },
+        {
+          "valore": "biggestPriceIncreases",
+          "etichetta": "Maggiori aumenti"
+        },
+        {
+          "valore": "livingArea",
+          "etichetta": "Superficie"
+        },
+        {
+          "valore": "numberOfRooms",
+          "etichetta": "Numero di camere"
+        }
+      ],
+      "esempio": "https://www.properstar.it/italia/trieste-loc/in-vendita/appartamento-casa?sort=price&exactLocation=true",
+      "evidenza": "app.06aef2e68da1f3b50b5f.js generateSearchUrl (flatten dei filtri, qs arrayFormat repeat) e parser della query (unflatten -> filters), vedi risultati/scoperta/properstar/app_url_builder.txt e app_url_parser.txt; il server applica la query in search.results.params.filters (prova 03/11 12:52, price.min/price.max/area.living.min/numberOf.rooms.min/amenities applicati, totale 89 -> 5); valori in app.js defaults.sortings (priceAsc -> sort=price ...); justForYou e' il predefinito (sort assente) [prova_mappa \"priceAsc\" Trieste vendita: 76->76 (2026-11-03 15:03:57); \"priceDesc\" Trieste vendita: 76->76 (2026-11-03 15:04:15)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "priceAsc",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "priceDesc",
+          "attesa": "ordine_desc"
+        }
+      ]
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Area sulla mappa (Disegna un'area personalizzata)",
+      "gruppo": "luogo",
+      "parametro": "location.polygons",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "Client.cerca('Trieste', mappa_area='45.635,13.74,45.665,13.79') -> GET /italia/trieste-loc/in-vendita/appartamento-casa (filtri della pagina), POST /auth/token, POST https://search-api.listglobally.com/api/v2/searches?count=20&saveInDb=false&mode=Light con search.filters.listings.location.polygons=['13.79 45.665,13.74 45.665,13.74 45.635,13.79 45.635,13.79 45.665']&exactLocation=true",
+      "evidenza": "valore 'sud,ovest,nord,est' in gradi decimali. La pagina del server non esegue la ricerca con neLat/neLng/swLat/swLng/zoom (containers-SearchPage Ze.get, total 0 il 03/11 12:58 e 13:03); la SPA chiama da sola search-api.listglobally.com (performance resource 13:53, PATCH /api/v2/searches/<id> catturata 13:55, bundle apis.search.baseUrl) con Authorization Bearer dal POST /auth/token; setCustomPolygons in 31081.*.chunk.js mette l'area in location.polygons/polygon/viewport. Prova a mano 13:56: 89 -> 58, 20 annunci tutti dentro il rettangolo. risultati/scoperta/properstar/mappa_area.md [prova_mappa \"45.635,13.74,45.665,13.79\" Trieste vendita: 76->58 (2026-11-03 15:04:42)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.635,13.74,45.665,13.79",
+        "attesa": "meno"
+      }
+    }
+  ],
+  "assenti": [
+    {
+      "chiave": "zona",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro di quartiere o zona: il luogo si sceglie solo con l'autocompletamento (comune, provincia, regione, CAP) o col riquadro sulla mappa (mappa_area)"
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessuna cantina come pertinenza; c'e' solo la dotazione WineCellar 'Cantina dei vini' (chiave dotazioni) e il tipo Cellar senza slug"
+    },
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun controllo per la classe energetica; il parser della query non ha chiavi energetiche"
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun controllo per il riscaldamento ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro aste ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro nuda proprieta' ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro immobili a reddito; il sottotipo InvestmentProperty esiste ma non e' tra i filterableRepositories.SubType"
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro libero/occupato ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "da_privato",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro privato/agenzia: gli annunci sono di agenzie e il parser non ha una chiave per il tipo di inserzionista"
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro 'con foto' ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro 'con planimetria' ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro 'con video' ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro 'con virtual tour' ne' chiave nel parser della query"
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro per inserzionista nella ricerca; accountId porta alla pagina dell'agenzia, non e' un filtro del pannello"
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun filtro 'ribassato': esiste solo l'ordinamento biggestPriceDrops (chiave ordinamento)"
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessuna ricerca per testo libero: la casella cerca solo luoghi; il parametro ref cerca un codice di riferimento esatto"
+    },
+    {
+      "chiave": "raggio",
+      "evidenza": "pannello Filtri di /italia/uti-giuliana/in-vendita/appartamento-casa, 03/11/2026 (pannello_filtri.txt): nessun raggio in km: solo 'Posizione esatta' (solo_posizione_esatta) e il riquadro sulla mappa"
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "misura 03/11/2026: sulla ricerca base della provincia (/italia/uti-giuliana/in-vendita/appartamento-casa, 89 annunci) le faccette search.results.facets.amenities contano Balcony 22 e Parking 22, mentre amenities=Balcony da' 46 annunci e amenities=Parking 34 (prova_mappa 13:12 e 14:11, applicati dal server in filters.amenities) e Balcony+Parking insieme 23 (sostituite.py 13:57). Un filtro stretto non puo' superare il numero di annunci che hanno la dotazione: il portale non offre un filtro stretto. Le altre dotazioni booleane coincidono con le faccette (Lift 28, Terrace 29, Garden 20, Garage 20, Furnished 7, AirConditioning 17). Faccette sul comune (trieste-loc, 76 annunci, 03/11): Balcony 21, Parking 19. Il client solleva ValueError per balcone e rimanda a balcone_o_affini (stesso parametro amenities=Balcony, nome onesto). Riconferma sul comune (trieste-loc con exactLocation=true, 76 annunci): faccette 14:39 Balcony 21 e Parking 19, prova_mappa 14:47-15:05 balcone_o_affini 41 e posto_auto_o_affini 27; le altre coincidono anche qui (Lift 30/30, Terrace 23/23, Garden 14/14, Garage 16/16, Furnished 5/5, AirConditioning 14/14, WineCellar 5/5, viewLandscapes Sea 10/10 e City 7/7)"
+    },
+    {
+      "chiave": "posto_auto",
+      "evidenza": "misura 03/11/2026: sulla ricerca base della provincia (/italia/uti-giuliana/in-vendita/appartamento-casa, 89 annunci) le faccette search.results.facets.amenities contano Balcony 22 e Parking 22, mentre amenities=Balcony da' 46 annunci e amenities=Parking 34 (prova_mappa 13:12 e 14:11, applicati dal server in filters.amenities) e Balcony+Parking insieme 23 (sostituite.py 13:57). Un filtro stretto non puo' superare il numero di annunci che hanno la dotazione: il portale non offre un filtro stretto. Le altre dotazioni booleane coincidono con le faccette (Lift 28, Terrace 29, Garden 20, Garage 20, Furnished 7, AirConditioning 17). Faccette sul comune (trieste-loc, 76 annunci, 03/11): Balcony 21, Parking 19. Il client solleva ValueError per posto_auto e rimanda a posto_auto_o_affini (stesso parametro amenities=Parking, nome onesto). Riconferma sul comune (trieste-loc con exactLocation=true, 76 annunci): faccette 14:39 Balcony 21 e Parking 19, prova_mappa 14:47-15:05 balcone_o_affini 41 e posto_auto_o_affini 27; le altre coincidono anche qui (Lift 30/30, Terrace 23/23, Garden 14/14, Garage 16/16, Furnished 5/5, AirConditioning 14/14, WineCellar 5/5, viewLandscapes Sea 10/10 e City 7/7)"
+    }
+  ],
+  "non_trovati": [
+    "Dotazioni 'preferite' (preferredAmenities, preferredViewLandscapes, preferredProximities, preferredViewTypes): sono i pulsanti rapidi (es. Terrazza -> ?preferredAmenities=Terrace, 89 -> 29); il client usa la forma 'Indispensabile' (amenities=...), che il pannello mostra come stessa dotazione",
+    "Tipi camera (Room, slug /camera) e barca (Boat, slug /barca): slug presenti ma 0 annunci in tutta Italia (/italia/affitare/camera e /italia/in-vendita/barca, 03/11 13:33); tolti dai valori di tipologia",
+    "Tipo Cellar (cantina come immobile): senza slug, l'interfaccia passa a /search?tt=..&pt=Cellar&placeId=<Google place id>"
+  ],
+  "note": "Una voce per chiave. Voci tolte dalla mappa del 03/11 mattina (decisioni in risultati/decisioni/properstar.tsv): i segmenti SEO del percorso (/meno-di-100000, /4p-stanze, /N-stanze, /con-ascensore, /con-terrazzo, /con-giardino, /con-garage, /con-giardino-e-garage, /ammobiliati, /vista-mare, /vista-sulla-citta, /vista-sul-giardino, /lusso, /studio, /progetti, /piu-recente, /prezzo-da-basso-ad-alto, /villa ...) sono la forma che l'interfaccia usa quando c'e' un solo filtro con slug; il server legge anche la query equivalente, che il client usa sempre. regione e provincia sono valori di comune (slug del luogo). contratto tt, tipologia pt, luogo_place_id e pagina su /search sono la forma dei domini esteri, non di properstar.it. tipi_esclusi (excludedTypes) non entra nell'URL (generateSearchUrl lo scarta). includi_vicinanze diventa solo_posizione_esatta (exactLocation=true, l'unico valore che l'URL porta). comune vuol dire il comune: 'Trieste' -> trieste-loc con exactLocation=true (il sito per un comune include i dintorni); la provincia si chiede per nome, 'Provincia di Trieste' -> uti-giuliana; 'trieste' risolve negli USA. includi_dintorni=True omette exactLocation (prima solo_posizione_esatta, ora il predefinito). contratto vendita e tipologia appartamento-casa sono la ricerca base di ogni prova: prova_mappa li confronta con se stessi, quindi la loro prova e' la base stessa. balcone e posto_auto stanno in assenti: amenities=Balcony e amenities=Parking non sono filtri stretti (Balcony 46 e Parking 34 annunci contro faccette 22 e 22 sulla stessa ricerca base; Balcony+Parking 23). Il client solleva ValueError per balcone e posto_auto (e per dotazioni Balcony o Parking) e rimanda a balcone_o_affini e posto_auto_o_affini, che mandano lo stesso parametro con un nome che non promette il balcone o il parcheggio. Quali dotazioni il server accetta al loro posto resta non provato (ipotesi: Balcone o Terrazza, Parcheggio o Garage). mappa_area: risultati da search-api senza le entita' delle agenzie, quindi Annuncio.agenzia e' None; il client rifiuta la risposta se un annuncio con coordinate cade fuori dal rettangolo."
+}

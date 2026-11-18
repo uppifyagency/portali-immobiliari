@@ -1,0 +1,1573 @@
+{
+  "portale": "subito",
+  "descrizione": "Bacheca generalista (categoria appartamenti) con molti privati accanto alle agenzie: a Trieste circa 255 annunci in vendita il 03/11/2026. Utile per chi vende senza agenzia.",
+  "url_base_ricerca": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/",
+  "come_si_applicano": "misto: /annunci-<regione>/<contratto>/<categoria>/<provincia>/<comune>/ (o /annunci-locali/<contratto>/<categoria>/ con rad/lat/lon), filtri in query string; per appartamenti bc=10, advt=0,2 e blc=true diventano i segmenti nuove-costruzioni/, da-privati/, con-terrazzo/",
+  "fonte_catalogo": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters (cambia con categoria e contratto); valori da hades.subito.it/v1/values/*; forma dell'URL dalle funzioni tl/td del bundle (risultati/scoperta/subito/bundle_grep.json (3aqljkr0qy87r.js, funzioni tl/td)) e dai clic in risultati/scoperta/subito/clic.tsv",
+  "filtri": [
+    {
+      "chiave": "contratto",
+      "etichetta": "Tipo di annuncio (In vendita / In affitto / Cerco)",
+      "gruppo": "contratto",
+      "parametro": "<contratto>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "In vendita (predefinito)"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "In affitto"
+        },
+        {
+          "valore": "cerco",
+          "etichetta": "Cercasi"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/affitto/appartamenti/trieste/trieste/",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:54: radio /type k -> /cerco/, u -> /affitto/, s -> /vendita/ (mai ?t=); category.adTypes [s,k,u] [prova_mappa \"affitto\" Trieste vendita: 256->160 (2026-11-03 14:05:42); \"cerco\" Trieste vendita: 256->65 (2026-11-03 14:06:01); \"vendita\" Trieste vendita: 160->256 (2026-11-03 14:06:01)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "cerco",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Categoria",
+      "gruppo": "tipologia",
+      "parametro": "<categoria>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "appartamenti",
+          "etichetta": "Appartamenti (predefinita)"
+        },
+        {
+          "valore": "ville-singole-e-a-schiera",
+          "etichetta": "Ville singole e a schiera"
+        },
+        {
+          "valore": "loft-mansarde",
+          "etichetta": "Loft, mansarde"
+        },
+        {
+          "valore": "terreni-e-rustici",
+          "etichetta": "Terreni e rustici"
+        },
+        {
+          "valore": "garage-e-box",
+          "etichetta": "Garage e box"
+        },
+        {
+          "valore": "uffici-locali-commerciali",
+          "etichetta": "Uffici e locali commerciali"
+        },
+        {
+          "valore": "immobili",
+          "etichetta": "Tutte le categorie immobili"
+        },
+        {
+          "valore": "camere-posti-letto",
+          "etichetta": "Camere e posti letto (solo affitto e cerco)"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/ville-singole-e-a-schiera/trieste/trieste/",
+      "evidenza": "HAR voce 0 menu categorie /annunci-italia/vendita/<slug>/; pagine 03/11 13:07 (cat 29) e 13:09 (cat 43, adTypes k,u) [prova_mappa \"ville-singole-e-a-schiera\" Trieste vendita: 256->65 (2026-11-03 14:06:19); \"loft-mansarde\" Trieste vendita: 256->6 (2026-11-03 14:06:37); \"terreni-e-rustici\" Trieste vendita: 256->51 (2026-11-03 14:06:56); \"garage-e-box\" Trieste vendita: 256->77 (2026-11-03 14:07:14); \"uffici-locali-commerciali\" Trieste vendita: 256->138 (2026-11-03 14:07:33); \"immobili\" Trieste vendita: 256->593 (2026-11-03 14:07:51); \"camere-posti-letto\" Trieste affitto: 160->53 (2026-11-03 14:08:09)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "ville-singole-e-a-schiera",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "loft-mansarde",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "terreni-e-rustici",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "garage-e-box",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "uffici-locali-commerciali",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "immobili",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "camere-posti-letto",
+          "attesa": "diverso",
+          "contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "comune",
+      "etichetta": "Comune",
+      "gruppo": "luogo",
+      "parametro": "annunci-<regione>/<contratto>/<categoria>/<provincia>/<comune>",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/muggia/",
+      "evidenza": "HAR voce 0 search.geo; funzione tl() nel bundle: /annunci-<regione>/<adType>/<categoria>/<provincia>/<comune>/ [prova_mappa \"Muggia\" Trieste vendita: 256->29 (2026-11-03 14:08:28)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Muggia",
+        "attesa": "diverso"
+      }
+    },
+    {
+      "chiave": "zona",
+      "etichetta": "Zona (solo comuni con zone, es. Milano; Trieste non ne ha)",
+      "gruppo": "luogo",
+      "parametro": "z",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-lombardia/vendita/appartamenti/milano/milano/?z=015146-1",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:05 Milano zona 'Centro storico' -> ?z=015146-1 (3914 -> 112); elenco zone da hades /v1/geo/regions/4/cities/8/towns/015146/zones (risultati/scoperta/subito/zone_milano.json); Trieste hasZone=false [prova_mappa \"015146-1\" Milano vendita: 3917->112 (2026-11-03 14:09:05)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "015146-1",
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "raggio",
+      "etichetta": "Cerca per distanza (metri dal centro del comune)",
+      "gruppo": "luogo",
+      "parametro": "rad",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-locali/vendita/appartamenti/?rad=1000&lat=45.6504&lon=13.7676",
+      "evidenza": "risultati/scoperta/subito/bundle_grep.json (3aqljkr0qy87r.js, funzioni tl/td): radiusSearch -> percorso /annunci-locali/<adType>/<categoria>/ con rad (metri), lat, lon; cursore 'Seleziona il raggio' aria-valuemin 500, aria-valuemax 10000; il client usa il centro del comune da COMUNI [prova_mappa 1000 Trieste vendita: 256->64 (2026-11-03 15:08:07)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 1000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "parola_chiave",
+      "etichetta": "Parola chiave",
+      "gruppo": "testo",
+      "parametro": "q",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?q=barcola",
+      "evidenza": "HAR voce 0 input /query/search_text; internalLinks ?q=barcola [prova_mappa \"barcola\" Trieste vendita: 256->4 (2026-11-03 15:08:26)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "barcola",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "parola_nel_titolo",
+      "etichetta": "Parola chiave con 'Ricerca solo nel titolo'",
+      "gruppo": "testo",
+      "parametro": "qso",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?q=attico&qso=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:02 bottone /query/subject_only -> qso=true; __NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /query/subject_only. qso da solo non filtra: il client lo scrive solo insieme a q [prova_mappa \"attico\" Trieste vendita: 256->2 (2026-11-03 15:08:44)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "attico",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "urgente",
+      "etichetta": "Solo annunci urgenti",
+      "gruppo": "altro",
+      "parametro": "urg",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?urg=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:53 bottone /urgent -> ?urg=true (Trieste e Roma: zero annunci; in tutta Italia 17 il 03/11, 3 a Salerno) [prova_mappa true campania/salerno/salerno vendita: 273->3 (2026-11-03 13:32:50)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "campania/salerno/salerno"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina risultati",
+      "gruppo": "ordinamento",
+      "parametro": "order",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "datedesc",
+          "etichetta": "Dal più recente (predefinito)"
+        },
+        {
+          "valore": "relevance",
+          "etichetta": "Dal più rilevante"
+        },
+        {
+          "valore": "priceasc",
+          "etichetta": "Dal meno caro"
+        },
+        {
+          "valore": "pricedesc",
+          "etichetta": "Dal più caro"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?order=priceasc",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:55 menu 'Ordina risultati' 'Dal meno caro' -> ?order=priceasc; datedesc predefinito, non scritto; category.orders [datedesc, relevance, priceasc, pricedesc]. relevance senza parola chiave dà lo stesso ordine di datedesc (prova_mappa 03/11 Trieste e Milano, IGNORATO?): resta ammesso, senza prova propria [prova_mappa \"priceasc\" Trieste vendita: 256->234 (2026-11-03 13:33:27); \"pricedesc\" Trieste vendita: 256->256 (2026-11-03 13:33:45)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "priceasc",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "pricedesc",
+          "attesa": "ordine_desc"
+        }
+      ]
+    },
+    {
+      "chiave": "pubblicato_da",
+      "etichetta": "Inserzionista",
+      "gruppo": "inserzionista",
+      "parametro": "advt",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "0,2",
+          "etichetta": "Privato (segmento /da-privati/)"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Agenzia verificata"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?advt=1",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:58 Inserzionista 'Privato' -> segmento /da-privati/, 13:01 'Agenzia verificata' -> ?advt=1; valori HAR voce 3 [prova_mappa \"1\" Trieste vendita: 256->187 (2026-11-03 15:09:03); \"0,2\" Trieste vendita: 256->69 (2026-11-03 15:09:21)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "attesa": "meno"
+        },
+        {
+          "valore": "0,2",
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "da_privato",
+      "etichetta": "Inserzionista privato",
+      "gruppo": "inserzionista",
+      "parametro": "advt=0,2 -> da-privati",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/da-privati/",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:58 Privato -> /da-privati/; risultati/scoperta/subito/bundle_grep.json (3aqljkr0qy87r.js, funzioni tl/td) mappa te: advt 0,2 -> da-privati. Stesso controllo di pubblicato_da='0,2' [prova_mappa true Trieste vendita: 256->69 (2026-11-03 15:09:39)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "stato_immobile",
+      "etichetta": "Condizione dell'immobile",
+      "gruppo": "stato",
+      "parametro": "bc",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "10",
+          "etichetta": "Nuova costruzione"
+        },
+        {
+          "valore": "20",
+          "etichetta": "Ottimo - ristrutturato"
+        },
+        {
+          "valore": "30",
+          "etichetta": "Buono - abitabile"
+        },
+        {
+          "valore": "40",
+          "etichetta": "Da ristrutturare"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?bc=20",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /building_condition multiSelection; valori HAR voce 4; più valori separati da virgola (bundle 2h6lqm90bgwc0.js: values a.split(',')) [prova_mappa [\"20\"] Trieste vendita: 256->92 (2026-11-03 15:09:57); [\"30\", \"40\"] Trieste vendita: 256->96 (2026-11-03 15:10:15)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": [
+            "20"
+          ],
+          "attesa": "meno"
+        },
+        {
+          "valore": [
+            "30",
+            "40"
+          ],
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "etichetta": "Nuova costruzione",
+      "gruppo": "stato",
+      "parametro": "bc=10 -> nuove-costruzioni",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/nuove-costruzioni/",
+      "evidenza": "risultati/scoperta/subito/bundle_grep.json (3aqljkr0qy87r.js, funzioni tl/td) mappa te: bc 10 -> nuove-costruzioni; valore 10 'Nuova costruzione' HAR voce 4 [prova_mappa true Trieste vendita: 256->37 (2026-11-03 15:10:33)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo da (€)",
+      "gruppo": "prezzo",
+      "parametro": "ps",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "20000",
+          "etichetta": "20000"
+        },
+        {
+          "valore": "50000",
+          "etichetta": "50000"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000"
+        },
+        {
+          "valore": "130000",
+          "etichetta": "130000"
+        },
+        {
+          "valore": "150000",
+          "etichetta": "150000"
+        },
+        {
+          "valore": "170000",
+          "etichetta": "170000"
+        },
+        {
+          "valore": "190000",
+          "etichetta": "190000"
+        },
+        {
+          "valore": "220000",
+          "etichetta": "220000"
+        },
+        {
+          "valore": "250000",
+          "etichetta": "250000"
+        },
+        {
+          "valore": "290000",
+          "etichetta": "290000"
+        },
+        {
+          "valore": "350000",
+          "etichetta": "350000"
+        },
+        {
+          "valore": "450000",
+          "etichetta": "450000"
+        },
+        {
+          "valore": "700000",
+          "etichetta": "700000"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100"
+        },
+        {
+          "valore": "200",
+          "etichetta": "200"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300"
+        },
+        {
+          "valore": "400",
+          "etichetta": "400"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500"
+        },
+        {
+          "valore": "600",
+          "etichetta": "600"
+        },
+        {
+          "valore": "700",
+          "etichetta": "700"
+        },
+        {
+          "valore": "800",
+          "etichetta": "800"
+        },
+        {
+          "valore": "900",
+          "etichetta": "900"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000"
+        },
+        {
+          "valore": "1100",
+          "etichetta": "1100"
+        },
+        {
+          "valore": "1200",
+          "etichetta": "1200"
+        },
+        {
+          "valore": "1300",
+          "etichetta": "1300"
+        },
+        {
+          "valore": "1400",
+          "etichetta": "1400"
+        },
+        {
+          "valore": "1500",
+          "etichetta": "1500"
+        },
+        {
+          "valore": "2000",
+          "etichetta": "2000"
+        },
+        {
+          "valore": "2500",
+          "etichetta": "2500"
+        },
+        {
+          "valore": "3000",
+          "etichetta": "3000"
+        },
+        {
+          "valore": "3500",
+          "etichetta": "3500"
+        },
+        {
+          "valore": "4000",
+          "etichetta": "4000"
+        },
+        {
+          "valore": "4500",
+          "etichetta": "4500"
+        },
+        {
+          "valore": "5000",
+          "etichetta": "5000"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?ps=100000",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:59 Prezzo 'Da' 100.000 -> ps=100000; vendita HAR voce 5 (adtypes/s), affitto hades adtypes/u/prices (risultati/scoperta/subito/prezzi_affitto.json) [prova_mappa \"100000\" Trieste vendita: 256->212 (2026-11-03 15:10:51)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "100000",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo a (€)",
+      "gruppo": "prezzo",
+      "parametro": "pe",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "20000",
+          "etichetta": "20000"
+        },
+        {
+          "valore": "50000",
+          "etichetta": "50000"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000"
+        },
+        {
+          "valore": "130000",
+          "etichetta": "130000"
+        },
+        {
+          "valore": "150000",
+          "etichetta": "150000"
+        },
+        {
+          "valore": "170000",
+          "etichetta": "170000"
+        },
+        {
+          "valore": "190000",
+          "etichetta": "190000"
+        },
+        {
+          "valore": "220000",
+          "etichetta": "220000"
+        },
+        {
+          "valore": "250000",
+          "etichetta": "250000"
+        },
+        {
+          "valore": "290000",
+          "etichetta": "290000"
+        },
+        {
+          "valore": "350000",
+          "etichetta": "350000"
+        },
+        {
+          "valore": "450000",
+          "etichetta": "450000"
+        },
+        {
+          "valore": "700000",
+          "etichetta": "700000"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100"
+        },
+        {
+          "valore": "200",
+          "etichetta": "200"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300"
+        },
+        {
+          "valore": "400",
+          "etichetta": "400"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500"
+        },
+        {
+          "valore": "600",
+          "etichetta": "600"
+        },
+        {
+          "valore": "700",
+          "etichetta": "700"
+        },
+        {
+          "valore": "800",
+          "etichetta": "800"
+        },
+        {
+          "valore": "900",
+          "etichetta": "900"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000"
+        },
+        {
+          "valore": "1100",
+          "etichetta": "1100"
+        },
+        {
+          "valore": "1200",
+          "etichetta": "1200"
+        },
+        {
+          "valore": "1300",
+          "etichetta": "1300"
+        },
+        {
+          "valore": "1400",
+          "etichetta": "1400"
+        },
+        {
+          "valore": "1500",
+          "etichetta": "1500"
+        },
+        {
+          "valore": "2000",
+          "etichetta": "2000"
+        },
+        {
+          "valore": "2500",
+          "etichetta": "2500"
+        },
+        {
+          "valore": "3000",
+          "etichetta": "3000"
+        },
+        {
+          "valore": "3500",
+          "etichetta": "3500"
+        },
+        {
+          "valore": "4000",
+          "etichetta": "4000"
+        },
+        {
+          "valore": "4500",
+          "etichetta": "4500"
+        },
+        {
+          "valore": "5000",
+          "etichetta": "5000"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?pe=250000",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /price/max; stesse soglie di prezzo_min [prova_mappa \"250000\" Trieste vendita: 256->126 (2026-11-03 15:11:09); \"700\" Trieste affitto: 160->42 (2026-11-03 15:11:46)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "250000",
+          "attesa": "meno"
+        },
+        {
+          "valore": "700",
+          "attesa": "meno",
+          "contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie da (mq)",
+      "gruppo": "superficie",
+      "parametro": "szs",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "40",
+          "etichetta": "40"
+        },
+        {
+          "valore": "60",
+          "etichetta": "60"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100"
+        },
+        {
+          "valore": "150",
+          "etichetta": "150"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000"
+        },
+        {
+          "valore": "1500",
+          "etichetta": "1500"
+        },
+        {
+          "valore": "2000",
+          "etichetta": "2000"
+        },
+        {
+          "valore": "2500",
+          "etichetta": "2500"
+        },
+        {
+          "valore": "3000",
+          "etichetta": "3000"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?szs=60",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /size/min; valori HAR voce 6 [prova_mappa \"60\" Trieste vendita: 256->213 (2026-11-03 15:12:04)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "60",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie a (mq)",
+      "gruppo": "superficie",
+      "parametro": "sze",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "40",
+          "etichetta": "40"
+        },
+        {
+          "valore": "60",
+          "etichetta": "60"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100"
+        },
+        {
+          "valore": "150",
+          "etichetta": "150"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000"
+        },
+        {
+          "valore": "1500",
+          "etichetta": "1500"
+        },
+        {
+          "valore": "2000",
+          "etichetta": "2000"
+        },
+        {
+          "valore": "2500",
+          "etichetta": "2500"
+        },
+        {
+          "valore": "3000",
+          "etichetta": "3000"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?sze=100",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /size/max; valori HAR voce 6 [prova_mappa \"100\" Trieste vendita: 256->167 (2026-11-03 15:33:43)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "100",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Locali da",
+      "gruppo": "locali",
+      "parametro": "rs",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "3"
+        },
+        {
+          "valore": "4",
+          "etichetta": "4"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5"
+        },
+        {
+          "valore": "6",
+          "etichetta": "6"
+        },
+        {
+          "valore": "7",
+          "etichetta": "7"
+        },
+        {
+          "valore": "8",
+          "etichetta": "8"
+        },
+        {
+          "valore": "9",
+          "etichetta": "9"
+        },
+        {
+          "valore": "10",
+          "etichetta": "10"
+        },
+        {
+          "valore": "11",
+          "etichetta": "Più di 10"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?rs=3",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /room/min; valori HAR voce 8 [prova_mappa \"3\" Trieste vendita: 256->156 (2026-11-03 15:34:01)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "3",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Locali a",
+      "gruppo": "locali",
+      "parametro": "re",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "3"
+        },
+        {
+          "valore": "4",
+          "etichetta": "4"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5"
+        },
+        {
+          "valore": "6",
+          "etichetta": "6"
+        },
+        {
+          "valore": "7",
+          "etichetta": "7"
+        },
+        {
+          "valore": "8",
+          "etichetta": "8"
+        },
+        {
+          "valore": "9",
+          "etichetta": "9"
+        },
+        {
+          "valore": "10",
+          "etichetta": "10"
+        },
+        {
+          "valore": "11",
+          "etichetta": "Più di 10"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?re=2",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /room/max; valori HAR voce 8 [prova_mappa \"2\" Trieste vendita: 256->66 (2026-11-03 15:34:20)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piano",
+      "etichetta": "Piano da",
+      "gruppo": "piano",
+      "parametro": "fls",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Interrato"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Seminterrato"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Rialzato"
+        },
+        {
+          "valore": "4",
+          "etichetta": "0"
+        },
+        {
+          "valore": "5",
+          "etichetta": "1"
+        },
+        {
+          "valore": "6",
+          "etichetta": "2"
+        },
+        {
+          "valore": "7",
+          "etichetta": "3"
+        },
+        {
+          "valore": "8",
+          "etichetta": "4"
+        },
+        {
+          "valore": "9",
+          "etichetta": "5"
+        },
+        {
+          "valore": "10",
+          "etichetta": "6"
+        },
+        {
+          "valore": "11",
+          "etichetta": "7"
+        },
+        {
+          "valore": "12",
+          "etichetta": "Oltre il 7°"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?fls=5",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:00 Piano 'Da' 1 -> fls=5; valori HAR voce 7 (codici, 4 = piano 0) [prova_mappa \"7\" Trieste vendita: 256->96 (2026-11-03 15:34:38)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "7",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piano_max",
+      "etichetta": "Piano a",
+      "gruppo": "piano",
+      "parametro": "fle",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Interrato"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Seminterrato"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Rialzato"
+        },
+        {
+          "valore": "4",
+          "etichetta": "0"
+        },
+        {
+          "valore": "5",
+          "etichetta": "1"
+        },
+        {
+          "valore": "6",
+          "etichetta": "2"
+        },
+        {
+          "valore": "7",
+          "etichetta": "3"
+        },
+        {
+          "valore": "8",
+          "etichetta": "4"
+        },
+        {
+          "valore": "9",
+          "etichetta": "5"
+        },
+        {
+          "valore": "10",
+          "etichetta": "6"
+        },
+        {
+          "valore": "11",
+          "etichetta": "7"
+        },
+        {
+          "valore": "12",
+          "etichetta": "Oltre il 7°"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?fle=5",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /floor/max; valori HAR voce 7 [prova_mappa \"5\" Trieste vendita: 256->67 (2026-11-03 15:34:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "5",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ultimo_piano",
+      "etichetta": "Ultimo piano",
+      "gruppo": "piano",
+      "parametro": "lflr",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?lflr=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:52 bottone /last_floor -> ?lflr=true (256 -> 26) [prova_mappa true Trieste vendita: 256->26 (2026-11-03 15:35:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_min",
+      "etichetta": "Bagni da",
+      "gruppo": "bagni",
+      "parametro": "btrs",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "3"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Più di 3"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?btrs=2",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:01 Bagni 'Da' 2 -> btrs=2; valori HAR voce 9 [prova_mappa \"2\" Trieste vendita: 256->92 (2026-11-03 15:35:32)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_max",
+      "etichetta": "Bagni a",
+      "gruppo": "bagni",
+      "parametro": "btre",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1"
+        },
+        {
+          "valore": "2",
+          "etichetta": "2"
+        },
+        {
+          "valore": "3",
+          "etichetta": "3"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Più di 3"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?btre=1",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /bathrooms/max; valori HAR voce 9 [prova_mappa \"1\" Trieste vendita: 256->118 (2026-11-03 15:35:51)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "1",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "arredato",
+      "etichetta": "Arredato (solo affitto)",
+      "gruppo": "caratteristiche",
+      "parametro": "fr",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/affitto/appartamenti/trieste/trieste/?fr=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:09 affitto, bottone /furnished 'Arredato' -> ?fr=true (160 -> 118); filtro presente solo nel filtersConfig dell'affitto; in vendita ?fr=true lascia 256 su 256 (ignorato, 03/11 13:3x): il client dà ValueError fuori dall'affitto [prova_mappa true Trieste affitto: 159->117 (2026-11-03 15:36:27)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "libero",
+      "etichetta": "Disponibilità immediata",
+      "gruppo": "disponibilita",
+      "parametro": "an",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?an=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:52 bottone /available_now -> ?an=true (256 -> 60) [prova_mappa true Trieste vendita: 256->60 (2026-11-03 15:36:45)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "balcone",
+      "etichetta": "Balcone",
+      "gruppo": "caratteristiche",
+      "parametro": "blc=true -> con-terrazzo",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/con-terrazzo/",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:50 bottone /balcony -> segmento /con-terrazzo/ (255 -> 111); risultati/scoperta/subito/bundle_grep.json (3aqljkr0qy87r.js, funzioni tl/td) mappa e9: blc true -> con-terrazzo [prova_mappa true Trieste vendita: 256->111 (2026-11-03 15:37:03)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ascensore",
+      "etichetta": "Ascensore",
+      "gruppo": "caratteristiche",
+      "parametro": "el",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?el=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:51 bottone /elevator -> ?el=true (255 -> 135) [prova_mappa true Trieste vendita: 256->136 (2026-11-03 15:37:21)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "giardino",
+      "etichetta": "Giardino",
+      "gruppo": "caratteristiche",
+      "parametro": "grd",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/ville-singole-e-a-schiera/trieste/trieste/?grd=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:08 ville-singole-e-a-schiera, bottone /garden -> ?grd=true (65 -> 49); filtro presente nel filtersConfig di ville (cat 29), non in quello di appartamenti (prova_mappa 03/11: 256 -> 256, ignorato): il client dà ValueError fuori da ville-singole-e-a-schiera [prova_mappa true Trieste vendita: 65->49 (2026-11-03 14:01:40)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "base_filtri": {
+          "tipologia": "ville-singole-e-a-schiera"
+        }
+      }
+    },
+    {
+      "chiave": "posto_auto",
+      "etichetta": "Parcheggio",
+      "gruppo": "parcheggio",
+      "parametro": "prk",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Box privato"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Posto auto riservato"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Posto auto libero"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Posto bici"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Posto moto"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?prk=2%2C3",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /parking multiSelection; valori HAR voce 10 [prova_mappa [\"2\", \"3\"] Trieste vendita: 256->56 (2026-11-03 15:37:40)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "2",
+          "3"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "box_auto",
+      "etichetta": "Box privato",
+      "gruppo": "parcheggio",
+      "parametro": "prk",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?prk=1",
+      "evidenza": "__NEXT_DATA__ initialState.filtersConfig.filtersStore.filters uri /parking, valore 1 'Box privato' (HAR voce 10); stesso parametro di posto_auto, i valori si uniscono [prova_mappa true Trieste vendita: 256->15 (2026-11-03 15:38:00)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "riscaldamento",
+      "etichetta": "Riscaldamento",
+      "gruppo": "impianti",
+      "parametro": "htg",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Centralizzato"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Autonomo"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Assente"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Altro"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?htg=2",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:57 Riscaldamento 'Autonomo' -> htg=2 (234 -> 124); valori HAR voce 11 [prova_mappa \"2\" Trieste vendita: 256->129 (2026-11-03 15:38:18)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "aria_condizionata",
+      "etichetta": "Aria condizionata",
+      "gruppo": "impianti",
+      "parametro": "ac",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?ac=true",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 12:53 bottone /air_conditioning -> ?ac=true (256 -> 94) [prova_mappa true Trieste vendita: 256->94 (2026-11-03 15:38:36)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "classe_energetica",
+      "etichetta": "Classe energetica da",
+      "gruppo": "energia",
+      "parametro": "ecs",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1500",
+          "etichetta": "Non classificabile"
+        },
+        {
+          "valore": "1400",
+          "etichetta": "Esente"
+        },
+        {
+          "valore": "1300",
+          "etichetta": "In attesa di certificazione"
+        },
+        {
+          "valore": "1200",
+          "etichetta": "G"
+        },
+        {
+          "valore": "1100",
+          "etichetta": "F"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "E"
+        },
+        {
+          "valore": "900",
+          "etichetta": "D"
+        },
+        {
+          "valore": "800",
+          "etichetta": "C"
+        },
+        {
+          "valore": "700",
+          "etichetta": "B"
+        },
+        {
+          "valore": "600",
+          "etichetta": "A"
+        },
+        {
+          "valore": "500",
+          "etichetta": "A+"
+        },
+        {
+          "valore": "400",
+          "etichetta": "A1"
+        },
+        {
+          "valore": "300",
+          "etichetta": "A2"
+        },
+        {
+          "valore": "200",
+          "etichetta": "A3"
+        },
+        {
+          "valore": "100",
+          "etichetta": "A4"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?ecs=800",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:00 Classe energetica 'Da' C -> ecs=800; valori HAR voce 12 [prova_mappa \"800\" Trieste vendita: 256->34 (2026-11-03 15:38:54)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "800",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "classe_energetica_max",
+      "etichetta": "Classe energetica a",
+      "gruppo": "energia",
+      "parametro": "ece",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1500",
+          "etichetta": "Non classificabile"
+        },
+        {
+          "valore": "1400",
+          "etichetta": "Esente"
+        },
+        {
+          "valore": "1300",
+          "etichetta": "In attesa di certificazione"
+        },
+        {
+          "valore": "1200",
+          "etichetta": "G"
+        },
+        {
+          "valore": "1100",
+          "etichetta": "F"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "E"
+        },
+        {
+          "valore": "900",
+          "etichetta": "D"
+        },
+        {
+          "valore": "800",
+          "etichetta": "C"
+        },
+        {
+          "valore": "700",
+          "etichetta": "B"
+        },
+        {
+          "valore": "600",
+          "etichetta": "A"
+        },
+        {
+          "valore": "500",
+          "etichetta": "A+"
+        },
+        {
+          "valore": "400",
+          "etichetta": "A1"
+        },
+        {
+          "valore": "300",
+          "etichetta": "A2"
+        },
+        {
+          "valore": "200",
+          "etichetta": "A3"
+        },
+        {
+          "valore": "100",
+          "etichetta": "A4"
+        }
+      ],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?ece=600",
+      "evidenza": "risultati/scoperta/subito/clic.tsv 13:00 Classe energetica 'A' A -> ece=600; valori HAR voce 12 [prova_mappa \"1000\" Trieste vendita: 256->126 (2026-11-03 15:39:12)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "1000",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "pagina",
+      "parametro": "o",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.subito.it/annunci-friuli-venezia-giulia/vendita/appartamenti/trieste/trieste/?o=2",
+      "evidenza": "robots.txt 'Disallow: */?o=*'; bundle td(): e.page>1 -> o [prova_mappa 2 Trieste vendita: 256->256 (2026-11-03 15:39:30)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    }
+  ],
+  "non_trovati": [],
+  "note": "Decisioni 03/11 in risultati/decisioni/subito.tsv. Totale: Pagina.totale = items.total = il numero 'N risultati' che la pagina mostra; il 721 del <title> viene da pageProps.seo (configurazione SEO) e non coincide con nessun conteggio misurato. tipo_annuncio (t) tolto: il radio cambia il percorso (contratto, valore cerco). solo_titolo diventa parola_nel_titolo (qso senza q non filtra). Soglie fisse: prezzo, mq, locali, piano, bagni, classe; un valore fuori lista dà ValueError (prezzi diversi per vendita e affitto). Piano: codici, non numeri (5 = 1° piano). Filtri propri di altre categorie non mappati: mlv (ville, più livelli), rt/gndr/smk (camere). case-vacanza (solo affitto-vacanze) esclusa. Akamai: serve il trasporto chrome.",
+  "assenti": [
+    {
+      "chiave": "terrazzo",
+      "evidenza": "nessun controllo Terrazzo: il controllo 'Balcone' (/balcony, blc) scrive il segmento /con-terrazzo/ (risultati/scoperta/subito/clic.tsv 12:50), mappato come balcone. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "nessun filtro cantina. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "nessun filtro vista mare (solo parola chiave). filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "nessun filtro aste, nessun contratto asta (adType s,k,u; bundle: vendita, affitto, cerco, affitto-vacanze, regalo). filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "nessun filtro nuda proprietà. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "nessun filtro immobile a reddito. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "nessun filtro 'con foto'. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "nessun filtro planimetria. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "nessun filtro video. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "evidenza": "nessun filtro visita virtuale. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "nessun filtro prezzo ribassato. filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    },
+    {
+      "chiave": "mappa_area",
+      "evidenza": "nessun disegno area sulla mappa: il pannello 'Cerca per distanza' offre solo punto + raggio (raggio). filtersConfig letto il 03/11/2026 su appartamenti vendita e affitto (cat 7), ville (cat 29), camere (cat 43) a Trieste, e pannello 'Cerca per distanza'"
+    }
+  ]
+}

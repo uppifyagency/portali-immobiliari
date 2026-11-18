@@ -1,0 +1,1389 @@
+{
+  "portale": "casait",
+  "descrizione": "casa.it, grande portale nazionale di agenzie: a Trieste circa 725 case in vendita il 03/11/2026; ha anche filtri per rata del mutuo, prezzo al metro e anno di costruzione.",
+  "url_base_ricerca": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a",
+  "come_si_applicano": "query string su /srp, nell'ordine e nella forma dell'uri che la pagina riceve da POST /portal-srp/api/v1/apireq a ogni clic: liste unite da virgola, intervalli MIN-MAX, booleani true/false; raggio e mappa_area nel corpo JSON delle POST della mappa",
+  "fonte_catalogo": "configurazione dei filtri nella pagina (webpack modulo 464.e(<nome>) e 45, dump in risultati/scoperta/casait/conf_filtri.json); qObject dal modulo 179; uri da apireq (risultati/scoperta/casait/apireq/*.json)",
+  "filtri": [
+    {
+      "chiave": "contratto",
+      "etichetta": "Tipo di contratto",
+      "gruppo": "contratto",
+      "parametro": "tr",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "Vendita"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "Affitto"
+        },
+        {
+          "valore": "affitto-breve",
+          "etichetta": "Affitto breve (categoria case-vacanza)"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.tr Buttons [vendita, affitto, affitto-breve]; risultati/scoperta/casait/apireq/C.json uri tr=affitto-breve&propertyTypeGroup=case-vacanza; vendita è il contratto di ogni base di prova_mappa e non si può provare contro se stesso [prova_mappa \"affitto\" Trieste vendita: 725->243 (2026-11-03 14:02:23); \"affitto-breve\" Trieste vendita: 725->1 (2026-11-03 14:02:42); \"vendita\" Trieste vendita: 243->725 (2026-11-03 14:02:42)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "affitto-breve",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "comune",
+      "etichetta": "Comune",
+      "gruppo": "luogo",
+      "parametro": "q",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a",
+      "evidenza": "q=<hkey>; hkey da search.resolvedLocations della pagina SEO /vendita/residenziale/<slug>/ (html/seo-milano.html: Milano 9f6485c2); Trieste 967b818a nota dall'HAR [prova_mappa \"Milano\" Trieste vendita: 725->15416 (2026-11-03 14:03:19)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "Milano",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "zona",
+      "etichetta": "Zona di Trieste",
+      "gruppo": "luogo",
+      "parametro": "q",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "altura",
+          "etichetta": "Altura"
+        },
+        {
+          "valore": "baiamonti-valmura",
+          "etichetta": "Baiamonti-Valmura"
+        },
+        {
+          "valore": "barcola",
+          "etichetta": "Barcola"
+        },
+        {
+          "valore": "basovizza",
+          "etichetta": "Basovizza"
+        },
+        {
+          "valore": "borgo-san-sergio",
+          "etichetta": "Borgo San Sergio"
+        },
+        {
+          "valore": "borgo-teresiano-giardino-pubblico",
+          "etichetta": "Borgo Teresiano-Giardino Pubblico"
+        },
+        {
+          "valore": "campanelle-sant-anna-via-costalunga",
+          "etichetta": "Campanelle-Sant'Anna-Via Costalunga"
+        },
+        {
+          "valore": "chiarbola-san-giacomo",
+          "etichetta": "Chiarbola-San Giacomo"
+        },
+        {
+          "valore": "citta-vecchia-san-vito",
+          "etichetta": "Città Vecchia-San Vito"
+        },
+        {
+          "valore": "cologna-universita",
+          "etichetta": "Cologna-Università"
+        },
+        {
+          "valore": "gretta-roiano-scorcola",
+          "etichetta": "Gretta-Roiano-Scorcola"
+        },
+        {
+          "valore": "grignano-miramare",
+          "etichetta": "Grignano-Miramare"
+        },
+        {
+          "valore": "largo-barriera-settefontane",
+          "etichetta": "Largo Barriera-Settefontane"
+        },
+        {
+          "valore": "opicina-banne",
+          "etichetta": "Opicina-Banne"
+        },
+        {
+          "valore": "prosecco-contovello",
+          "etichetta": "Prosecco-Contovello"
+        },
+        {
+          "valore": "rozzol-san-luigi",
+          "etichetta": "Rozzol-San Luigi"
+        },
+        {
+          "valore": "san-giovanni",
+          "etichetta": "San Giovanni"
+        },
+        {
+          "valore": "santa-croce",
+          "etichetta": "Santa Croce"
+        },
+        {
+          "valore": "trebiciano",
+          "etichetta": "Trebiciano"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=bcd789b4",
+      "evidenza": "search.breadcrumbData.dropdown.items della SRP di Trieste (html/srp-trieste.html, 19 zone con hkey); più zone: q=hkey1,hkey2 come le liste nell'uri di apireq; solo comune Trieste [prova_mappa \"citta-vecchia-san-vito\" Trieste vendita: 725->145 (2026-11-03 14:03:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "citta-vecchia-san-vito",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipologia_gruppo",
+      "etichetta": "Categoria",
+      "gruppo": "tipologia",
+      "parametro": "propertyTypeGroup",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "casa",
+          "etichetta": "Casa"
+        },
+        {
+          "valore": "stanza",
+          "etichetta": "Stanza"
+        },
+        {
+          "valore": "box-posto-auto",
+          "etichetta": "Box o posto auto"
+        },
+        {
+          "valore": "cantina-solaio",
+          "etichetta": "Cantina o solaio"
+        },
+        {
+          "valore": "edificio",
+          "etichetta": "Edificio/palazzo"
+        },
+        {
+          "valore": "ufficio",
+          "etichetta": "Ufficio"
+        },
+        {
+          "valore": "commerciale",
+          "etichetta": "Immobile o attività commerciale"
+        },
+        {
+          "valore": "capannone",
+          "etichetta": "Capannone"
+        },
+        {
+          "valore": "terreno",
+          "etichetta": "Terreno"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.propertyTypeGroup Select; Nuova costruzione è la chiave nuova_costruzione; casa, il valore predefinito, si prova contro ufficio con base_filtri [prova_mappa \"casa\" Trieste vendita: 16->725 (2026-11-03 14:04:14); \"stanza\" Trieste affitto: 243->29 (2026-11-03 14:04:33); \"box-posto-auto\" Trieste vendita: 725->75 (2026-11-03 14:04:51); \"cantina-solaio\" Trieste vendita: 725->8 (2026-11-03 14:05:10); \"edificio\" Trieste vendita: 725->12 (2026-11-03 14:05:29); \"ufficio\" Trieste vendita: 725->16 (2026-11-03 14:05:47); \"commerciale\" Trieste vendita: 725->130 (2026-11-03 14:06:06); \"capannone\" Trieste vendita: 725->9 (2026-11-03 14:06:25); \"terreno\" Trieste vendita: 725->32 (2026-11-03 14:06:44)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "casa",
+          "attesa": "diverso",
+          "base_filtri": {
+            "tipologia_gruppo": "ufficio"
+          }
+        },
+        {
+          "valore": "stanza",
+          "attesa": "diverso",
+          "contratto": "affitto"
+        },
+        {
+          "valore": "box-posto-auto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "cantina-solaio",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "edificio",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "ufficio",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "commerciale",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "capannone",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "terreno",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia",
+      "gruppo": "tipologia",
+      "parametro": "propertyTypes",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "appartamento",
+          "etichetta": "Appartamento"
+        },
+        {
+          "valore": "attico-mansarda",
+          "etichetta": "Attico/mansarda"
+        },
+        {
+          "valore": "baita-bungalow-chalet-trullo",
+          "etichetta": "Baita/bungalow/chalet/trullo"
+        },
+        {
+          "valore": "casa-bi-trifamiliare",
+          "etichetta": "Casa bifamiliare"
+        },
+        {
+          "valore": "casa-indipendente",
+          "etichetta": "Casa indipendente"
+        },
+        {
+          "valore": "loft",
+          "etichetta": "Loft"
+        },
+        {
+          "valore": "rustico-casale",
+          "etichetta": "Rustico/casale"
+        },
+        {
+          "valore": "villa",
+          "etichetta": "Villa"
+        },
+        {
+          "valore": "villetta-a-schiera",
+          "etichetta": "Villetta a schiera"
+        },
+        {
+          "valore": "negozio-locale-commerciale",
+          "etichetta": "Negozio/locale commerciale (categoria commerciale)"
+        },
+        {
+          "valore": "attivita-licenza-commerciale",
+          "etichetta": "Attività/licenza (categoria commerciale)"
+        },
+        {
+          "valore": "terreno-agricolo",
+          "etichetta": "Terreno agricolo (categoria terreno)"
+        },
+        {
+          "valore": "terreno-edificabile",
+          "etichetta": "Terreno edificabile (categoria terreno)"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&propertyTypes=appartamento",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.propertyTypes.values per categoria (casa, commerciale, terreno); risultati/scoperta/casait/apireq/A.json uri propertyTypes=appartamento,attico-mansarda; il client mette la categoria della tipologia come fa il select [prova_mappa \"appartamento\" Trieste vendita: 725->564 (2026-11-03 14:07:02); \"attico-mansarda\" Trieste vendita: 725->48 (2026-11-03 14:07:21); \"baita-bungalow-chalet-trullo\" Alberobello vendita: 118->38 (2026-11-03 14:08:17); \"casa-bi-trifamiliare\" Trieste vendita: 725->6 (2026-11-03 14:08:37); \"casa-indipendente\" Trieste vendita: 725->26 (2026-11-03 14:08:56); \"loft\" Milano vendita: 15416->339 (2026-11-03 14:09:14); \"rustico-casale\" a0d22860 vendita: 20703->50 (2026-11-03 14:11:47); \"villa\" Trieste vendita: 725->51 (2026-11-03 14:12:24); \"villetta-a-schiera\" Trieste vendita: 725->23 (2026-11-03 14:12:43); \"negozio-locale-commerciale\" 9f6485c2 vendita: 15416->1327 (2026-11-03 14:13:19); \"attivita-licenza-commerciale\" 9f6485c2 vendita: 15416->591 (2026-11-03 14:13:37); \"terreno-agricolo\" Trieste vendita: 725->12 (2026-11-03 14:13:56); \"terreno-edificabile\" Trieste vendita: 725->20 (2026-11-03 14:14:16)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "appartamento",
+          "attesa": "meno"
+        },
+        {
+          "valore": "attico-mansarda",
+          "attesa": "meno"
+        },
+        {
+          "valore": "baita-bungalow-chalet-trullo",
+          "attesa": "meno",
+          "comune": "Alberobello"
+        },
+        {
+          "valore": "casa-bi-trifamiliare",
+          "attesa": "meno"
+        },
+        {
+          "valore": "casa-indipendente",
+          "attesa": "meno"
+        },
+        {
+          "valore": "loft",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "rustico-casale",
+          "attesa": "meno",
+          "comune": "a0d22860"
+        },
+        {
+          "valore": "villa",
+          "attesa": "meno"
+        },
+        {
+          "valore": "villetta-a-schiera",
+          "attesa": "meno"
+        },
+        {
+          "valore": "negozio-locale-commerciale",
+          "attesa": "diverso",
+          "comune": "9f6485c2"
+        },
+        {
+          "valore": "attivita-licenza-commerciale",
+          "attesa": "diverso",
+          "comune": "9f6485c2"
+        },
+        {
+          "valore": "terreno-agricolo",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "terreno-edificabile",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo minimo",
+      "gruppo": "prezzo",
+      "parametro": "price",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&price=100000-",
+      "evidenza": "risultati/scoperta/casait/apireq/A.json price=100000-300000; HAR price=-300000 [prova_mappa 100000 Trieste vendita: 725->675 (2026-11-03 14:14:34)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100000,
+        "attesa": "meno"
+      },
+      "unita": "EUR"
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo massimo",
+      "gruppo": "prezzo",
+      "parametro": "price",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&price=-300000",
+      "evidenza": "risultati/scoperta/casait/apireq/A.json price=100000-300000; HAR price=-300000 [prova_mappa 300000 Trieste vendita: 725->351 (2026-11-03 14:14:52)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 300000,
+        "attesa": "meno"
+      },
+      "unita": "EUR"
+    },
+    {
+      "chiave": "prezzo_mq_min",
+      "etichetta": "Prezzo al m² minimo",
+      "gruppo": "prezzo",
+      "parametro": "mqPrice",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&mqPrice=2500-",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.mqPrice DnDSlider; risultati/scoperta/casait/apireq/A.json mqPrice=1000-3000 [prova_mappa 2500 Trieste vendita: 725->469 (2026-11-03 14:15:11)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2500,
+        "attesa": "meno"
+      },
+      "unita": "EUR/m²"
+    },
+    {
+      "chiave": "prezzo_mq_max",
+      "etichetta": "Prezzo al m² massimo",
+      "gruppo": "prezzo",
+      "parametro": "mqPrice",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&mqPrice=-2000",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.mqPrice DnDSlider; risultati/scoperta/casait/apireq/A.json mqPrice=1000-3000 [prova_mappa 2000 Trieste vendita: 725->128 (2026-11-03 14:15:30)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2000,
+        "attesa": "meno"
+      },
+      "unita": "EUR/m²"
+    },
+    {
+      "chiave": "rata_mutuo_min",
+      "etichetta": "Rata mutuo minima",
+      "gruppo": "prezzo",
+      "parametro": "payment",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&payment=800-",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.payment DnDSlider; risultati/scoperta/casait/apireq/A.json payment=-800 [prova_mappa 800 Trieste vendita: 725->408 (2026-11-03 14:15:48)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 800,
+        "attesa": "meno"
+      },
+      "unita": "EUR/mese"
+    },
+    {
+      "chiave": "rata_mutuo_max",
+      "etichetta": "Rata mutuo massima",
+      "gruppo": "prezzo",
+      "parametro": "payment",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&payment=-800",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.payment DnDSlider; risultati/scoperta/casait/apireq/A.json payment=-800 [prova_mappa 800 Trieste vendita: 725->302 (2026-11-03 14:16:07)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 800,
+        "attesa": "meno"
+      },
+      "unita": "EUR/mese"
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie minima",
+      "gruppo": "superficie",
+      "parametro": "mq",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&mq=80-",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.mq DnDSlider; risultati/scoperta/casait/apireq/A.json mq=50-120 [prova_mappa 80 Trieste vendita: 725->531 (2026-11-03 14:16:25)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      },
+      "unita": "m²"
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie massima",
+      "gruppo": "superficie",
+      "parametro": "mq",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&mq=-80",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.mq DnDSlider; risultati/scoperta/casait/apireq/A.json mq=50-120 [prova_mappa 80 Trieste vendita: 725->208 (2026-11-03 14:16:43)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      },
+      "unita": "m²"
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Locali minimi",
+      "gruppo": "locali",
+      "parametro": "rooms",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&rooms=3-",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.rooms DnDSlider 1..8; risultati/scoperta/casait/apireq/A.json rooms=2-4 [prova_mappa 3 Trieste vendita: 725->551 (2026-11-03 14:17:01)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 3,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Locali massimi",
+      "gruppo": "locali",
+      "parametro": "rooms",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&rooms=-3",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.rooms DnDSlider 1..8; risultati/scoperta/casait/apireq/A.json rooms=2-4 [prova_mappa 3 Trieste vendita: 725->422 (2026-11-03 14:17:20)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 3,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_min",
+      "etichetta": "Bagni (almeno)",
+      "gruppo": "locali",
+      "parametro": "bathrooms",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 1,
+          "etichetta": "1+"
+        },
+        {
+          "valore": 2,
+          "etichetta": "2+"
+        },
+        {
+          "valore": 3,
+          "etichetta": "3+"
+        },
+        {
+          "valore": 4,
+          "etichetta": "4+"
+        },
+        {
+          "valore": 5,
+          "etichetta": "5+"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&bathrooms=2-",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.bathrooms Buttons 1..5; clic reale 'Filtra per numero di bagni: 2+' -> bathrooms=2- [prova_mappa 2 Trieste vendita: 725->396 (2026-11-03 14:39:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "box_auto",
+      "etichetta": "Box/posti auto (almeno)",
+      "gruppo": "dotazioni",
+      "parametro": "parkingSpaces",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 1,
+          "etichetta": "1+"
+        },
+        {
+          "valore": 2,
+          "etichetta": "2+"
+        },
+        {
+          "valore": 3,
+          "etichetta": "3+"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&parkingSpaces=-1",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.parkingSpaces Buttons 1..3 'Box/posti auto'; risultati/scoperta/casait/apireq/A.json parkingSpaces=1- [prova_mappa 1 Trieste vendita: 725->215 (2026-11-03 14:17:57)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 1,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "anno_costruzione_min",
+      "etichetta": "Anno di costruzione minimo",
+      "gruppo": "edificio",
+      "parametro": "constructionYear",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&constructionYear=2000-",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.constructionYear DnDSlider 1850..2015; risultati/scoperta/casait/apireq/A.json constructionYear=1990- [prova_mappa 2000 Trieste vendita: 725->130 (2026-11-03 14:18:15)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "anno_costruzione_max",
+      "etichetta": "Anno di costruzione massimo",
+      "gruppo": "edificio",
+      "parametro": "constructionYear",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&constructionYear=-1970",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.constructionYear DnDSlider 1850..2015; risultati/scoperta/casait/apireq/A.json constructionYear=1990- [prova_mappa 1970 Trieste vendita: 725->350 (2026-11-03 14:18:34)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 1970,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piano",
+      "etichetta": "Piano",
+      "gruppo": "edificio",
+      "parametro": "level",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "terra",
+          "etichetta": "piano terra (level=0)"
+        },
+        {
+          "valore": "intermedio",
+          "etichetta": "intermedio (level=999)"
+        },
+        {
+          "valore": "ultimo",
+          "etichetta": "ultimo (level=1000)"
+        },
+        {
+          "valore": "1",
+          "etichetta": "almeno 1° (level=1)"
+        },
+        {
+          "valore": "2",
+          "etichetta": "almeno 2° (level=2)"
+        },
+        {
+          "valore": "3",
+          "etichetta": "almeno 3° (level=3)"
+        },
+        {
+          "valore": "4",
+          "etichetta": "almeno 4° (level=4)"
+        },
+        {
+          "valore": "5",
+          "etichetta": "almeno 5° (level=5)"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&level=1000",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.level TwoLevelsButtons; risultati/scoperta/casait/apireq/A.json level=1000 (ultimo), B.json level=0 (piano terra), C.json level=3, D.json level=999 (intermedio) [prova_mappa \"ultimo\" Trieste vendita: 725->116 (2026-11-03 14:18:52)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "ultimo",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ascensore",
+      "etichetta": "Ascensore",
+      "gruppo": "dotazioni",
+      "parametro": "lift",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "si",
+          "etichetta": "sì (lift=true)"
+        },
+        {
+          "valore": "no",
+          "etichetta": "no (lift=false)"
+        },
+        {
+          "valore": "1",
+          "etichetta": "sì, se il piano è almeno 1 (liftIfAtLeast=1)"
+        },
+        {
+          "valore": "2",
+          "etichetta": "sì, se il piano è almeno 2 (liftIfAtLeast=2)"
+        },
+        {
+          "valore": "3",
+          "etichetta": "sì, se il piano è almeno 3 (liftIfAtLeast=3)"
+        },
+        {
+          "valore": "4",
+          "etichetta": "sì, se il piano è almeno 4 (liftIfAtLeast=4)"
+        },
+        {
+          "valore": "5",
+          "etichetta": "sì, se il piano è almeno 5 (liftIfAtLeast=5)"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&lift=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.lift TwoLevelsButtons; risultati/scoperta/casait/apireq/A.json lift=true, C.json lift=false, B.json liftIfAtLeast=2 [prova_mappa \"si\" Trieste vendita: 725->429 (2026-11-03 14:19:10)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "si",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "giardino",
+      "etichetta": "Giardino",
+      "gruppo": "dotazioni",
+      "parametro": "garden",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "comune",
+          "etichetta": "comune"
+        },
+        {
+          "valore": "privato",
+          "etichetta": "privato"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&garden=privato",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.garden MultipleButtons; risultati/scoperta/casait/apireq/A.json garden=privato [prova_mappa \"privato\" Trieste vendita: 725->123 (2026-11-03 14:19:29)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "privato",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "balcone_o_terrazzo",
+      "etichetta": "Balcone o terrazzo",
+      "gruppo": "dotazioni",
+      "parametro": "balconyTerrace",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&balconyTerrace=balcone,terrazzo",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.balconyTerrace MultipleButtons con entrambi i valori; riepilogo UI 'con balcone o terrazzo'; GET con balconyTerrace=balcone,terrazzo: search.apireq filtri balcony:true, terrace:true, totale 726 -> 391 (html/diag-balcone-terrazzo.html) [prova_mappa true Trieste vendita: 725->390 (2026-11-03 14:19:47)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piscina",
+      "etichetta": "Con piscina",
+      "gruppo": "dotazioni",
+      "parametro": "hasSwimmingPool",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&hasSwimmingPool=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.hasSwimmingPool Checkbox; risultati/scoperta/casait/apireq/A.json hasSwimmingPool=true [prova_mappa true Trieste vendita: 725->24 (2026-11-03 14:20:06)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "portineria",
+      "etichetta": "Con portineria",
+      "gruppo": "dotazioni",
+      "parametro": "hasReception",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&hasReception=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.hasReception Checkbox; risultati/scoperta/casait/apireq/A.json hasReception=true [prova_mappa true Trieste vendita: 725->2 (2026-11-03 14:20:25)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "riscaldamento",
+      "etichetta": "Riscaldamento",
+      "gruppo": "impianti",
+      "parametro": "heating",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "centralizzato",
+          "etichetta": "centralizzato"
+        },
+        {
+          "valore": "autonomo",
+          "etichetta": "autonomo"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&heating=autonomo",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.heating MultipleButtons; risultati/scoperta/casait/apireq/A.json heating=autonomo [prova_mappa \"autonomo\" Trieste vendita: 725->413 (2026-11-03 14:20:43)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "autonomo",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "aria_condizionata",
+      "etichetta": "Con aria condizionata",
+      "gruppo": "impianti",
+      "parametro": "hasAC",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&hasAC=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.hasAC Checkbox; risultati/scoperta/casait/apireq/A.json hasAC=true [prova_mappa true Trieste vendita: 725->366 (2026-11-03 14:21:01)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "classe_energetica",
+      "etichetta": "Classe energetica (almeno)",
+      "gruppo": "impianti",
+      "parametro": "energyClass",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "G",
+          "etichetta": "G"
+        },
+        {
+          "valore": "F",
+          "etichetta": "F"
+        },
+        {
+          "valore": "E",
+          "etichetta": "E"
+        },
+        {
+          "valore": "D",
+          "etichetta": "D"
+        },
+        {
+          "valore": "C",
+          "etichetta": "C"
+        },
+        {
+          "valore": "B",
+          "etichetta": "B"
+        },
+        {
+          "valore": "A",
+          "etichetta": "A/A+"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&energyClass=C",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.energyClass Buttons G..A; riepilogo UI 'con classe energetica almeno X'; risultati/scoperta/casait/apireq/A.json energyClass=C [prova_mappa \"C\" Trieste vendita: 725->203 (2026-11-03 14:21:19)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "C",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "stato_immobile",
+      "etichetta": "Condizioni immobile",
+      "gruppo": "stato",
+      "parametro": "condition",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "nuovo-ristrutturato",
+          "etichetta": "nuovo/ottimo (condition=nuovo,ristrutturato)"
+        },
+        {
+          "valore": "abitabile",
+          "etichetta": "buono/abitabile"
+        },
+        {
+          "valore": "da-ristrutturare",
+          "etichetta": "da ristrutturare"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&condition=da-ristrutturare",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.condition MultipleButtons; modulo 179 nuovo-ristrutturato -> [nuovo, ristrutturato]; risultati/scoperta/casait/apireq/A.json condition=nuovo,ristrutturato,da-ristrutturare, B.json condition=abitabile [prova_mappa \"da-ristrutturare\" Trieste vendita: 725->54 (2026-11-03 14:21:38)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "da-ristrutturare",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "arredato",
+      "etichetta": "Arredamento",
+      "gruppo": "stato",
+      "parametro": "furniture",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "no",
+          "etichetta": "non arredato"
+        },
+        {
+          "valore": "parzialmente",
+          "etichetta": "solo cucina"
+        },
+        {
+          "valore": "completamente",
+          "etichetta": "arredato"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&furniture=completamente",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.furniture MultipleButtons; risultati/scoperta/casait/apireq/A.json furniture=completamente, B.json furniture=no,parzialmente [prova_mappa \"completamente\" Trieste affitto: 243->216 (2026-11-03 14:22:16)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "completamente",
+        "attesa": "meno",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "occupato",
+      "etichetta": "Occupato al rogito",
+      "gruppo": "disponibilita",
+      "parametro": "availability",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&availability=occupato",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.availability Select [occupato, libero, nuda-proprieta, affittato]; risultati/scoperta/casait/apireq/A.json availability=libero; una sola tra occupato, libero, nuda_proprieta, a_reddito [prova_mappa true Trieste vendita: 725->27 (2026-11-03 14:22:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "libero",
+      "etichetta": "Libero al rogito",
+      "gruppo": "disponibilita",
+      "parametro": "availability",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&availability=libero",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.availability Select; risultati/scoperta/casait/apireq/A.json availability=libero [prova_mappa true Trieste vendita: 725->553 (2026-11-03 14:22:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "etichetta": "Nuda proprietà",
+      "gruppo": "disponibilita",
+      "parametro": "availability",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&availability=nuda-proprieta",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.availability Select; risultati/scoperta/casait/apireq/B.json availability=nuda-proprieta [prova_mappa true 9f6485c2 vendita: 15416->227 (2026-11-03 14:23:15)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "9f6485c2"
+      }
+    },
+    {
+      "chiave": "a_reddito",
+      "etichetta": "Affittato al rogito (a reddito)",
+      "gruppo": "disponibilita",
+      "parametro": "availability",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&availability=affittato",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.availability Select 'affittato'; riepilogo UI 'affittato al rogito' [prova_mappa true 9f6485c2 vendita: 15416->258 (2026-11-03 14:23:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "9f6485c2"
+      }
+    },
+    {
+      "chiave": "escludi_in_costruzione",
+      "etichetta": "Escludi immobili in costruzione",
+      "gruppo": "stato",
+      "parametro": "isUnderConstruction",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&isUnderConstruction=false",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.isUnderConstruction Checkbox 'escludi immobili in costruzione'; risultati/scoperta/casait/apireq/A.json isUnderConstruction=false [prova_mappa true Trieste vendita: 725->679 (2026-11-03 14:29:10)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "etichetta": "Nuova costruzione",
+      "gruppo": "tipologia",
+      "parametro": "propertyTypeGroup",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&propertyTypeGroup=nuova-costruzione",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.propertyTypeGroup valore nuova-costruzione; risultati/scoperta/casait/apireq/D.json propertyTypeGroup=nuova-costruzione; newBuilding non entra nell'URL (A.json) [prova_mappa true Trieste vendita: 725->98 (2026-11-03 14:23:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "immobili_di_prestigio",
+      "etichetta": "Solo immobili di prestigio",
+      "gruppo": "stato",
+      "parametro": "isLux",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&isLux=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.isLux Checkbox; risultati/scoperta/casait/apireq/A.json isLux=true [prova_mappa true Trieste vendita: 725->14 (2026-11-03 14:24:12)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "escludi_trattative_riservate",
+      "etichetta": "Escludi trattative riservate",
+      "gruppo": "prezzo",
+      "parametro": "isPrivateNegotiation",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&isPrivateNegotiation=false",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.excludePrivateNegotiation Checkbox; modulo 179 -> isPrivateNegotiation=false; risultati/scoperta/casait/apireq/A.json [prova_mappa true Trieste vendita: 725->710 (2026-11-03 14:29:29)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "solo_trattative_riservate",
+      "etichetta": "Solo trattative riservate",
+      "gruppo": "prezzo",
+      "parametro": "isPrivateNegotiation",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&isPrivateNegotiation=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.onlyPrivateNegotiation Checkbox; modulo 179 -> isPrivateNegotiation=true; risultati/scoperta/casait/apireq/B.json [prova_mappa true Trieste vendita: 725->15 (2026-11-03 14:29:48)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "asta",
+      "etichetta": "Aste",
+      "gruppo": "stato",
+      "parametro": "isAuction",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "solo",
+          "etichetta": "solo aste (isAuction=true)"
+        },
+        {
+          "valore": "escludi",
+          "etichetta": "escludi aste (isAuction=false)"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&isAuction=false",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.isAuction Buttons [indifferente, solo aste, escludi aste]; risultati/scoperta/casait/apireq/A.json isAuction=false, B.json isAuction=true [prova_mappa \"escludi\" Trieste vendita: 725->705 (2026-11-03 14:24:31)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "escludi",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_foto",
+      "etichetta": "Solo annunci con foto",
+      "gruppo": "media",
+      "parametro": "hasPhoto",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&hasPhoto=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.hasPhoto Checkbox; risultati/scoperta/casait/apireq/A.json hasPhoto=true [prova_mappa true Trieste vendita: 725->722 (2026-11-03 14:24:50)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "etichetta": "Con visita guidata",
+      "gruppo": "media",
+      "parametro": "hasVirtualTour",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&hasVirtualTour=true",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.hasVirtualTour Checkbox 'con visita guidata'; risultati/scoperta/casait/apireq/A.json hasVirtualTour=true [prova_mappa true Trieste vendita: 725->133 (2026-11-03 14:25:08)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "pubblicato_da",
+      "etichetta": "Tipo di inserzionista",
+      "gruppo": "inserzionista",
+      "parametro": "publisher",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "agenzie",
+          "etichetta": "agenzie"
+        },
+        {
+          "valore": "privati",
+          "etichetta": "privati"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&publisher=agenzie",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.publisher Buttons; risultati/scoperta/casait/apireq/A.json publisher=privati, C.json publisher=agenzie [prova_mappa \"agenzie\" Trieste vendita: 725->711 (2026-11-03 14:25:27)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "agenzie",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "da_privato",
+      "etichetta": "Da privato",
+      "gruppo": "inserzionista",
+      "parametro": "publisher",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&publisher=privati",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.publisher valore privati; risultati/scoperta/casait/apireq/A.json publisher=privati; stessa leva di pubblicato_da=privati [prova_mappa true 9f6485c2 vendita: 15416->192 (2026-11-03 14:25:46)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "9f6485c2"
+      }
+    },
+    {
+      "chiave": "data_pubblicazione",
+      "etichetta": "Data di pubblicazione",
+      "gruppo": "inserzionista",
+      "parametro": "publicationDt",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "2d",
+          "etichetta": "ultime 48 ore"
+        },
+        {
+          "valore": "7d",
+          "etichetta": "ultima settimana"
+        },
+        {
+          "valore": "30d",
+          "etichetta": "ultimo mese"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&publicationDt=7d",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.publicationDt Select; risultati/scoperta/casait/apireq/A.json publicationDt=7d [prova_mappa \"7d\" Trieste vendita: 725->52 (2026-11-03 14:26:05)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "7d",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipo_affitto",
+      "etichetta": "Tipo di affitto",
+      "gruppo": "contratto",
+      "parametro": "rentType",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "residential",
+          "etichetta": "a lungo termine"
+        },
+        {
+          "valore": "seasonalRental",
+          "etichetta": "transitorio"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=affitto&propertyTypeGroup=casa&q=967b818a&rentType=residential",
+      "evidenza": "risultati/scoperta/casait/conf_filtri.json conf.rentType Buttons (solo affitto); risultati/scoperta/casait/apireq/B.json rentType=residential [prova_mappa \"seasonalRental\" Trieste affitto: 243->54 (2026-11-03 14:26:23)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "seasonalRental",
+        "attesa": "meno",
+        "contratto": "affitto"
+      }
+    },
+    {
+      "chiave": "raggio",
+      "etichetta": "Raggio in metri dal centro del comune",
+      "gruppo": "luogo",
+      "parametro": "geocircle",
+      "posizione": "corpo",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "POST https://www.casa.it/portal-srp/api/v1/apireq {\"qObject\":{\"tr\":\"vendita\",\"propertyTypeGroup\":\"casa\",\"geocircle\":[{\"circle\":{\"center\":[45.6639954690306,13.7985718962732],\"radius\":1000}}]},\"pageType\":\"searchMap\",...} poi POST /portal-srp/api/v1/search-map con la sua risposta apireq",
+      "evidenza": "mappa /srp/map, strumento cerchio: bundle/common.js geocircle:[{circle:{center:[lat,lng],radius}}] con q:null; mappa/searchMap.js: POST apireq pageType searchMap, poi POST search-map con apireq+uri+queryParameters. GET /srp con geocircle risponde 503. Sonda 03/11 (mappa/cerchio-apireq.json, cerchio-searchmap.json): centro di Trieste da resolvedLocations, 1000 m: 24 annunci, i 20 letti tutti entro 1000 m (426-988 m) [prova_mappa 1000 Trieste vendita: 725->24 (2026-11-03 14:26:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 1000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Area disegnata sulla mappa (lat,lon;lat,lon;...)",
+      "gruppo": "luogo",
+      "parametro": "geopolygon",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "POST https://www.casa.it/portal-srp/api/v1/apireq {\"qObject\":{\"tr\":\"vendita\",\"propertyTypeGroup\":\"casa\",\"geopolygon\":[{\"polygon\":[[45.66,13.76],[45.67,13.79],[45.645,13.795],[45.64,13.77]]}]},\"pageType\":\"searchMap\",...} poi POST /portal-srp/api/v1/search-map",
+      "evidenza": "mappa /srp/map, strumento disegno: bundle/common.js geopolygon:[{polygon:[[lat,lng],...]}] con q:null; stesse due POST del raggio (mappa/searchMap.js). Sonda 03/11 (mappa/poligono-apireq.json, poligono-searchmap.json): 379 annunci, i 20 letti tutti dentro il poligono [prova_mappa \"45.6600,13.7600;45.6700,13.7900;45.6450,13.7950;45.6400,13.7700\" Trieste vendita: 725->379 (2026-11-03 14:27:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.6600,13.7600;45.6700,13.7900;45.6450,13.7950;45.6400,13.7700",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina per",
+      "gruppo": "ordinamento",
+      "parametro": "sortType",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "relevance",
+          "etichetta": "Più rilevanti"
+        },
+        {
+          "valore": "date-desc",
+          "etichetta": "Data più recente"
+        },
+        {
+          "valore": "date-asc",
+          "etichetta": "Data meno recente"
+        },
+        {
+          "valore": "price-asc",
+          "etichetta": "Prezzo - dal più basso"
+        },
+        {
+          "valore": "price-desc",
+          "etichetta": "Prezzo - dal più alto"
+        },
+        {
+          "valore": "surface-asc",
+          "etichetta": "Superficie - dalla minore"
+        },
+        {
+          "valore": "surface-desc",
+          "etichetta": "Superficie - dalla maggiore"
+        }
+      ],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&sortType=date-desc",
+      "evidenza": "modulo 45.h realEstate; clic reale 'Data più recente' -> sortType=date-desc; apireq/B.json sortType=surface-desc [prova_mappa \"date-desc\" Trieste vendita: 725->725 (2026-11-03 14:27:34)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "date-desc",
+        "attesa": "ordine_diverso"
+      }
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "paginazione",
+      "parametro": "page",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.casa.it/srp?tr=vendita&propertyTypeGroup=casa&q=967b818a&page=2",
+      "evidenza": "HAR voce 2 pagina 2; search.paginator 20 annunci per pagina [prova_mappa 2 Trieste vendita: 725->725 (2026-11-03 14:27:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    }
+  ],
+  "assenti": [
+    {
+      "chiave": "posto_auto",
+      "evidenza": "SRP casa.it Trieste, 03/11/2026: configurazione completa dei filtri della pagina (modulo webpack 464.e, risultati/scoperta/casait/conf_filtri.json, 42 controlli) e pannello filtri SSR: un solo controllo 'Box/posti auto' (parkingSpaces), mappato come box_auto; nessun filtro separato per il posto auto"
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "SRP casa.it Trieste, 03/11/2026: configurazione completa dei filtri della pagina (modulo webpack 464.e, risultati/scoperta/casait/conf_filtri.json, 42 controlli) e pannello filtri SSR: nessun filtro 'con cantina' tra gli attributi; Cantina o solaio esiste solo come categoria (tipologia_gruppo=cantina-solaio)"
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "SRP casa.it Trieste, 03/11/2026: configurazione completa dei filtri della pagina (modulo webpack 464.e, risultati/scoperta/casait/conf_filtri.json, 42 controlli) e pannello filtri SSR: nessun controllo vista mare"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "SRP casa.it Trieste, 03/11/2026: configurazione completa dei filtri della pagina (modulo webpack 464.e, risultati/scoperta/casait/conf_filtri.json, 42 controlli) e pannello filtri SSR: nessun controllo 'con planimetria' (solo con foto e con visita guidata)"
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "SRP casa.it Trieste, 03/11/2026: configurazione completa dei filtri della pagina (modulo webpack 464.e, risultati/scoperta/casait/conf_filtri.json, 42 controlli) e pannello filtri SSR: nessun controllo 'con video'; hasVirtualTour è 'con visita guidata', mappato come con_virtual_tour"
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "SRP casa.it Trieste, 03/11/2026: configurazione completa dei filtri della pagina (modulo webpack 464.e, risultati/scoperta/casait/conf_filtri.json, 42 controlli) e pannello filtri SSR: nessun controllo per i prezzi ribassati"
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "SRP casa.it Trieste, 03/11/2026: configurazione completa dei filtri della pagina (modulo webpack 464.e, risultati/scoperta/casait/conf_filtri.json, 42 controlli) e pannello filtri SSR: nessun campo di testo libero nel pannello filtri"
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "misura 03/11/2026 su Trieste vendita: la base dà 726; balconyTerrace=balcone nell'URL /srp dà 726 in tutte le forme provate (=balcone, =balcone, con virgola finale, balcony=true, chiave ripetuta, balconyTerrace[]=balcone) e search.apireq resta senza il filtro (risultati/scoperta/casait/html/diag-balcone.html, diag-balcone-virgola.html, diag-balcony-true.html, diag-balcone-doppio.html, diag-balcone-quadre.html); con i due valori insieme balconyTerrace=balcone,terrazzo dà 391 (diag-balcone-terrazzo.html), voce balcone_o_terrazzo. L'interfaccia mostra il bottone ma il server non applica il valore da solo: il client solleva ValueError e indica balcone_o_terrazzo"
+    },
+    {
+      "chiave": "terrazzo",
+      "evidenza": "misura 03/11/2026 su Trieste vendita: la base dà 726; balconyTerrace=terrazzo nell'URL /srp dà 726 in tutte le forme provate (stesse forme del balcone, il controllo è lo stesso MultipleButtons) e search.apireq resta senza il filtro (risultati/scoperta/casait/html/diag-balcone.html, diag-balcone-virgola.html, diag-balcony-true.html, diag-balcone-doppio.html, diag-balcone-quadre.html); con i due valori insieme balconyTerrace=balcone,terrazzo dà 391 (diag-balcone-terrazzo.html), voce balcone_o_terrazzo. L'interfaccia mostra il bottone ma il server non applica il valore da solo: il client solleva ValueError e indica balcone_o_terrazzo"
+    }
+  ],
+  "non_trovati": [
+    "Filtri solo commerciali (con mura includes_property_ownership, licenseTypeGroups, officeType, commercial_building_location): esistono solo con categoria commerciale/ufficio; non mappati perché prova_mappa confronta sempre con la base casa e una prova misurerebbe il cambio di categoria, non il filtro",
+    "Vicino a (poi: scuole, supermercati, farmacie...; nearby: tempo di percorrenza da un indirizzo): chiede un punto o un indirizzo; non mappato"
+  ],
+  "note": "Comune: q=<hkey>, hkey letto da /vendita/residenziale/<slug>/ (search.resolvedLocations, livello 9). Zona: hkey delle zone di Trieste, sostituisce q. raggio e mappa_area sostituiscono q come fa la mappa e passano dalle due POST della mappa (apireq con pageType searchMap, poi search-map): GET /srp con geocircle risponde 503. contratto=vendita si prova con base_contratto affitto, tipologia_gruppo=casa con base_filtri tipologia_gruppo=ufficio. Voci tolte il 03/11: tipo_prezzo (priceType non entra nell'URL), nuova_costruzione su newBuilding (non entra nell'URL, sostituita da propertyTypeGroup=nuova-costruzione), prezzo_al_mq/rata_mutuo/anno_costruzione a intervallo (divise in _min e _max). 20 annunci per pagina. Il 03/11 balcone e terrazzo spostati in assenti (il server non li applica da soli, misura nell'evidenza): resta balcone_o_terrazzo. La prova del comune Muggia (APPLICATO il 03/11 13:04, con il client di allora) tolta per stare nel budget di richieste: resta Milano. Nelle prove di tipologia (rustico, negozio, attività), nuda_proprieta, a_reddito e da_privato il comune è l'hkey (Milano 9f6485c2, Roma a0d22860): il client lo accetta e non rilegge la pagina SEO."
+}

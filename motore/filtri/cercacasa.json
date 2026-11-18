@@ -1,0 +1,1459 @@
+{
+  "portale": "cercacasa",
+  "descrizione": "Portale nazionale di annunci: a Trieste circa 285 case in vendita il 03/11/2026, con filtri di dettaglio (contesto, cucina, taverna, tipo di giardino).",
+  "url_base_ricerca": "https://cercacasa.it/vendita/comune-trieste",
+  "come_si_applicano": "misto",
+  "fonte_catalogo": "bundle Angular chunk-DNGZVUUF.js (filtersList, FILTER_*, LIST_OF_TYPOLOGY, generateSearchURL), chunk-E2ZEOSNC.js (generateQueryParams), chunk-6YYY7NMW.js (lettura dei parametri lato SSR); copie in risultati/scoperta/cercacasa/",
+  "filtri": [
+    {
+      "chiave": "contratto",
+      "etichetta": "Vendita / Affitto",
+      "gruppo": "contratto",
+      "parametro": "segmento 1 del percorso",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "Vendita"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "Affitto"
+        }
+      ],
+      "esempio": "https://cercacasa.it/affitto/comune-trieste",
+      "evidenza": "HAR voce 0 /vendita/provincia-trieste e bottoni Vendita/Affitto (setSearchQueryTypeTo); sonda /affitto/comune-trieste 86 [prova_mappa \"affitto\" Trieste vendita: 286->86 (2026-11-03 14:44:02)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "comune",
+      "etichetta": "Luogo (comune, 'Provincia di X', 'Regione X' o '*' per tutta Italia)",
+      "gruppo": "luogo",
+      "parametro": "segmento 2 del percorso comune-<nome> | provincia-<nome>",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-milano",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-DNGZVUUF.js generateSearchURL (/regione-, /provincia-, /comune-, /zona-) e V()= spazi in '-', minuscolo; sonda comune-trieste 286, provincia-trieste 377, regione-lombardia/nuove 7, regione-lazio/stanze 3 [prova_mappa \"Milano\" Trieste vendita: 286->699 (2026-11-03 14:44:12)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "Milano",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "zona",
+      "etichetta": "Zone di Trieste",
+      "gruppo": "luogo",
+      "parametro": "segmento 2 del percorso zona-<slug>[,<slug>...]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "altura-trieste",
+          "etichetta": "Altura"
+        },
+        {
+          "valore": "baiamonti-valmaura-trieste",
+          "etichetta": "Baiamonti - Valmaura"
+        },
+        {
+          "valore": "barcola-trieste",
+          "etichetta": "Barcola"
+        },
+        {
+          "valore": "basovizza-trebiciano-trieste",
+          "etichetta": "Basovizza - Trebiciano"
+        },
+        {
+          "valore": "borgo-san-sergio-trieste",
+          "etichetta": "Borgo San Sergio"
+        },
+        {
+          "valore": "borgo-teresiano-trieste",
+          "etichetta": "Borgo Teresiano"
+        },
+        {
+          "valore": "campanelle-costalunga-trieste",
+          "etichetta": "Campanelle - Costalunga"
+        },
+        {
+          "valore": "chiarbola-ponziana-trieste",
+          "etichetta": "Chiarbola - Ponziana"
+        },
+        {
+          "valore": "citta-vecchia-trieste",
+          "etichetta": "Città Vecchia"
+        },
+        {
+          "valore": "cologna-universita-trieste",
+          "etichetta": "Cologna - Università"
+        },
+        {
+          "valore": "conconello-trieste",
+          "etichetta": "Conconello"
+        },
+        {
+          "valore": "costiera-grignano-trieste",
+          "etichetta": "Costiera - Grignano"
+        },
+        {
+          "valore": "giardino-pubblico-trieste",
+          "etichetta": "Giardino Pubblico"
+        },
+        {
+          "valore": "gretta-trieste",
+          "etichetta": "Gretta"
+        },
+        {
+          "valore": "largo-barriera-ospedale-maggiore-trieste",
+          "etichetta": "Largo Barriera - Ospedale Maggiore"
+        },
+        {
+          "valore": "longera-trieste",
+          "etichetta": "Longera"
+        },
+        {
+          "valore": "opicina-trieste",
+          "etichetta": "Opicina"
+        },
+        {
+          "valore": "prosecco-trieste",
+          "etichetta": "Prosecco"
+        },
+        {
+          "valore": "roiano-trieste",
+          "etichetta": "Roiano"
+        },
+        {
+          "valore": "san-giacomo-trieste",
+          "etichetta": "San Giacomo"
+        },
+        {
+          "valore": "san-giovanni-trieste",
+          "etichetta": "San Giovanni"
+        },
+        {
+          "valore": "san-luigi-rozzol-trieste",
+          "etichetta": "San Luigi - Rozzol"
+        },
+        {
+          "valore": "san-vito-campi-elisi-trieste",
+          "etichetta": "San Vito - Campi Elisi"
+        },
+        {
+          "valore": "santa-croce-trieste",
+          "etichetta": "Santa Croce"
+        },
+        {
+          "valore": "sant'anna-trieste",
+          "etichetta": "Sant'Anna"
+        },
+        {
+          "valore": "scorcola-trieste",
+          "etichetta": "Scorcola"
+        },
+        {
+          "valore": "settefontane-trieste",
+          "etichetta": "Settefontane"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/zona-san-giacomo-trieste,roiano-trieste",
+      "evidenza": "risultati/scoperta/cercacasa/zone-trieste.json (api/zones/search?query=Trieste, figli 'Zona' del comune) e chunk-E2ZEOSNC.js applySearch (cityZonesSelected -> searchZona, comune azzerato); sonda 10 e 25 annunci [prova_mappa [\"san-giacomo-trieste\"] Trieste vendita: 286->10 (2026-11-03 14:44:22)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": [
+            "san-giacomo-trieste"
+          ],
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia (categoria)",
+      "gruppo": "tipologia",
+      "parametro": "segmento 3 del percorso <id categoria>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "case",
+          "etichetta": "Case"
+        },
+        {
+          "valore": "nuove",
+          "etichetta": "Nuove Costruzioni"
+        },
+        {
+          "valore": "garage",
+          "etichetta": "Garage"
+        },
+        {
+          "valore": "commerciali",
+          "etichetta": "Attività commerciali"
+        },
+        {
+          "valore": "magazzini",
+          "etichetta": "Magazzini"
+        },
+        {
+          "valore": "terreni",
+          "etichetta": "Terreni"
+        },
+        {
+          "valore": "stanze",
+          "etichetta": "Stanze"
+        },
+        {
+          "valore": "altro",
+          "etichetta": "Altro"
+        },
+        {
+          "valore": "vacanze",
+          "etichetta": "Vacanze"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste/garage",
+      "evidenza": "risultati/scoperta/cercacasa/tipologie.json (P.LIST_OF_TYPOLOGY) e chunk-DNGZVUUF.js generateSearchURL (categoria intera -> id); sonda /comune-trieste/garage 20 [prova_mappa \"case\" Trieste vendita: 286->198 (2026-11-03 14:44:33); \"nuove\" Regione Lombardia vendita: 13200->7 (2026-11-03 14:44:53); \"garage\" Trieste vendita: 286->20 (2026-11-03 14:45:03); \"commerciali\" Trieste vendita: 286->48 (2026-11-03 14:45:14); \"magazzini\" Trieste vendita: 286->8 (2026-11-03 14:45:24); \"terreni\" Trieste vendita: 286->3 (2026-11-03 14:45:34); \"stanze\" Regione Lazio affitto: 956->3 (2026-11-03 14:45:55); \"altro\" Trieste vendita: 286->9 (2026-11-03 14:46:05); \"vacanze\" Roma vendita: 1538->1 (2026-11-03 14:46:25)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "case",
+          "attesa": "meno"
+        },
+        {
+          "valore": "nuove",
+          "attesa": "meno",
+          "comune": "Regione Lombardia"
+        },
+        {
+          "valore": "garage",
+          "attesa": "meno"
+        },
+        {
+          "valore": "commerciali",
+          "attesa": "meno"
+        },
+        {
+          "valore": "magazzini",
+          "attesa": "meno"
+        },
+        {
+          "valore": "terreni",
+          "attesa": "meno"
+        },
+        {
+          "valore": "stanze",
+          "attesa": "meno",
+          "comune": "Regione Lazio",
+          "contratto": "affitto"
+        },
+        {
+          "valore": "altro",
+          "attesa": "meno"
+        },
+        {
+          "valore": "vacanze",
+          "attesa": "meno",
+          "comune": "Roma"
+        }
+      ]
+    },
+    {
+      "chiave": "sottotipologia",
+      "etichetta": "Tipologie (voci del menu)",
+      "gruppo": "tipologia",
+      "parametro": "segmento 3 del percorso <valore>[,<valore>...]",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "appartamenti",
+          "etichetta": "Case: Appartamenti"
+        },
+        {
+          "valore": "attici",
+          "etichetta": "Case: Attici"
+        },
+        {
+          "valore": "baite",
+          "etichetta": "Case: Baite"
+        },
+        {
+          "valore": "bifamiliari",
+          "etichetta": "Case: Bifamiliare"
+        },
+        {
+          "valore": "case-semi-indipendenti",
+          "etichetta": "Case: Case Semi-indipendenti"
+        },
+        {
+          "valore": "case-indipendenti",
+          "etichetta": "Case: Case Indipendenti"
+        },
+        {
+          "valore": "tenuta-complesso",
+          "etichetta": "Case: Tenuta Complesso"
+        },
+        {
+          "valore": "terratetti",
+          "etichetta": "Case: Terratetti"
+        },
+        {
+          "valore": "castelli",
+          "etichetta": "Case: Castelli"
+        },
+        {
+          "valore": "case-coloniche",
+          "etichetta": "Case: Case Coloniche"
+        },
+        {
+          "valore": "loft",
+          "etichetta": "Case: Loft"
+        },
+        {
+          "valore": "mansarde",
+          "etichetta": "Case: Mansarde"
+        },
+        {
+          "valore": "multiproprieta",
+          "etichetta": "Case: Multiproprieta"
+        },
+        {
+          "valore": "palazzi",
+          "etichetta": "Case: Palazzi"
+        },
+        {
+          "valore": "residence",
+          "etichetta": "Case: Residence"
+        },
+        {
+          "valore": "rustici-casali",
+          "etichetta": "Case: Rustici Casali"
+        },
+        {
+          "valore": "ville",
+          "etichetta": "Case: Ville"
+        },
+        {
+          "valore": "ville-a-schiera",
+          "etichetta": "Case: Ville a Schiera"
+        },
+        {
+          "valore": "masserie",
+          "etichetta": "Case: Masserie"
+        },
+        {
+          "valore": "case-singole",
+          "etichetta": "Case: Case Singole"
+        },
+        {
+          "valore": "porzione-di-casa",
+          "etichetta": "Case: Porzione di casa"
+        },
+        {
+          "valore": "abitazione-tipica",
+          "etichetta": "Case: Abitazione tipica"
+        },
+        {
+          "valore": "trulli",
+          "etichetta": "Case: Trulli"
+        },
+        {
+          "valore": "vacanza-trulli",
+          "etichetta": "Case: Vacanza Trulli"
+        },
+        {
+          "valore": "porzione-di-villa",
+          "etichetta": "Case: Porzione di villa"
+        },
+        {
+          "valore": "nuove-costruzioni",
+          "etichetta": "Nuove Costruzioni: Nuove Costruzioni"
+        },
+        {
+          "valore": "box",
+          "etichetta": "Garage: Box"
+        },
+        {
+          "valore": "posto-auto",
+          "etichetta": "Garage: Posto Auto"
+        },
+        {
+          "valore": "garage",
+          "etichetta": "Garage: Garage"
+        },
+        {
+          "valore": "albergo",
+          "etichetta": "Attività commerciali: Albergo"
+        },
+        {
+          "valore": "uffici",
+          "etichetta": "Attività commerciali: Uffici"
+        },
+        {
+          "valore": "hotel",
+          "etichetta": "Attività commerciali: Hotel"
+        },
+        {
+          "valore": "laboratori",
+          "etichetta": "Attività commerciali: Laboratori"
+        },
+        {
+          "valore": "locali-commerciali",
+          "etichetta": "Attività commerciali: Locali Commerciali"
+        },
+        {
+          "valore": "negozi",
+          "etichetta": "Attività commerciali: Negozi"
+        },
+        {
+          "valore": "pizzerie-pub",
+          "etichetta": "Attività commerciali: Pizzerie / Pub"
+        },
+        {
+          "valore": "ristorante-pizzeria-pub",
+          "etichetta": "Attività commerciali: Ristorante / Pizzerie / Pub"
+        },
+        {
+          "valore": "attivita-commerciali",
+          "etichetta": "Attività commerciali: Attività Commerciali"
+        },
+        {
+          "valore": "aziende-agricole",
+          "etichetta": "Attività commerciali: Aziende Agricole"
+        },
+        {
+          "valore": "bar",
+          "etichetta": "Attività commerciali: Bar"
+        },
+        {
+          "valore": "ristoranti",
+          "etichetta": "Attività commerciali: Ristoranti"
+        },
+        {
+          "valore": "stabili",
+          "etichetta": "Attività commerciali: Stabili"
+        },
+        {
+          "valore": "stabilimento-balneare",
+          "etichetta": "Attività commerciali: Stabilimento Balneare"
+        },
+        {
+          "valore": "agriturismi",
+          "etichetta": "Attività commerciali: Agriturismi"
+        },
+        {
+          "valore": "capannoni-industriali",
+          "etichetta": "Attività commerciali: Capannoni Industriali"
+        },
+        {
+          "valore": "forni",
+          "etichetta": "Attività commerciali: Forni"
+        },
+        {
+          "valore": "immobile-storico",
+          "etichetta": "Attività commerciali: Immobile Storico"
+        },
+        {
+          "valore": "tabaccheria",
+          "etichetta": "Attività commerciali: Tabaccheria"
+        },
+        {
+          "valore": "sala-giochi-scommesse",
+          "etichetta": "Attività commerciali: Sala e Giochi Scommesse"
+        },
+        {
+          "valore": "alimentari",
+          "etichetta": "Attività commerciali: Negozio di alimentari"
+        },
+        {
+          "valore": "abbigliamento",
+          "etichetta": "Attività commerciali: Negozio di abbigliamento"
+        },
+        {
+          "valore": "pizza-al-taglio",
+          "etichetta": "Attività commerciali: Pizza al taglio"
+        },
+        {
+          "valore": "parrucchiere",
+          "etichetta": "Attività commerciali: Parrucchiere"
+        },
+        {
+          "valore": "palestra",
+          "etichetta": "Attività commerciali: Palestra"
+        },
+        {
+          "valore": "lavanderia-tintoria",
+          "etichetta": "Attività commerciali: Lavanderia / Tintoria"
+        },
+        {
+          "valore": "gelateria",
+          "etichetta": "Attività commerciali: Gelateria"
+        },
+        {
+          "valore": "fabbricato-misto",
+          "etichetta": "Attività commerciali: Fabbricato Misto"
+        },
+        {
+          "valore": "edicola",
+          "etichetta": "Attività commerciali: Edicola"
+        },
+        {
+          "valore": "discoteca",
+          "etichetta": "Attività commerciali: Discoteca"
+        },
+        {
+          "valore": "centro-estetico",
+          "etichetta": "Attività commerciali: Centro Estetico"
+        },
+        {
+          "valore": "bed-breakfast",
+          "etichetta": "Attività commerciali: Bed and Breakfast"
+        },
+        {
+          "valore": "magazzini",
+          "etichetta": "Magazzini: Magazzini"
+        },
+        {
+          "valore": "terreno-industriale",
+          "etichetta": "Terreni: Terreno Industriale"
+        },
+        {
+          "valore": "annesso-agricolo",
+          "etichetta": "Terreni: Annesso Agricolo"
+        },
+        {
+          "valore": "terreni",
+          "etichetta": "Terreni: Terreni"
+        },
+        {
+          "valore": "terreno-agricolo",
+          "etichetta": "Terreni: Terreno Agricolo"
+        },
+        {
+          "valore": "terreno-edificabile",
+          "etichetta": "Terreni: Terreno Edificabile"
+        },
+        {
+          "valore": "terreno-edificabile-commerciale",
+          "etichetta": "Terreni: Terreno Edificabile Commerciale"
+        },
+        {
+          "valore": "terreno-edificabile-produttivo",
+          "etichetta": "Terreni: Terreno Edificabile Produttivo"
+        },
+        {
+          "valore": "stanza-camera",
+          "etichetta": "Stanze: Stanza Camera"
+        },
+        {
+          "valore": "posto-barca",
+          "etichetta": "Altro: Posto Barca"
+        },
+        {
+          "valore": "qualsiasi-tipo",
+          "etichetta": "Altro: Qualsiasi tipo"
+        },
+        {
+          "valore": "altro",
+          "etichetta": "Altro: Altro"
+        },
+        {
+          "valore": "bungalow-piazzola",
+          "etichetta": "Altro: Bungalow Piazzola"
+        },
+        {
+          "valore": "pertinenze",
+          "etichetta": "Altro: Pertinenze"
+        },
+        {
+          "valore": "non-definito",
+          "etichetta": "Altro: Non definito"
+        },
+        {
+          "valore": "vacanza-stanza-camera",
+          "etichetta": "Vacanze: Camera"
+        },
+        {
+          "valore": "vacanza-casa-singola",
+          "etichetta": "Vacanze: Casa Singola"
+        },
+        {
+          "valore": "vacanza-masseria",
+          "etichetta": "Vacanze: Vacanza Masseria"
+        },
+        {
+          "valore": "vacanza-villa",
+          "etichetta": "Vacanze: Vacanza Villa"
+        },
+        {
+          "valore": "vacanza-villa-a-schiera",
+          "etichetta": "Vacanze: Vacanza Villa a schiera"
+        },
+        {
+          "valore": "vacanza-villino",
+          "etichetta": "Vacanze: Vacanza Villini"
+        },
+        {
+          "valore": "vacanza-colonica",
+          "etichetta": "Vacanze: Vacanza Colonica"
+        },
+        {
+          "valore": "vacanza-loft",
+          "etichetta": "Vacanze: Vacanza Loft"
+        },
+        {
+          "valore": "vacanza-mansarda",
+          "etichetta": "Vacanze: Vacanza Mansarda"
+        },
+        {
+          "valore": "vacanza-pertinenze",
+          "etichetta": "Vacanze: Vacanza Pertinenze"
+        },
+        {
+          "valore": "vacanza-palazzo",
+          "etichetta": "Vacanze: Vacanza Palazzo"
+        },
+        {
+          "valore": "vacanza-residence",
+          "etichetta": "Vacanze: Vacanza Residence"
+        },
+        {
+          "valore": "vacanza-rustico-casale",
+          "etichetta": "Vacanze: Vacanza Rustico Casale"
+        },
+        {
+          "valore": "vacanza-appartamento",
+          "etichetta": "Vacanze: Vacanza Appartamento"
+        },
+        {
+          "valore": "vacanza-appartamenti-indipendente",
+          "etichetta": "Vacanze: Vacanza Appartamenti Indirpendenti"
+        },
+        {
+          "valore": "vacanza-attico",
+          "etichetta": "Vacanze: Vacanza Attico"
+        },
+        {
+          "valore": "vacanza-bifamiliare",
+          "etichetta": "Vacanze: Vacanza Bifamiliare"
+        },
+        {
+          "valore": "vacanza-casa-semi-indipendente",
+          "etichetta": "Vacanze: Vacanza Casa Semi-indipendente"
+        },
+        {
+          "valore": "vacanza-tenuta-complesso",
+          "etichetta": "Vacanze: Vacanza Tenuta-Complesso"
+        },
+        {
+          "valore": "vacanza-terratetto",
+          "etichetta": "Vacanze: Vacanza Terratetto"
+        },
+        {
+          "valore": "vacanza-albergo",
+          "etichetta": "Vacanze: Vacanza Albergo"
+        },
+        {
+          "valore": "vacanza-agriturismo",
+          "etichetta": "Vacanze: Vacanza Agriturismo"
+        },
+        {
+          "valore": "vacanza-hotel",
+          "etichetta": "Vacanze: Vacanza Hotel"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste/attici",
+      "evidenza": "risultati/scoperta/cercacasa/tipologie.json e chunk-E2ZEOSNC.js clickChildType (valori uniti da virgola); sonda /comune-trieste/attici 5 [prova_mappa [\"attici\"] Trieste vendita: 286->5 (2026-11-03 14:46:36)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": [
+            "attici"
+          ],
+          "attesa": "meno"
+        }
+      ],
+      "note": "garage, terreni, altro da soli coincidono con l'id della categoria e il sito li legge come la categoria: il client li rifiuta da soli. 'stanza-/-camera' esclusa (barra nel percorso)."
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "etichetta": "Nuove costruzioni (categoria 'nuove')",
+      "gruppo": "tipologia",
+      "parametro": "segmento 3 del percorso nuove",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/regione-lombardia/nuove",
+      "evidenza": "risultati/scoperta/cercacasa/tipologie.json (P.LIST_OF_TYPOLOGY: categoria 'nuove', unica voce 'nuove-costruzioni') e chunk-DNGZVUUF.js generateSearchURL; sonda regione-lombardia/nuove 7 [prova_mappa true Regione Lombardia vendita: 13200->7 (2026-11-03 14:46:46)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Regione Lombardia"
+      },
+      "note": "Manda la categoria 'nuove' (come tipologia='nuove'); con una tipologia, una sottotipologia o posto_auto diversi il client solleva ValueError, perché il segmento è uno solo. L'altra forma, stato_immobile 'nuova-costruzione' (parametro condizioni), descrive lo stato dichiarato e resta in stato_immobile."
+    },
+    {
+      "chiave": "posto_auto",
+      "etichetta": "Posto auto (voce 'posto-auto' della categoria garage)",
+      "gruppo": "tipologia",
+      "parametro": "segmento 3 del percorso posto-auto",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-roma/posto-auto",
+      "evidenza": "risultati/scoperta/cercacasa/tipologie.json (P.LIST_OF_TYPOLOGY: categoria garage, voce 'posto-auto') e chunk-E2ZEOSNC.js clickChildType [prova_mappa true Roma vendita: 1538->15 (2026-11-03 14:46:59)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Roma"
+      },
+      "note": "Manda la voce 'posto-auto' (come sottotipologia=['posto-auto']); con una tipologia, una sottotipologia o nuova_costruzione diverse il client solleva ValueError, perché il segmento è uno solo."
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo minimo",
+      "gruppo": "prezzo",
+      "parametro": "con_prezzo_min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_prezzo_min=300000",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 300000 Trieste vendita: 286->120 (2026-11-03 14:47:09)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 300000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo massimo",
+      "gruppo": "prezzo",
+      "parametro": "con_prezzo_max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_prezzo_max=150000",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 150000 Trieste vendita: 286->96 (2026-11-03 14:47:19)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 150000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie minima",
+      "gruppo": "superficie",
+      "parametro": "con_superficie_min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_superficie_min=100",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 100 Trieste vendita: 286->155 (2026-11-03 14:47:30)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie massima",
+      "gruppo": "superficie",
+      "parametro": "con_superficie_max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_superficie_max=60",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 60 Trieste vendita: 286->47 (2026-11-03 14:47:40)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 60,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Locali minimi",
+      "gruppo": "locali",
+      "parametro": "con_locali_min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_locali_min=4",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 4 Trieste vendita: 286->13 (2026-11-03 14:47:50)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 4,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Locali massimi",
+      "gruppo": "locali",
+      "parametro": "con_locali_max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_locali_max=2",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 2 Trieste vendita: 286->66 (2026-11-03 14:48:00)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_min",
+      "etichetta": "Bagni (almeno)",
+      "gruppo": "bagni",
+      "parametro": "con_bagni",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_bagni=2",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa 2 Trieste vendita: 286->127 (2026-11-03 14:48:11)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "rata_min",
+      "etichetta": "Rata mensile minima",
+      "gruppo": "mutuo",
+      "parametro": "finanziamentoMax",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?finanziamentoMax=500",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 500 Trieste vendita: 286->153 (2026-11-03 14:48:21)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 500,
+        "attesa": "meno"
+      },
+      "note": "Il sito scambia i parametri: finanziamentoMin diventa maxFinanziamento (setParamsForVenditaAndAffitto). Il client usa quello con l'effetto del nome: sonda finanziamentoMax=500 prezzi da 225000, finanziamentoMin=500 prezzi fino a 220000. Solo vendita."
+    },
+    {
+      "chiave": "rata_max",
+      "etichetta": "Rata mensile massima",
+      "gruppo": "mutuo",
+      "parametro": "finanziamentoMin",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?finanziamentoMin=500",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste [prova_mappa 500 Trieste vendita: 286->133 (2026-11-03 14:48:31)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 500,
+        "attesa": "meno"
+      },
+      "note": "Il sito scambia i parametri: finanziamentoMin diventa maxFinanziamento (setParamsForVenditaAndAffitto). Il client usa quello con l'effetto del nome: sonda finanziamentoMax=500 prezzi da 225000, finanziamentoMin=500 prezzi fino a 220000. Solo vendita."
+    },
+    {
+      "chiave": "stato_immobile",
+      "etichetta": "Condizioni immobile",
+      "gruppo": "piu_filtri",
+      "parametro": "condizioni",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "abitabile",
+          "etichetta": "Abitabile"
+        },
+        {
+          "valore": "buone-condizioni",
+          "etichetta": "Buone Condizioni"
+        },
+        {
+          "valore": "da-ristrutturare",
+          "etichetta": "Da Ristrutturare"
+        },
+        {
+          "valore": "nuova-costruzione",
+          "etichetta": "Nuova Costruzione"
+        },
+        {
+          "valore": "ottime-condizioni",
+          "etichetta": "Ottime Condizioni"
+        },
+        {
+          "valore": "ristrutturato",
+          "etichetta": "Ristrutturato"
+        },
+        {
+          "valore": "seminuovo",
+          "etichetta": "Seminuovo"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?condizioni=da-ristrutturare",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa [\"da-ristrutturare\"] Trieste vendita: 286->20 (2026-11-03 14:48:42)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "da-ristrutturare"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "contesto",
+      "etichetta": "Contesto",
+      "gruppo": "piu_filtri",
+      "parametro": "contesto",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "ultra-popolare",
+          "etichetta": "Ultra popolare"
+        },
+        {
+          "valore": "popolare",
+          "etichetta": "Popolare"
+        },
+        {
+          "valore": "economico",
+          "etichetta": "Economico"
+        },
+        {
+          "valore": "civile",
+          "etichetta": "Civile"
+        },
+        {
+          "valore": "medio-signorile",
+          "etichetta": "Medio Signorile"
+        },
+        {
+          "valore": "signorile",
+          "etichetta": "Signorile"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?contesto=signorile",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa [\"signorile\"] Trieste vendita: 286->5 (2026-11-03 14:48:52)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "signorile"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piano",
+      "etichetta": "Piano",
+      "gruppo": "piu_filtri",
+      "parametro": "piano",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "interrato",
+          "etichetta": "Piano Interrato"
+        },
+        {
+          "valore": "terra",
+          "etichetta": "Piano Terra"
+        },
+        {
+          "valore": "rialzato",
+          "etichetta": "Piano Rialzato"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?piano=terra",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa [\"terra\"] Trieste vendita: 286->5 (2026-11-03 14:49:02)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "terra"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipo_garage",
+      "etichetta": "Garage",
+      "gruppo": "piu_filtri",
+      "parametro": "garage",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "singolo",
+          "etichetta": "Garage Singolo"
+        },
+        {
+          "valore": "doppio",
+          "etichetta": "Garage doppio"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?garage=singolo",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa [\"singolo\"] Trieste vendita: 286->1 (2026-11-03 14:49:13)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "singolo"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipo_giardino",
+      "etichetta": "Giardino",
+      "gruppo": "piu_filtri",
+      "parametro": "giardino",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "privato",
+          "etichetta": "Giardino Privato"
+        },
+        {
+          "valore": "comune",
+          "etichetta": "Giardino Comune"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?giardino=privato",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa [\"privato\"] Trieste vendita: 286->2 (2026-11-03 14:49:23)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "privato"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "riscaldamento",
+      "etichetta": "Riscaldamento",
+      "gruppo": "piu_filtri",
+      "parametro": "riscaldamento",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "a-pavimento",
+          "etichetta": "A Pavimento"
+        },
+        {
+          "valore": "autonomo",
+          "etichetta": "Autonomo"
+        },
+        {
+          "valore": "centralizzato",
+          "etichetta": "Centralizzato"
+        },
+        {
+          "valore": "inesistente",
+          "etichetta": "Inesistente"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?riscaldamento=autonomo",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa [\"autonomo\"] Trieste vendita: 286->124 (2026-11-03 14:49:33)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "autonomo"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "cucina",
+      "etichetta": "Cucina",
+      "gruppo": "piu_filtri",
+      "parametro": "con_cucina",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "abitabile",
+          "etichetta": "Abitabile"
+        },
+        {
+          "valore": "angolo-cottura",
+          "etichetta": "Angolo Cottura"
+        },
+        {
+          "valore": "a-vista",
+          "etichetta": "A Vista"
+        },
+        {
+          "valore": "cucinotto",
+          "etichetta": "Cucinotto"
+        },
+        {
+          "valore": "semi-abitabile",
+          "etichetta": "Semi abitabile"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?con_cucina=abitabile",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa [\"abitabile\"] Trieste vendita: 286->99 (2026-11-03 14:49:43)]",
+      "verifica": "live",
+      "prova": {
+        "valore": [
+          "abitabile"
+        ],
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "balcone",
+      "etichetta": "Extra: balcone",
+      "gruppo": "extra",
+      "parametro": "extra=balcone",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=balcone",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Trieste vendita: 286->25 (2026-11-03 14:49:54)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "terrazzo",
+      "etichetta": "Extra: terrazzo",
+      "gruppo": "extra",
+      "parametro": "extra=terrazzo",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=terrazzo",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Trieste vendita: 286->7 (2026-11-03 14:50:04)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ascensore",
+      "etichetta": "Extra: ascensore",
+      "gruppo": "extra",
+      "parametro": "extra=ascensore",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=ascensore",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Trieste vendita: 286->45 (2026-11-03 14:50:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "arredato",
+      "etichetta": "Extra: arredamento",
+      "gruppo": "extra",
+      "parametro": "extra=arredamento",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=arredamento",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Trieste vendita: 286->59 (2026-11-03 14:50:24)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "cantina",
+      "etichetta": "Extra: cantina",
+      "gruppo": "extra",
+      "parametro": "extra=cantina",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=cantina",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Trieste vendita: 286->20 (2026-11-03 14:50:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "taverna",
+      "etichetta": "Extra: taverna",
+      "gruppo": "extra",
+      "parametro": "extra=taverna",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=taverna",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Trieste vendita: 286->3 (2026-11-03 14:50:45)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "box_auto",
+      "etichetta": "Extra: garage",
+      "gruppo": "extra",
+      "parametro": "extra=garage",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=garage",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Roma vendita: 1538->16 (2026-11-03 14:50:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Roma"
+      }
+    },
+    {
+      "chiave": "giardino",
+      "etichetta": "Extra: garden",
+      "gruppo": "extra",
+      "parametro": "extra=garden",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?extra=garden",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER (FILTER_EXTRA) [prova_mappa true Trieste vendita: 286->28 (2026-11-03 14:51:05)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "asta",
+      "etichetta": "Immobile all'asta",
+      "gruppo": "piu_filtri",
+      "parametro": "asta_immobiliare=asta",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?asta_immobiliare=asta",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa true Roma vendita: 1538->1 (2026-11-03 14:51:16)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Roma"
+      }
+    },
+    {
+      "chiave": "in_esclusiva",
+      "etichetta": "Solo in esclusiva",
+      "gruppo": "barra",
+      "parametro": "in_esclusiva=true",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?in_esclusiva=true",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (mappa filtersList -> parametro) e risultati/scoperta/cercacasa/chunk-6YYY7NMW.js setParamsForVenditaAndAffitto (lettura); sonda HTTP 03/11 su comune-trieste; risultati/scoperta/cercacasa/chunk-DNGZVUUF.js handleFiltersVenditaAffitto e costanti P.FILTER_*/HEATING/CONTEXT/TYPE_KITCHEN_FILTER [prova_mappa true Milano vendita: 699->1 (2026-11-03 14:51:26)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina",
+      "gruppo": "ordinamento",
+      "parametro": "ordine",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "Più Recenti",
+          "etichetta": "Più Recenti"
+        },
+        {
+          "valore": "Meno Recenti",
+          "etichetta": "Meno Recenti"
+        },
+        {
+          "valore": "Meno Costosi",
+          "etichetta": "Meno Costosi"
+        },
+        {
+          "valore": "Più Costosi",
+          "etichetta": "Più Costosi"
+        },
+        {
+          "valore": "Meno Grandi",
+          "etichetta": "Meno Grandi"
+        },
+        {
+          "valore": "Più Grandi",
+          "etichetta": "Più Grandi"
+        },
+        {
+          "valore": "Più Salvati",
+          "etichetta": "Più Salvati"
+        }
+      ],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?ordine=Pi%C3%B9%20Costosi",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-DNGZVUUF.js orderFilters (name -> orderName) e getOrder; generateQueryParams ordine [prova_mappa \"Più Costosi\" Trieste vendita: 286->286 (2026-11-03 14:51:36); \"Meno Costosi\" Trieste vendita: 286->286 (2026-11-03 14:51:47); \"Più Grandi\" Trieste vendita: 286->286 (2026-11-03 14:51:57)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "Più Costosi",
+          "attesa": "ordine_desc"
+        },
+        {
+          "valore": "Meno Costosi",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "Più Grandi",
+          "attesa": "ordine_diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "raggio",
+      "etichetta": "Vicino a dove ti trovi (centro e raggio)",
+      "gruppo": "luogo",
+      "parametro": "metodo=2&coords=<lon>&coords=<lat>&raggio=<metri>",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/?metodo=2&coords=13.7768&coords=45.6495&raggio=1000",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-E2ZEOSNC.js generateQueryParams (metodo, coords, raggio) e chunk-6YYY7NMW.js lettura coords; sonda 120 annunci [prova_mappa \"45.6495,13.7768,1000\" * vendita: 282->120 (2026-11-03 14:58:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.6495,13.7768,1000",
+        "attesa": "meno",
+        "comune": "*",
+        "base_filtri": {
+          "raggio": "45.6495,13.7768,5000"
+        }
+      },
+      "note": "Valore 'lat,lon,metri'. Il cerchio sostituisce il comune (sonda: comune-muggia e comune-trieste con lo stesso cerchio danno 120 entrambi), come nell'interfaccia 'Vicino a dove ti trovi' che non ha un comune: il client vuole comune='*' e solleva ValueError con un comune vero. Senza luogo il sito non cerca nulla (03/11: /vendita/ senza cerchio non ha la risposta di listings/search nel TransferState, il client solleva ErroreStruttura), quindi la prova confronta il cerchio di 1000 m con uno di 5000 m sullo stesso centro."
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Disegna area su mappa",
+      "gruppo": "luogo",
+      "parametro": "metodo=4&coords=<lon,lat,lon,lat,...>",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/?metodo=4&coords=13.75,45.64,13.80,45.64,13.80,45.67,13.75,45.67,13.75,45.64",
+      "evidenza": "risultati/scoperta/cercacasa/chunk-6YYY7NMW.js queryParams.subscribe (coords senza raggio -> coppie di punti); sonda 196 annunci [prova_mappa \"45.64,13.75;45.64,13.80;45.67,13.80;45.67,13.75\" * vendita: 338->196 (2026-11-03 14:59:19)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.64,13.75;45.64,13.80;45.67,13.80;45.67,13.75",
+        "attesa": "meno",
+        "comune": "*",
+        "base_filtri": {
+          "mappa_area": "45.55,13.65;45.55,13.90;45.75,13.90;45.75,13.65"
+        }
+      },
+      "note": "Valore 'lat,lon;lat,lon;lat,lon[;...]', il client chiude il poligono. L'area sostituisce il comune come raggio: serve comune='*', con un comune vero ValueError. La prova confronta l'area con un rettangolo più grande che la contiene."
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "paginazione",
+      "parametro": "pagina",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://cercacasa.it/vendita/comune-trieste?pagina=2",
+      "evidenza": "HAR voce 0 link ?pagina=1..4; chunk-6YYY7NMW.js this.page=e.pagina-1; sonda pagina 2 annunci diversi [prova_mappa 2 Trieste vendita: 286->286 (2026-11-03 14:59:39)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    }
+  ],
+  "non_trovati": [],
+  "assenti": [
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo: le schede hanno energy_class ma filtersList non ha una chiave per essa"
+    },
+    {
+      "chiave": "aria_condizionata",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in FILTER_EXTRA né in filtersList"
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in FILTER_EXTRA né in filtersList"
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo; non è tra le tipologie LIST_OF_TYPOLOGY"
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in filtersList"
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in filtersList"
+    },
+    {
+      "chiave": "da_privato",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo: i radio privato/immobiliare stanno nella finestra di accesso, non nella ricerca"
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in filtersList"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in filtersList"
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in filtersList"
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo in filtersList"
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun filtro per inserzionista: 'Professionisti' apre la ricerca di agenti e agenzie, un'altra pagina"
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: nessun controllo; le schede non hanno un prezzo precedente"
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "pagina https://cercacasa.it/vendita/provincia-trieste del 03/11/2026, barra e 'Più filtri'; elenco completo dei filtri in chunk-DNGZVUUF.js main.filtersList e chunk-E2ZEOSNC.js generateQueryParams: la barra cerca solo luoghi (api/zones/search) o nomi di agenti/agenzie, non testo negli annunci"
+    }
+  ],
+  "note": "Percorso /<vendita|affitto>/<comune-x|provincia-x|zona-a,b>[/<tipologia>]/ e filtri in query; i multipli ripetono il parametro (serializzazione dei queryParams di Angular). La pagina SSR applica i filtri lato server: il client legge il risultato da script#serverApp-state. Tolta la voce 'provincia' (non canonica): la provincia si sceglie con comune='Provincia di X'. Il valore 'vendita' di contratto è la base di tutte le altre prove: prova_mappa confronta sempre con vendita, quindi si prova solo 'affitto'. Senza ordinamento il client chiede ordine=Più Recenti: l'ordine di base del sito è instabile e ripete annunci tra pagina 1 e 2 (sonda comune-trieste: 1 id in comune; con Più Recenti pagine 1-3 disgiunte). Combinazioni: i booleani che condividono il parametro extra (balcone, terrazzo, ascensore, arredato, cantina, taverna, box_auto, giardino) si uniscono in E. Misura 03/11 14:41, Trieste vendita: balcone 25, terrazzo 7, balcone+terrazzo 2, cioè gli stessi 2 id presenti in entrambe le liste (risultati/scoperta/cercacasa/combinazioni.py, richieste.log). nuova_costruzione e posto_auto occupano il segmento tipologia: non si combinano tra loro né con tipologia o sottotipologia diverse (ValueError)."
+}

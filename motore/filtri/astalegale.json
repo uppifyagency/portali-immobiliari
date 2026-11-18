@@ -1,0 +1,1788 @@
+{
+  "portale": "astalegale",
+  "descrizione": "Aste giudiziarie e vendite pubbliche di immobili in tutta Italia, comprese quelle del Portale Vendite Pubbliche: per chi cerca pignoramenti e immobili all'asta, con prezzo base, offerta minima e data.",
+  "url_base_ricerca": "https://www.astalegale.net/Immobili?comuni=trieste",
+  "come_si_applicano": "query string",
+  "fonte_catalogo": "__NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) per i valori; parametri da prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR",
+  "filtri": [
+    {
+      "chiave": "comune",
+      "etichetta": "Luogo (comune, provincia o regione)",
+      "gruppo": "luogo",
+      "parametro": "comuni | province | regioni",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=trieste",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.regioni, n.province, n.comuni; tag del payload 'Friuli Venezia Giulia: Trieste' con comuni=trieste da solo (guarda/comuni_trieste.json, 5 risultati come comuni+province+regioni) [prova_mappa \"Milano\" Trieste vendita: 5->56 (2026-11-16 14:04:52)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Milano",
+        "attesa": "diverso"
+      },
+      "note": "'Trieste' -> comuni=trieste; 'Provincia di Milano' -> province=mi; 'Regione Lombardia' -> regioni=lombardia. Un comune che il sito non riconosce non compare tra i tag Luogo: il client solleva ValueError."
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "paginazione",
+      "parametro": "page",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&page=2",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.page; evento page-change [prova_mappa 2 Milano vendita: 56->56 (2026-11-16 14:05:03)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "comune": "Milano",
+        "attesa": "pagina"
+      }
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Categoria",
+      "gruppo": "tipologia",
+      "parametro": "categories",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "residenziali",
+          "etichetta": "Residenziali"
+        },
+        {
+          "valore": "commerciali",
+          "etichetta": "Commerciali"
+        },
+        {
+          "valore": "industriali",
+          "etichetta": "Industriali"
+        },
+        {
+          "valore": "sportivi",
+          "etichetta": "Sportivi"
+        },
+        {
+          "valore": "altro",
+          "etichetta": "Altro"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?categories=residenziali&comuni=trieste",
+      "evidenza": "link delle faccette 'Categorie' (sonda 16/11) e prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.categories, liste separate da virgola; valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) categorieImmobili [prova_mappa \"residenziali\" Regione Lombardia vendita: 1922->1034 (2026-11-16 14:05:25); \"commerciali\" Regione Lombardia vendita: 1922->410 (2026-11-16 14:05:36); \"industriali\" Regione Lombardia vendita: 1922->51 (2026-11-16 14:05:46); \"sportivi\" Regione Lombardia vendita: 1922->3 (2026-11-16 14:05:57); \"altro\" Regione Lombardia vendita: 1922->424 (2026-11-16 14:06:08)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "residenziali",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "commerciali",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "industriali",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "sportivi",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "altro",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "sottocategoria",
+      "etichetta": "Sottocategoria",
+      "gruppo": "tipologia",
+      "parametro": "categories",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "abitazione-di-tipo-civile",
+          "etichetta": "Residenziali: Abitazione di tipo civile"
+        },
+        {
+          "valore": "abitazione-di-tipo-economico",
+          "etichetta": "Residenziali: Abitazione di tipo economico"
+        },
+        {
+          "valore": "abitazione-di-tipo-popolare",
+          "etichetta": "Residenziali: Abitazione di tipo popolare"
+        },
+        {
+          "valore": "abitazione-di-tipo-rurale",
+          "etichetta": "Residenziali: Abitazione di tipo rurale"
+        },
+        {
+          "valore": "abitazione-di-tipo-signorile",
+          "etichetta": "Residenziali: Abitazione di tipo signorile"
+        },
+        {
+          "valore": "abitazione-di-tipo-ultrapopolare",
+          "etichetta": "Residenziali: Abitazione di tipo ultrapopolare"
+        },
+        {
+          "valore": "abitazione-in-ville",
+          "etichetta": "Residenziali: Abitazione in ville"
+        },
+        {
+          "valore": "abitazione-in-villini",
+          "etichetta": "Residenziali: Abitazione in villini"
+        },
+        {
+          "valore": "abitazioni-e-alloggi-tipici-dei-luoghi",
+          "etichetta": "Residenziali: Abitazioni e alloggi tipici dei luoghi"
+        },
+        {
+          "valore": "appartamento",
+          "etichetta": "Residenziali: Appartamento"
+        },
+        {
+          "valore": "castelli-palazzi-di-eminenti-pregi-artistici",
+          "etichetta": "Residenziali: Castelli, palazzi di eminenti pregi artistici"
+        },
+        {
+          "valore": "castello-immobile-di-pregio-artistico-e-storico",
+          "etichetta": "Residenziali: Immobile di pregio"
+        },
+        {
+          "valore": "fabbricato",
+          "etichetta": "Residenziali: Fabbricato"
+        },
+        {
+          "valore": "fabbricato-in-corso-di-costruzione",
+          "etichetta": "Residenziali: Fabbricato in corso di costruzione"
+        },
+        {
+          "valore": "villa",
+          "etichetta": "Residenziali: Villa"
+        },
+        {
+          "valore": "commerciali-deposito",
+          "etichetta": "Commerciali: Deposito"
+        },
+        {
+          "valore": "fabbricati-costruiti-per-esigenze-commerciali",
+          "etichetta": "Commerciali: Fabbricato commerciale"
+        },
+        {
+          "valore": "fabbricati-per-attivita-agricole",
+          "etichetta": "Commerciali: Fabbricati per attività agricole"
+        },
+        {
+          "valore": "garage-o-autorimessa",
+          "etichetta": "Commerciali: Garage o autorimessa"
+        },
+        {
+          "valore": "laboratori-per-arti-e-mestieri",
+          "etichetta": "Commerciali: Laboratori per arti e mestieri"
+        },
+        {
+          "valore": "laboratorio-artigiano",
+          "etichetta": "Commerciali: Laboratorio artigiano"
+        },
+        {
+          "valore": "commerciali-magazzini-e-locali-di-deposito",
+          "etichetta": "Commerciali: Magazzini e locali di deposito"
+        },
+        {
+          "valore": "magazzini-sotterranei-deposito-di-derrate",
+          "etichetta": "Commerciali: Fabbricato commerciale"
+        },
+        {
+          "valore": "magazzino",
+          "etichetta": "Commerciali: Magazzino"
+        },
+        {
+          "valore": "negozi-botteghe",
+          "etichetta": "Commerciali: Negozi, botteghe"
+        },
+        {
+          "valore": "negozio",
+          "etichetta": "Commerciali: Negozio"
+        },
+        {
+          "valore": "uffici-e-studi-privati",
+          "etichetta": "Commerciali: Uffici e studi privati"
+        },
+        {
+          "valore": "ufficio",
+          "etichetta": "Commerciali: Ufficio"
+        },
+        {
+          "valore": "industriali-fabbricati-costruiti-per-esigenze-industriali",
+          "etichetta": "Industriali: Fabbricati industriali"
+        },
+        {
+          "valore": "opifici",
+          "etichetta": "Industriali: Opifici"
+        },
+        {
+          "valore": "opificio-industriale",
+          "etichetta": "Industriali: Opificio industriale"
+        },
+        {
+          "valore": "fabbricati-e-locali-per-esercizi-sportivi",
+          "etichetta": "Sportivi: Fabbricati e locali per esercizi sportivi"
+        },
+        {
+          "valore": "fabbricati-locali-sportivi-con-fini-di-lucro",
+          "etichetta": "Sportivi: Fabbricati, locali sportivi con fini di lucro"
+        },
+        {
+          "valore": "palestra-o-altro-immobile-di-uso-sportivo",
+          "etichetta": "Sportivi: Palestra o immobile sportivo"
+        },
+        {
+          "valore": "alberghi-e-pensioni",
+          "etichetta": "Altro: Alberghi e pensioni"
+        },
+        {
+          "valore": "albergo-e-pensione",
+          "etichetta": "Altro: Albergo e pensione"
+        },
+        {
+          "valore": "cantina",
+          "etichetta": "Altro: Cantina"
+        },
+        {
+          "valore": "casa-di-cura-o-ospedale",
+          "etichetta": "Altro: Casa di cura o ospedale"
+        },
+        {
+          "valore": "case-di-cura-e-ospedali",
+          "etichetta": "Altro: Case di cura e ospedali"
+        },
+        {
+          "valore": "compendio-pignorato",
+          "etichetta": "Altro: Compendio pignorato"
+        },
+        {
+          "valore": "convento-convitto-o-istituto-similare",
+          "etichetta": "Altro: Convento o istituto similare"
+        },
+        {
+          "valore": "altro-edifici-a-destinazione-particolare",
+          "etichetta": "Altro: Edifici a destinazione particolare"
+        },
+        {
+          "valore": "edifici-galleggianti-o-sospesi-fissati-al-suolo",
+          "etichetta": "Altro: Edifici galleggianti o sospesi fissati al suolo"
+        },
+        {
+          "valore": "fabbricato-rurale",
+          "etichetta": "Altro: Fabbricato rurale"
+        },
+        {
+          "valore": "istituto-di-credito-cambio-e-assicurazioni",
+          "etichetta": "Altro: Istituto di credito, cambio e assicurazioni"
+        },
+        {
+          "valore": "altro-lastrico-solare",
+          "etichetta": "Altro: Lastrico solare"
+        },
+        {
+          "valore": "altro-lotto-edificabile",
+          "etichetta": "Altro: Lotto edificabile"
+        },
+        {
+          "valore": "palco-teatrale",
+          "etichetta": "Altro: Palco teatrale"
+        },
+        {
+          "valore": "porzione-di-fabbricato-in-corso-di-costruzione",
+          "etichetta": "Altro: Porzione di fabbricato in costruzione"
+        },
+        {
+          "valore": "porzione-di-immobile",
+          "etichetta": "Altro: Porzione di immobile"
+        },
+        {
+          "valore": "altro-posto-auto",
+          "etichetta": "Altro: Posto auto"
+        },
+        {
+          "valore": "pozzo",
+          "etichetta": "Altro: Pozzo"
+        },
+        {
+          "valore": "stabilimenti-balneari-e-di-acque-curative",
+          "etichetta": "Altro: Stabilimenti balneari e di acque curative"
+        },
+        {
+          "valore": "stabilimento-balneare",
+          "etichetta": "Altro: Stabilimento balneare"
+        },
+        {
+          "valore": "altro-stalle-scuderie-rimesse-autorimesse",
+          "etichetta": "Altro: Stalle, scuderie, rimesse, autorimesse"
+        },
+        {
+          "valore": "teatri-cinematografi-sale-per-concerti",
+          "etichetta": "Altro: Teatri, cinematografi, sale per concerti"
+        },
+        {
+          "valore": "altro-terreno",
+          "etichetta": "Altro: Terreno"
+        },
+        {
+          "valore": "tettoie-chiuse-o-aperte",
+          "etichetta": "Altro: Tettoie chiuse o aperte"
+        },
+        {
+          "valore": "immobili-cessione-dazienda",
+          "etichetta": "Altro: Cessione d'azienda"
+        },
+        {
+          "valore": "altro-quote-di-partecipazione-societaria",
+          "etichetta": "Altro: Quote di partecipazione societaria"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?categories=abitazione-di-tipo-civile&comuni=milano",
+      "evidenza": "stesso parametro della categoria (filtro rimosso: case u.Categoria/u.Tipologia toglie l'id da categories); tag 'Tipologia' in guarda/comuni_milano_categories_appartamento.json; valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) sottocategorie [prova_mappa \"abitazione-di-tipo-civile\" Milano vendita: 56->23 (2026-11-16 14:06:19)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "abitazione-di-tipo-civile",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Con tipologia e sottocategoria insieme il client le mette nella stessa lista categories, come l'interfaccia."
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo base da",
+      "gruppo": "prezzo",
+      "parametro": "prezzo_da",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&prezzo_da=200000",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.prezzo_da; faccetta 'Prezzo' (fascieDiPrezzo from/to -> prezzo_da/prezzo_a) [prova_mappa 200000 Milano vendita: 56->22 (2026-11-16 14:06:29)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo base fino a",
+      "gruppo": "prezzo",
+      "parametro": "prezzo_a",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&prezzo_a=200000",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.prezzo_a; faccetta 'Prezzo' [prova_mappa 200000 Milano vendita: 56->34 (2026-11-16 14:06:41)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tribunale",
+      "etichetta": "Tribunale",
+      "gruppo": "procedura",
+      "parametro": "tribunale",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "agrigento",
+          "etichetta": "Agrigento"
+        },
+        {
+          "valore": "alessandria",
+          "etichetta": "Alessandria"
+        },
+        {
+          "valore": "alessandria-ex-acqui-terme",
+          "etichetta": "Alessandria (ex Acqui Terme)"
+        },
+        {
+          "valore": "alessandria-ex-tortona",
+          "etichetta": "Alessandria (ex Tortona)"
+        },
+        {
+          "valore": "ancona",
+          "etichetta": "Ancona"
+        },
+        {
+          "valore": "aosta",
+          "etichetta": "Aosta"
+        },
+        {
+          "valore": "arezzo",
+          "etichetta": "Arezzo"
+        },
+        {
+          "valore": "ascoli-piceno",
+          "etichetta": "Ascoli Piceno"
+        },
+        {
+          "valore": "asti",
+          "etichetta": "Asti"
+        },
+        {
+          "valore": "asti-ex-alba",
+          "etichetta": "Asti (ex Alba)"
+        },
+        {
+          "valore": "avellino",
+          "etichetta": "Avellino"
+        },
+        {
+          "valore": "avellino-ex-santangelo-dei-lombardi",
+          "etichetta": "Avellino (ex Sant'Angelo dei Lombardi)"
+        },
+        {
+          "valore": "avezzano",
+          "etichetta": "Avezzano"
+        },
+        {
+          "valore": "barcellona-pozzo-di-gotto",
+          "etichetta": "Barcellona Pozzo di Gotto"
+        },
+        {
+          "valore": "bari",
+          "etichetta": "Bari"
+        },
+        {
+          "valore": "belluno",
+          "etichetta": "Belluno"
+        },
+        {
+          "valore": "benevento",
+          "etichetta": "Benevento"
+        },
+        {
+          "valore": "benevento-ex-ariano-irpino",
+          "etichetta": "Benevento (ex Ariano Irpino)"
+        },
+        {
+          "valore": "bergamo",
+          "etichetta": "Bergamo"
+        },
+        {
+          "valore": "biella",
+          "etichetta": "Biella"
+        },
+        {
+          "valore": "bologna",
+          "etichetta": "Bologna"
+        },
+        {
+          "valore": "bolzano-bozen",
+          "etichetta": "Bolzano - Bozen"
+        },
+        {
+          "valore": "brescia",
+          "etichetta": "Brescia"
+        },
+        {
+          "valore": "brindisi",
+          "etichetta": "Brindisi"
+        },
+        {
+          "valore": "busto-arsizio",
+          "etichetta": "Busto Arsizio"
+        },
+        {
+          "valore": "cagliari",
+          "etichetta": "Cagliari"
+        },
+        {
+          "valore": "caltagirone",
+          "etichetta": "Caltagirone"
+        },
+        {
+          "valore": "caltanissetta",
+          "etichetta": "Caltanissetta"
+        },
+        {
+          "valore": "campobasso",
+          "etichetta": "Campobasso"
+        },
+        {
+          "valore": "cassino",
+          "etichetta": "Cassino"
+        },
+        {
+          "valore": "castrovillari",
+          "etichetta": "Castrovillari"
+        },
+        {
+          "valore": "castrovillari-ex-rossano",
+          "etichetta": "Castrovillari (ex Rossano)"
+        },
+        {
+          "valore": "catania",
+          "etichetta": "Catania"
+        },
+        {
+          "valore": "catanzaro",
+          "etichetta": "Catanzaro"
+        },
+        {
+          "valore": "chieti",
+          "etichetta": "Chieti"
+        },
+        {
+          "valore": "civitavecchia",
+          "etichetta": "Civitavecchia"
+        },
+        {
+          "valore": "como",
+          "etichetta": "Como"
+        },
+        {
+          "valore": "cosenza",
+          "etichetta": "Cosenza"
+        },
+        {
+          "valore": "cremona",
+          "etichetta": "Cremona"
+        },
+        {
+          "valore": "cremona-ex-crema",
+          "etichetta": "Cremona (ex Crema)"
+        },
+        {
+          "valore": "crotone",
+          "etichetta": "Crotone"
+        },
+        {
+          "valore": "cuneo",
+          "etichetta": "Cuneo"
+        },
+        {
+          "valore": "cuneo-ex-mondovi",
+          "etichetta": "Cuneo (ex Mondovi)"
+        },
+        {
+          "valore": "cuneo-ex-saluzzo",
+          "etichetta": "Cuneo (ex Saluzzo)"
+        },
+        {
+          "valore": "enna",
+          "etichetta": "Enna"
+        },
+        {
+          "valore": "enna-ex-nicosia",
+          "etichetta": "Enna (ex Nicosia)"
+        },
+        {
+          "valore": "fermo",
+          "etichetta": "Fermo"
+        },
+        {
+          "valore": "ferrara",
+          "etichetta": "Ferrara"
+        },
+        {
+          "valore": "firenze",
+          "etichetta": "Firenze"
+        },
+        {
+          "valore": "foggia",
+          "etichetta": "Foggia"
+        },
+        {
+          "valore": "foggia-ex-lucera",
+          "etichetta": "Foggia (ex Lucera)"
+        },
+        {
+          "valore": "forli",
+          "etichetta": "Forli"
+        },
+        {
+          "valore": "frosinone",
+          "etichetta": "Frosinone"
+        },
+        {
+          "valore": "gela",
+          "etichetta": "Gela"
+        },
+        {
+          "valore": "genova",
+          "etichetta": "Genova"
+        },
+        {
+          "valore": "genova-ex-chiavari",
+          "etichetta": "Genova (ex Chiavari)"
+        },
+        {
+          "valore": "gorizia",
+          "etichetta": "Gorizia"
+        },
+        {
+          "valore": "grosseto",
+          "etichetta": "Grosseto"
+        },
+        {
+          "valore": "imperia",
+          "etichetta": "Imperia"
+        },
+        {
+          "valore": "imperia-ex-sanremo",
+          "etichetta": "Imperia (ex Sanremo)"
+        },
+        {
+          "valore": "isernia",
+          "etichetta": "Isernia"
+        },
+        {
+          "valore": "ivrea",
+          "etichetta": "Ivrea"
+        },
+        {
+          "valore": "la-spezia",
+          "etichetta": "La Spezia"
+        },
+        {
+          "valore": "lagonegro",
+          "etichetta": "Lagonegro"
+        },
+        {
+          "valore": "lagonegro-ex-sala-consilina",
+          "etichetta": "Lagonegro (ex Sala Consilina)"
+        },
+        {
+          "valore": "lamezia-terme",
+          "etichetta": "Lamezia Terme"
+        },
+        {
+          "valore": "lanciano",
+          "etichetta": "Lanciano"
+        },
+        {
+          "valore": "lanusei",
+          "etichetta": "Lanusei"
+        },
+        {
+          "valore": "laquila",
+          "etichetta": "L'Aquila"
+        },
+        {
+          "valore": "larino",
+          "etichetta": "Larino"
+        },
+        {
+          "valore": "latina",
+          "etichetta": "Latina"
+        },
+        {
+          "valore": "lecce",
+          "etichetta": "Lecce"
+        },
+        {
+          "valore": "lecco",
+          "etichetta": "Lecco"
+        },
+        {
+          "valore": "livorno",
+          "etichetta": "Livorno"
+        },
+        {
+          "valore": "locri",
+          "etichetta": "Locri"
+        },
+        {
+          "valore": "lodi",
+          "etichetta": "Lodi"
+        },
+        {
+          "valore": "lucca",
+          "etichetta": "Lucca"
+        },
+        {
+          "valore": "macerata",
+          "etichetta": "Macerata"
+        },
+        {
+          "valore": "macerata-ex-camerino",
+          "etichetta": "Macerata (ex Camerino)"
+        },
+        {
+          "valore": "mantova",
+          "etichetta": "Mantova"
+        },
+        {
+          "valore": "marsala",
+          "etichetta": "Marsala"
+        },
+        {
+          "valore": "massa",
+          "etichetta": "Massa"
+        },
+        {
+          "valore": "matera",
+          "etichetta": "Matera"
+        },
+        {
+          "valore": "messina",
+          "etichetta": "Messina"
+        },
+        {
+          "valore": "milano",
+          "etichetta": "Milano"
+        },
+        {
+          "valore": "modena",
+          "etichetta": "Modena"
+        },
+        {
+          "valore": "monza",
+          "etichetta": "Monza"
+        },
+        {
+          "valore": "napoli",
+          "etichetta": "Napoli"
+        },
+        {
+          "valore": "napoli-nord",
+          "etichetta": "Napoli Nord"
+        },
+        {
+          "valore": "nocera-inferiore",
+          "etichetta": "Nocera Inferiore"
+        },
+        {
+          "valore": "nola",
+          "etichetta": "Nola"
+        },
+        {
+          "valore": "novara",
+          "etichetta": "Novara"
+        },
+        {
+          "valore": "nuoro",
+          "etichetta": "Nuoro"
+        },
+        {
+          "valore": "oristano",
+          "etichetta": "Oristano"
+        },
+        {
+          "valore": "padova",
+          "etichetta": "Padova"
+        },
+        {
+          "valore": "palermo",
+          "etichetta": "Palermo"
+        },
+        {
+          "valore": "palmi",
+          "etichetta": "Palmi"
+        },
+        {
+          "valore": "paola",
+          "etichetta": "Paola"
+        },
+        {
+          "valore": "parma",
+          "etichetta": "Parma"
+        },
+        {
+          "valore": "patti",
+          "etichetta": "Patti"
+        },
+        {
+          "valore": "patti-ex-mistretta",
+          "etichetta": "Patti (ex Mistretta)"
+        },
+        {
+          "valore": "pavia",
+          "etichetta": "Pavia"
+        },
+        {
+          "valore": "pavia-ex-vigevano",
+          "etichetta": "Pavia (ex Vigevano)"
+        },
+        {
+          "valore": "pavia-ex-voghera",
+          "etichetta": "Pavia (ex Voghera)"
+        },
+        {
+          "valore": "perugia",
+          "etichetta": "Perugia"
+        },
+        {
+          "valore": "pesaro",
+          "etichetta": "Pesaro"
+        },
+        {
+          "valore": "pescara",
+          "etichetta": "Pescara"
+        },
+        {
+          "valore": "piacenza",
+          "etichetta": "Piacenza"
+        },
+        {
+          "valore": "pisa",
+          "etichetta": "Pisa"
+        },
+        {
+          "valore": "pistoia",
+          "etichetta": "Pistoia"
+        },
+        {
+          "valore": "pordenone",
+          "etichetta": "Pordenone"
+        },
+        {
+          "valore": "potenza",
+          "etichetta": "Potenza"
+        },
+        {
+          "valore": "potenza-ex-melfi",
+          "etichetta": "Potenza (ex Melfi)"
+        },
+        {
+          "valore": "prato",
+          "etichetta": "Prato"
+        },
+        {
+          "valore": "ragusa",
+          "etichetta": "Ragusa"
+        },
+        {
+          "valore": "ragusa-ex-modica",
+          "etichetta": "Ragusa (ex Modica)"
+        },
+        {
+          "valore": "ravenna",
+          "etichetta": "Ravenna"
+        },
+        {
+          "valore": "reggio-di-calabria",
+          "etichetta": "Reggio di Calabria"
+        },
+        {
+          "valore": "reggio-nellemilia",
+          "etichetta": "Reggio nell'Emilia"
+        },
+        {
+          "valore": "rieti",
+          "etichetta": "Rieti"
+        },
+        {
+          "valore": "rimini",
+          "etichetta": "Rimini"
+        },
+        {
+          "valore": "roma",
+          "etichetta": "Roma"
+        },
+        {
+          "valore": "rovereto",
+          "etichetta": "Rovereto"
+        },
+        {
+          "valore": "rovigo",
+          "etichetta": "Rovigo"
+        },
+        {
+          "valore": "salerno",
+          "etichetta": "Salerno"
+        },
+        {
+          "valore": "santa-maria-capua-vetere",
+          "etichetta": "Santa Maria Capua Vetere"
+        },
+        {
+          "valore": "sassari",
+          "etichetta": "Sassari"
+        },
+        {
+          "valore": "savona",
+          "etichetta": "Savona"
+        },
+        {
+          "valore": "sciacca",
+          "etichetta": "Sciacca"
+        },
+        {
+          "valore": "siena",
+          "etichetta": "Siena"
+        },
+        {
+          "valore": "siena-ex-montepulciano",
+          "etichetta": "Siena (ex Montepulciano)"
+        },
+        {
+          "valore": "siracusa",
+          "etichetta": "Siracusa"
+        },
+        {
+          "valore": "sondrio",
+          "etichetta": "Sondrio"
+        },
+        {
+          "valore": "spoleto",
+          "etichetta": "Spoleto"
+        },
+        {
+          "valore": "sulmona",
+          "etichetta": "Sulmona"
+        },
+        {
+          "valore": "taranto",
+          "etichetta": "Taranto"
+        },
+        {
+          "valore": "tempio-pausania",
+          "etichetta": "Tempio Pausania"
+        },
+        {
+          "valore": "teramo",
+          "etichetta": "Teramo"
+        },
+        {
+          "valore": "termini-imerese",
+          "etichetta": "Termini Imerese"
+        },
+        {
+          "valore": "terni",
+          "etichetta": "Terni"
+        },
+        {
+          "valore": "terni-ex-orvieto",
+          "etichetta": "Terni (ex Orvieto)"
+        },
+        {
+          "valore": "tivoli",
+          "etichetta": "Tivoli"
+        },
+        {
+          "valore": "torino",
+          "etichetta": "Torino"
+        },
+        {
+          "valore": "torino-ex-pinerolo",
+          "etichetta": "Torino (ex Pinerolo)"
+        },
+        {
+          "valore": "torre-annunziata",
+          "etichetta": "Torre Annunziata"
+        },
+        {
+          "valore": "trani",
+          "etichetta": "Trani"
+        },
+        {
+          "valore": "trapani",
+          "etichetta": "Trapani"
+        },
+        {
+          "valore": "trento",
+          "etichetta": "Trento"
+        },
+        {
+          "valore": "treviso",
+          "etichetta": "Treviso"
+        },
+        {
+          "valore": "trieste",
+          "etichetta": "Trieste"
+        },
+        {
+          "valore": "udine",
+          "etichetta": "Udine"
+        },
+        {
+          "valore": "udine-ex-tolmezzo",
+          "etichetta": "Udine (ex Tolmezzo)"
+        },
+        {
+          "valore": "urbino",
+          "etichetta": "Urbino"
+        },
+        {
+          "valore": "vallo-della-lucania",
+          "etichetta": "Vallo della Lucania"
+        },
+        {
+          "valore": "varese",
+          "etichetta": "Varese"
+        },
+        {
+          "valore": "vasto",
+          "etichetta": "Vasto"
+        },
+        {
+          "valore": "velletri",
+          "etichetta": "Velletri"
+        },
+        {
+          "valore": "venezia",
+          "etichetta": "Venezia"
+        },
+        {
+          "valore": "verbania",
+          "etichetta": "Verbania"
+        },
+        {
+          "valore": "vercelli",
+          "etichetta": "Vercelli"
+        },
+        {
+          "valore": "vercelli-ex-casale-monteferrato",
+          "etichetta": "Vercelli (ex Casale Monteferrato)"
+        },
+        {
+          "valore": "verona",
+          "etichetta": "Verona"
+        },
+        {
+          "valore": "vibo-valentia",
+          "etichetta": "Vibo Valentia"
+        },
+        {
+          "valore": "vicenza",
+          "etichetta": "Vicenza"
+        },
+        {
+          "valore": "vicenza-ex-bassano-del-grappa",
+          "etichetta": "Vicenza (ex Bassano del Grappa)"
+        },
+        {
+          "valore": "viterbo",
+          "etichetta": "Viterbo"
+        },
+        {
+          "valore": "altro",
+          "etichetta": "Altro"
+        },
+        {
+          "valore": "chieti-ex-ortona",
+          "etichetta": "Chieti (ex Ortona)"
+        },
+        {
+          "valore": "bolzano-corte-dappello",
+          "etichetta": "Bolzano (Corte d'Appello)"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?province=mi&tribunale=milano",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.tribunale; tag 'Tribunale: Milano' in guarda/province_mi_tribunale_milano.json; valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) tribunali [prova_mappa \"milano\" Provincia di Milano vendita: 315->211 (2026-11-16 14:07:04)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "milano",
+        "comune": "Provincia di Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "procedura",
+      "etichetta": "Procedura (numero/anno)",
+      "gruppo": "procedura",
+      "parametro": "proc_numero + proc_anno",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=trieste&proc_anno=2026&proc_numero=35",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.proc_numero, n.proc_anno; guarda/comuni_trieste_proc_numero_35_proc_anno_2026.json 5 -> 2 [prova_mappa \"35/2026\" Trieste vendita: 5->2 (2026-11-16 14:07:15)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "35/2026",
+        "attesa": "meno"
+      },
+      "note": "Valore 'numero/anno', es. '35/2026'."
+    },
+    {
+      "chiave": "tipo_procedura",
+      "etichetta": "Tipo procedura",
+      "gruppo": "procedura",
+      "parametro": "tipo_procedura",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "composizione-negoziata-della-crisi",
+          "etichetta": "Composizione negoziata della crisi"
+        },
+        {
+          "valore": "contenzioso-civile",
+          "etichetta": "Contenzioso civile"
+        },
+        {
+          "valore": "esecuzioni-civili",
+          "etichetta": "Esecuzioni civili"
+        },
+        {
+          "valore": "esecuzioni-civili-immobiliari-espropriazione-immobiliare-cartabia",
+          "etichetta": "Esecuzioni Civili Immobiliari / Espropriazione Immobiliare (Cartabia)"
+        },
+        {
+          "valore": "esecuzioni-esattoriali-immobiliari",
+          "etichetta": "Esecuzioni Esattoriali Immobiliari"
+        },
+        {
+          "valore": "procedure-concorsuali-accordi-di-ristrutturazione",
+          "etichetta": "Procedure concorsuali / Accordi di ristrutturazione"
+        },
+        {
+          "valore": "procedure-concorsuali-amm.-controllata",
+          "etichetta": "Procedure concorsuali / Amm. controllata"
+        },
+        {
+          "valore": "procedure-concorsuali-amm.-straordinaria",
+          "etichetta": "Procedure concorsuali / Amm. straordinaria"
+        },
+        {
+          "valore": "procedure-concorsuali-composizione-della-crisi-da-sovraindebitamento",
+          "etichetta": "Procedure concorsuali / Composizione della crisi da sovraindebitamento"
+        },
+        {
+          "valore": "procedure-concorsuali-concordato-minore",
+          "etichetta": "Procedure concorsuali / Concordato minore"
+        },
+        {
+          "valore": "procedure-concorsuali-concordato-preventivo",
+          "etichetta": "Procedure concorsuali / Concordato preventivo"
+        },
+        {
+          "valore": "procedure-concorsuali-concordato-preventivo-ccii",
+          "etichetta": "Procedure concorsuali / Concordato Preventivo (CCII)"
+        },
+        {
+          "valore": "procedure-concorsuali-concordato-preventivo-omologato-cci",
+          "etichetta": "Procedure concorsuali / Concordato Preventivo omologato (CCI)"
+        },
+        {
+          "valore": "procedure-concorsuali-concordato-semplificato-cci",
+          "etichetta": "Procedure concorsuali / Concordato Semplificato (CCI)"
+        },
+        {
+          "valore": "procedure-concorsuali-fallimentare",
+          "etichetta": "Procedure concorsuali / Fallimentare"
+        },
+        {
+          "valore": "procedure-concorsuali-liquidazione-coatta-amministrativa",
+          "etichetta": "Procedure concorsuali / Liquidazione coatta amministrativa"
+        },
+        {
+          "valore": "procedure-concorsuali-liquidazione-controllata-cci",
+          "etichetta": "Procedure concorsuali / Liquidazione controllata (CCI)"
+        },
+        {
+          "valore": "procedure-concorsuali-liquidazione-controllata-dal-sovraindebitato",
+          "etichetta": "Procedure concorsuali / Liquidazione controllata dal sovraindebitato"
+        },
+        {
+          "valore": "procedure-concorsuali-liquidazione-giudiziale-cci",
+          "etichetta": "Procedure concorsuali / Liquidazione giudiziale (CCI)"
+        },
+        {
+          "valore": "procedure-concorsuali-liquidazione-patrimonio-del-debitore",
+          "etichetta": "Procedure concorsuali / Liquidazione patrimonio del debitore"
+        },
+        {
+          "valore": "procedure-concorsuali-nuovo-concordato-preventivo",
+          "etichetta": "Procedure concorsuali / Nuovo concordato preventivo"
+        },
+        {
+          "valore": "procedure-concorsuali-piano-del-consumatore",
+          "etichetta": "Procedure concorsuali / Piano del consumatore"
+        },
+        {
+          "valore": "procedure-concorsuali-piano-di-ristrutturazione-omologato-cci",
+          "etichetta": "Procedure concorsuali / Piano di ristrutturazione omologato (CCI)"
+        },
+        {
+          "valore": "procedure-concorsuali-pu-concordato-preventivo",
+          "etichetta": "Procedure concorsuali / PU Concordato preventivo"
+        },
+        {
+          "valore": "procedure-concorsuali-pu-liquidazione-giudiziale",
+          "etichetta": "Procedure concorsuali / PU Liquidazione giudiziale"
+        },
+        {
+          "valore": "procedure-concorsuali-pu-piano-ristrutturazione-soggetto-omologazione",
+          "etichetta": "Procedure concorsuali / PU Piano ristrutturazione soggetto omologazione"
+        },
+        {
+          "valore": "procedure-concorsuali-pu-pu-concordato-minore",
+          "etichetta": "Procedure concorsuali / PU PU Concordato Minore"
+        },
+        {
+          "valore": "procedure-concorsuali-pu-ristrutturazione-dei-debiti-del-consumatore",
+          "etichetta": "Procedure concorsuali / PU Ristrutturazione dei debiti del consumatore"
+        },
+        {
+          "valore": "procedure-concorsuali-ricorso-concordato-minore",
+          "etichetta": "Procedure concorsuali / Ricorso concordato minore"
+        },
+        {
+          "valore": "procedure-concorsuali-ricorso-fissazione-termine-per-deposito-proposta-o-accordi",
+          "etichetta": "Procedure concorsuali / Ricorso fissazione termine per deposito proposta o accordi"
+        },
+        {
+          "valore": "procedure-concorsuali-ricorso-per-ammissione-concordato-preventivo",
+          "etichetta": "Procedure concorsuali / Ricorso per ammissione concordato preventivo"
+        },
+        {
+          "valore": "procedure-concorsuali-ricorso-per-liquidazione-giudiziale",
+          "etichetta": "Procedure concorsuali / Ricorso per liquidazione giudiziale"
+        },
+        {
+          "valore": "procedure-concorsuali-ricorso-per-omologa-accordi-di-ristrutturazione",
+          "etichetta": "Procedure concorsuali / Ricorso per omologa accordi di ristrutturazione"
+        },
+        {
+          "valore": "procedure-concorsuali-ricorso-ristrutturazione-debiti-del-consumatore",
+          "etichetta": "Procedure concorsuali / Ricorso ristrutturazione debiti del consumatore"
+        },
+        {
+          "valore": "procedure-concorsuali-ristrutturazione-dei-debiti-cci",
+          "etichetta": "Procedure concorsuali / Ristrutturazione dei debiti CCI"
+        },
+        {
+          "valore": "procedure-concorsualipiano-ristrutturazione-soggetto-omologazione-ccii",
+          "etichetta": "Procedure concorsuali/Piano ristrutturazione soggetto omologazione CCII"
+        },
+        {
+          "valore": "registro-amministrazione-di-sostegno",
+          "etichetta": "Registro Amministrazione di Sostegno"
+        },
+        {
+          "valore": "vendita-privata",
+          "etichetta": "Vendita Privata"
+        },
+        {
+          "valore": "volontaria-giurisdizione-volontaria-giurisdizione",
+          "etichetta": "Volontaria giurisdizione / Volontaria giurisdizione"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&tipo_procedura=esecuzioni-civili",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.tipo_procedura; valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Procedura [prova_mappa \"esecuzioni-civili\" Milano vendita: 56->17 (2026-11-16 14:07:26)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "esecuzioni-civili",
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "esito",
+      "etichetta": "Esito asta",
+      "gruppo": "procedura",
+      "parametro": "esito",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "Aggiudicata",
+          "etichetta": "Aggiudicata"
+        },
+        {
+          "valore": "Deserta",
+          "etichetta": "Deserta"
+        },
+        {
+          "valore": "Infruttuosa",
+          "etichetta": "Infruttuosa"
+        },
+        {
+          "valore": "LottoEstinto",
+          "etichetta": "Lotto estinto"
+        },
+        {
+          "valore": "Revocata",
+          "etichetta": "Revocata"
+        },
+        {
+          "valore": "Rinviata",
+          "etichetta": "Rinviata"
+        },
+        {
+          "valore": "Sospesa",
+          "etichetta": "Sospesa"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?aste_passate=true&comuni=milano&esito=Aggiudicata",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.esito; valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Esito [prova_mappa \"Aggiudicata\" Milano vendita: 134->25 (2026-11-16 14:07:49)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Aggiudicata",
+        "comune": "Milano",
+        "attesa": "meno",
+        "base_filtri": {
+          "includi_aste_passate": true
+        }
+      },
+      "note": "Gli esiti riguardano aste già svolte: di solito va con includi_aste_passate."
+    },
+    {
+      "chiave": "includi_aste_passate",
+      "etichetta": "Includi aste passate",
+      "gruppo": "data",
+      "parametro": "aste_passate",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?aste_passate=true&comuni=trieste",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.aste_passate = 'true'; faccetta AstePassate [prova_mappa true Trieste vendita: 5->20 (2026-11-16 14:07:59)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "diverso"
+      }
+    },
+    {
+      "chiave": "fascia_data",
+      "etichetta": "Data dell'asta (fascia)",
+      "gruppo": "data",
+      "parametro": "data",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "AsteDiOggi",
+          "etichetta": "Aste di oggi"
+        },
+        {
+          "valore": "Prossimi30Giorni",
+          "etichetta": "Nei Prossimi 30 giorni"
+        },
+        {
+          "valore": "Prossimi7Giorni",
+          "etichetta": "Nei Prossimi 7 giorni"
+        },
+        {
+          "valore": "SenzaData",
+          "etichetta": "Senza data"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&data=Prossimi30Giorni",
+      "evidenza": "link delle faccette 'Fasce di data' (sonda 16/11) e prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.data; valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_FasciaDiDate [prova_mappa \"Prossimi30Giorni\" Milano vendita: 56->19 (2026-11-16 14:08:11)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Prossimi30Giorni",
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "data_asta_da",
+      "etichetta": "Asta dal",
+      "gruppo": "data",
+      "parametro": "asta_da",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?asta_da=2027-01-01&comuni=milano",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.asta_da; toWebapiSearchParams la legge come AAAA-MM-GG (split('-')) [prova_mappa \"2027-01-01\" Milano vendita: 56->22 (2026-11-16 14:08:21)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2027-01-01",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Data AAAA-MM-GG."
+    },
+    {
+      "chiave": "data_asta_a",
+      "etichetta": "Asta al",
+      "gruppo": "data",
+      "parametro": "asta_a",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?asta_a=2026-12-31&comuni=milano",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.asta_a, formato AAAA-MM-GG [prova_mappa \"2026-12-31\" Milano vendita: 56->34 (2026-11-16 14:08:32)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2026-12-31",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Data AAAA-MM-GG."
+    },
+    {
+      "chiave": "con_foto",
+      "etichetta": "Con foto",
+      "gruppo": "allegati",
+      "parametro": "tipo_allegati",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&tipo_allegati=foto",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.tipo_allegati (lista); valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Allegato; più allegati insieme vanno nella stessa lista [prova_mappa true Milano vendita: 56->43 (2026-11-16 14:08:43)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_planimetria",
+      "etichetta": "Con planimetria",
+      "gruppo": "allegati",
+      "parametro": "tipo_allegati",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&tipo_allegati=planimetria",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.tipo_allegati (lista); valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Allegato; più allegati insieme vanno nella stessa lista [prova_mappa true Milano vendita: 56->28 (2026-11-16 14:08:54)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_video",
+      "etichetta": "Con video",
+      "gruppo": "allegati",
+      "parametro": "tipo_allegati",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&tipo_allegati=video",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.tipo_allegati (lista); valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Allegato; più allegati insieme vanno nella stessa lista [prova_mappa true Regione Lombardia vendita: 1922->14 (2026-11-16 14:09:06)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "etichetta": "Con virtual tour",
+      "gruppo": "allegati",
+      "parametro": "tipo_allegati",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&tipo_allegati=virtualtour",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.tipo_allegati (lista); valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Allegato; più allegati insieme vanno nella stessa lista [prova_mappa true Regione Lombardia vendita: 1922->115 (2026-11-16 14:09:17)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_perizia",
+      "etichetta": "Con perizia",
+      "gruppo": "allegati",
+      "parametro": "tipo_allegati",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&tipo_allegati=perizia",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.tipo_allegati (lista); valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Allegato; più allegati insieme vanno nella stessa lista [prova_mappa true Milano vendita: 56->44 (2026-11-16 14:09:29)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "parola_chiave",
+      "etichetta": "Ricerca libera",
+      "gruppo": "testo",
+      "parametro": "q",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&q=box",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.q; filtro rimosso u.Keywords [prova_mappa \"box\" Milano vendita: 56->11 (2026-11-16 14:09:41)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "box",
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "sito_provenienza",
+      "etichetta": "Sito provenienza",
+      "gruppo": "fonte",
+      "parametro": "sitoEsterno",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "astalegale",
+          "etichetta": "Astalegale (sitoEsterno=false)"
+        },
+        {
+          "valore": "altri_siti",
+          "etichetta": "Altri siti, es. Portale Vendite Pubbliche (sitoEsterno=true)"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=trieste&sitoEsterno=false",
+      "evidenza": "faccetta 'Sito provenienza' (slug 'false' = Astalegale, 'true' = altri siti) e prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.sitoEsterno [prova_mappa \"astalegale\" Trieste vendita: 5->1 (2026-11-16 14:09:52)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "astalegale",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina per",
+      "gruppo": "ordinamento",
+      "parametro": "sort",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "DataAstaAsc",
+          "etichetta": "Data asta: crescente"
+        },
+        {
+          "valore": "DataAstaDesc",
+          "etichetta": "Data asta: decrescente"
+        },
+        {
+          "valore": "Visite",
+          "etichetta": "Più popolari"
+        },
+        {
+          "valore": "PrezzoBaseAsc",
+          "etichetta": "Prezzo: meno costosi"
+        },
+        {
+          "valore": "PrezzoBaseDesc",
+          "etichetta": "Prezzo: più costosi"
+        },
+        {
+          "valore": "DataPubblicazioneAsc",
+          "etichetta": "Pubblicazione: meno recente"
+        },
+        {
+          "valore": "DataPubblicazioneDesc",
+          "etichetta": "Pubblicazione: più recente"
+        },
+        {
+          "valore": "DistanzaAsc",
+          "etichetta": "Vicinanza"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&sort=PrezzoBaseAsc",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.sort; valori da __NUXT_DATA__ state $sSiteSettings (prove/scoperta-2026-11-16/astalegale/catalogo.json) enumerativi.Tipi_Ordinamento [prova_mappa \"PrezzoBaseAsc\" Milano vendita: 56->56 (2026-11-16 14:10:15); \"PrezzoBaseDesc\" Milano vendita: 56->56 (2026-11-16 14:10:38)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "PrezzoBaseAsc",
+          "comune": "Milano",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "PrezzoBaseDesc",
+          "comune": "Milano",
+          "attesa": "ordine_desc"
+        }
+      ],
+      "note": "DistanzaAsc ha senso solo con una posizione (raggio)."
+    },
+    {
+      "chiave": "risultati_per_pagina",
+      "etichetta": "Risultati per pagina",
+      "gruppo": "paginazione",
+      "parametro": "limit",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": 12,
+          "etichetta": "12"
+        },
+        {
+          "valore": 60,
+          "etichetta": "60"
+        },
+        {
+          "valore": 120,
+          "etichetta": "120"
+        }
+      ],
+      "esempio": "https://www.astalegale.net/Immobili?comuni=milano&limit=60",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.limit; evento change-page-size; l'interfaccia offre 12, 60, 120 (sonda 16/11) [prova_mappa 60 Milano vendita: 56->56 (2026-11-16 14:10:50)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 60,
+        "comune": "Milano",
+        "attesa": "diverso"
+      }
+    },
+    {
+      "chiave": "raggio",
+      "etichetta": "Vicino a un punto",
+      "gruppo": "luogo",
+      "parametro": "wkt + radius",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?radius=1000&wkt=45.4642,9.19",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.wkt (punti 'lat,lng' separati da ';'), n.radius; guarda/wkt_45_4642_9_19_radius_1*.json: radius=1 -> 0, radius=1000 -> 3 (metri); con comuni e wkt insieme il sito usa solo wkt (guarda/comuni_trieste_radius_1000_wkt_45_4642_9_19.json) [prova_mappa \"45.4642,9.19,1000\" Milano vendita: 56->3 (2026-11-16 14:11:01)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.4642,9.19,1000",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Valore 'lat,lng,metri'. Il cerchio prende il posto del luogo: il comune non entra nella richiesta."
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Area disegnata su mappa",
+      "gruppo": "luogo",
+      "parametro": "wkt",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.astalegale.net/Immobili?wkt=45.45,9.17;45.45,9.21;45.48,9.21;45.48,9.17",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: n.wkt, punti 'lat,lng' separati da ';' (funzione ze); tag 'Area disegnata su Mappa' [prova_mappa \"45.45,9.17;45.45,9.21;45.48,9.21;45.48,9.17\" Milano vendita: 56->14 (2026-11-16 14:11:11)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.45,9.17;45.45,9.21;45.48,9.21;45.48,9.17",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Almeno 3 punti 'lat,lng' separati da ';'. L'area prende il posto del luogo."
+    }
+  ],
+  "assenti": [
+    {
+      "chiave": "contratto",
+      "evidenza": "Solo vendite all'asta: nessun affitto, nessun controllo vendita/affitto (pagina /Immobili 16/11/2026)."
+    },
+    {
+      "chiave": "zona",
+      "evidenza": "prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR: nessun parametro di zona sotto il comune; il luogo di Trieste ha solo la faccetta Comune (16/11/2026)."
+    },
+    {
+      "chiave": "mq_min",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "mq_max",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "locali_min",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "locali_max",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "bagni_min",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "piano",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "ascensore",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "terrazzo",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "giardino",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "box_auto",
+      "evidenza": "Solo come sottocategoria del bene in vendita (garage-o-autorimessa, altro-posto-auto), non come dotazione di una casa: usa sottocategoria. pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "posto_auto",
+      "evidenza": "Solo come sottocategoria del bene in vendita (altro-posto-auto), non come dotazione: usa sottocategoria. pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "Solo come sottocategoria del bene in vendita (cantina), non come dotazione: usa sottocategoria. pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "arredato",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "stato_immobile",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "aria_condizionata",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "evidenza": "Solo come sottocategoria (fabbricato-in-corso-di-costruzione). pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "Ogni annuncio di astalegale è un'asta: il filtro non esiste perché coincide con tutto il portale."
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "da_privato",
+      "evidenza": "Nessun filtro sull'inserzionista; ambito_vendita=VenditaTraPrivati è l'ambito della vendita, non chi pubblica. pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "pagina https://www.astalegale.net/Immobili del 16/11/2026: la query che la pagina legge è solo q, codice_asta, categories, asteIds, tribunale, procedura, proc_numero, proc_anno, prezzo_da, prezzo_a, asta_da, asta_a, data, regioni, province, comuni, luoghi, wkt, radius, esito, page, limit, sort, tipo_allegati, tipo_inserzione, tipo_procedura, aste_passate, mostra_attive, lotto, agentId, lat, lng, sitoTribunaleId, tipologie, vicinoMe, tipo_vendita, bo, sitoEsterno (prove/scoperta-2026-11-16/astalegale/js/Bb308-3p.js querystringToParamsSSR); il form ha luogo, prezzo base, tribunale, procedura, categoria, allegati, date, codice asta, esito, aste passate, ricerca libera, mappa, ambito, tipo procedura, ordinamento. Nessun controllo per questo filtro."
+    }
+  ],
+  "non_trovati": [],
+  "note": "Pagina /Immobili renderizzata lato server (Nuxt): i risultati stanno in __NUXT_DATA__ sotto /webapi/Search. Chiavi della query in ordine alfabetico e liste separate da virgola, come paramsToQuerystringSSR. Tolti: codice_asta (con un codice esatto il sito apre la scheda /Aste/Detail, non una lista: comuni=trieste&codice_asta=B2434738 -> /Aste/Detail/B2434738-...), mostra_attive e lotto (nessun controllo nel form), ambito_vendita (tipo_vendita: il sito riconosce il valore, tag 'Vendita giudiziaria' di tipo Ambito, ma regioni=lombardia&tipo_vendita=VenditaGiudiziaria dà 0 su 1920 aste che sono tutte giudiziarie: guarda/regioni_lombardia_tipo_vendita_venditagiudiziaria.json e prova_mappa 16/11 14:00). Il prezzo dell'annuncio è il prezzo base; offerta minima, data, tribunale, procedura, lotto e modalità stanno in Annuncio.asta."
+}

@@ -1,0 +1,1849 @@
+{
+  "portale": "gateaway",
+  "descrizione": "Portale in inglese per acquirenti esteri, solo vendite: a Trieste una ventina di case il 03/11/2026; filtra per distanza da mare, piste e aeroporto.",
+  "url_base_ricerca": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste",
+  "come_si_applicano": "misto",
+  "fonte_catalogo": "Pulsanti Price, Bedrooms, Property Type, More filters e Sort by (React, react-select) nella pagina di ricerca; il registro su fetch/pushState mostra /api/properties/count?q={search,filter} e l'URL finale; search.js, gateaway-common.js (getUrlBreadcrumbFromParams, getSimpleQueryStringFromParams, landMinSizes, nearTo*Distances) e UrlDictionary.en.js salvati in risultati/scoperta/gateaway/",
+  "filtri": [
+    {
+      "chiave": "comune",
+      "etichetta": "Comune",
+      "gruppo": "luogo",
+      "parametro": "/properties/<regione>/<provincia>/<comune>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "trieste",
+          "etichetta": "friuli-venezia-giulia/trieste/trieste"
+        },
+        {
+          "valore": "muggia",
+          "etichetta": "friuli-venezia-giulia/trieste/muggia"
+        },
+        {
+          "valore": "duino aurisina",
+          "etichetta": "friuli-venezia-giulia/trieste/duino-aurisina"
+        },
+        {
+          "valore": "san dorligo della valle",
+          "etichetta": "friuli-venezia-giulia/trieste/san-dorligo-della-valle"
+        },
+        {
+          "valore": "sgonico",
+          "etichetta": "friuli-venezia-giulia/trieste/sgonico"
+        },
+        {
+          "valore": "monrupino",
+          "etichetta": "friuli-venezia-giulia/trieste/monrupino"
+        },
+        {
+          "valore": "udine",
+          "etichetta": "friuli-venezia-giulia/udine/udine"
+        },
+        {
+          "valore": "gorizia",
+          "etichetta": "friuli-venezia-giulia/gorizia/gorizia"
+        },
+        {
+          "valore": "roma",
+          "etichetta": "lazio/rome/rome"
+        },
+        {
+          "valore": "rome",
+          "etichetta": "lazio/rome/rome"
+        },
+        {
+          "valore": "milano",
+          "etichetta": "lombardy/milan/milan"
+        },
+        {
+          "valore": "milan",
+          "etichetta": "lombardy/milan/milan"
+        },
+        {
+          "valore": "venezia",
+          "etichetta": "veneto/venice/venice"
+        },
+        {
+          "valore": "venice",
+          "etichetta": "veneto/venice/venice"
+        },
+        {
+          "valore": "firenze",
+          "etichetta": "tuscany/florence/florence"
+        },
+        {
+          "valore": "florence",
+          "etichetta": "tuscany/florence/florence"
+        },
+        {
+          "valore": "napoli",
+          "etichetta": "campania/naples/naples"
+        },
+        {
+          "valore": "naples",
+          "etichetta": "campania/naples/naples"
+        },
+        {
+          "valore": "torino",
+          "etichetta": "piedmont/turin/turin"
+        },
+        {
+          "valore": "turin",
+          "etichetta": "piedmont/turin/turin"
+        },
+        {
+          "valore": "*",
+          "etichetta": "tutta Italia, senza luogo"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/muggia",
+      "evidenza": "gateaway recording.har voce 0 (documento), URL ricerca e box 'Cities near Trieste' (within 10 km / 20 km); slug di citta', provincia e regione da UrlDictionary.en.js e mappa citta'->provincia di gateaway-common.js (Muggia 4561 -> provincia 94 trieste -> regione 6) [prova_mappa \"Muggia\" Trieste vendita: 21->2 (2026-11-03 13:52:28)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Muggia",
+        "attesa": "diverso"
+      }
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "pagina",
+      "parametro": "pag",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?pag=2",
+      "evidenza": "gateaway recording.har voci 0 e 2: link ?pag=2..5, preloadedData.data.searchParams.pag='2' nella voce 2 [prova_mappa 2 Trieste vendita: 21->21 (2026-11-03 13:52:46)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    },
+    {
+      "chiave": "regione",
+      "etichetta": "Regione",
+      "gruppo": "luogo",
+      "parametro": "/properties/<regione>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "abruzzo",
+          "etichetta": "abruzzo"
+        },
+        {
+          "valore": "basilicata",
+          "etichetta": "basilicata"
+        },
+        {
+          "valore": "calabria",
+          "etichetta": "calabria"
+        },
+        {
+          "valore": "campania",
+          "etichetta": "campania"
+        },
+        {
+          "valore": "emilia-romagna",
+          "etichetta": "emilia-romagna"
+        },
+        {
+          "valore": "friuli-venezia-giulia",
+          "etichetta": "friuli-venezia-giulia"
+        },
+        {
+          "valore": "lazio",
+          "etichetta": "lazio"
+        },
+        {
+          "valore": "liguria",
+          "etichetta": "liguria"
+        },
+        {
+          "valore": "lombardy",
+          "etichetta": "lombardy"
+        },
+        {
+          "valore": "marche",
+          "etichetta": "marche"
+        },
+        {
+          "valore": "molise",
+          "etichetta": "molise"
+        },
+        {
+          "valore": "piedmont",
+          "etichetta": "piedmont"
+        },
+        {
+          "valore": "puglia",
+          "etichetta": "puglia"
+        },
+        {
+          "valore": "sardinia",
+          "etichetta": "sardinia"
+        },
+        {
+          "valore": "sicily",
+          "etichetta": "sicily"
+        },
+        {
+          "valore": "trentino-south-tyrol",
+          "etichetta": "trentino-south-tyrol"
+        },
+        {
+          "valore": "tuscany",
+          "etichetta": "tuscany"
+        },
+        {
+          "valore": "umbria",
+          "etichetta": "umbria"
+        },
+        {
+          "valore": "valle-d-aosta",
+          "etichetta": "valle-d-aosta"
+        },
+        {
+          "valore": "veneto",
+          "etichetta": "veneto"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/tuscany",
+      "evidenza": "gateaway recording.har voce 0 (documento), menu Quick Search 'Regions' e breadcrumb; UrlDictionary.en.js this.region. Richiede comune='*' [prova_mappa \"tuscany\" * vendita: 44471->8901 (2026-11-03 13:53:25)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "tuscany",
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "provincia",
+      "etichetta": "Provincia",
+      "gruppo": "luogo",
+      "parametro": "/properties/<regione>/<provincia>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "agrigento",
+          "etichetta": "provincia di agrigento (sicily)"
+        },
+        {
+          "valore": "alessandria",
+          "etichetta": "provincia di alessandria (piedmont)"
+        },
+        {
+          "valore": "ancona",
+          "etichetta": "provincia di ancona (marche)"
+        },
+        {
+          "valore": "aosta",
+          "etichetta": "provincia di aosta (valle-d-aosta)"
+        },
+        {
+          "valore": "arezzo",
+          "etichetta": "provincia di arezzo (tuscany)"
+        },
+        {
+          "valore": "ascoli-piceno",
+          "etichetta": "provincia di ascoli-piceno (marche)"
+        },
+        {
+          "valore": "asti",
+          "etichetta": "provincia di asti (piedmont)"
+        },
+        {
+          "valore": "avellino",
+          "etichetta": "provincia di avellino (campania)"
+        },
+        {
+          "valore": "bari",
+          "etichetta": "provincia di bari (puglia)"
+        },
+        {
+          "valore": "barletta-andria-trani",
+          "etichetta": "provincia di barletta-andria-trani (puglia)"
+        },
+        {
+          "valore": "belluno",
+          "etichetta": "provincia di belluno (veneto)"
+        },
+        {
+          "valore": "benevento",
+          "etichetta": "provincia di benevento (campania)"
+        },
+        {
+          "valore": "bergamo",
+          "etichetta": "provincia di bergamo (lombardy)"
+        },
+        {
+          "valore": "biella",
+          "etichetta": "provincia di biella (piedmont)"
+        },
+        {
+          "valore": "bologna",
+          "etichetta": "provincia di bologna (emilia-romagna)"
+        },
+        {
+          "valore": "bolzano",
+          "etichetta": "provincia di bolzano (trentino-south-tyrol)"
+        },
+        {
+          "valore": "brescia",
+          "etichetta": "provincia di brescia (lombardy)"
+        },
+        {
+          "valore": "brindisi",
+          "etichetta": "provincia di brindisi (puglia)"
+        },
+        {
+          "valore": "cagliari",
+          "etichetta": "provincia di cagliari (sardinia)"
+        },
+        {
+          "valore": "caltanissetta",
+          "etichetta": "provincia di caltanissetta (sicily)"
+        },
+        {
+          "valore": "campobasso",
+          "etichetta": "provincia di campobasso (molise)"
+        },
+        {
+          "valore": "caserta",
+          "etichetta": "provincia di caserta (campania)"
+        },
+        {
+          "valore": "catania",
+          "etichetta": "provincia di catania (sicily)"
+        },
+        {
+          "valore": "catanzaro",
+          "etichetta": "provincia di catanzaro (calabria)"
+        },
+        {
+          "valore": "chieti",
+          "etichetta": "provincia di chieti (abruzzo)"
+        },
+        {
+          "valore": "como",
+          "etichetta": "provincia di como (lombardy)"
+        },
+        {
+          "valore": "cosenza",
+          "etichetta": "provincia di cosenza (calabria)"
+        },
+        {
+          "valore": "cremona",
+          "etichetta": "provincia di cremona (lombardy)"
+        },
+        {
+          "valore": "crotone",
+          "etichetta": "provincia di crotone (calabria)"
+        },
+        {
+          "valore": "cuneo",
+          "etichetta": "provincia di cuneo (piedmont)"
+        },
+        {
+          "valore": "enna",
+          "etichetta": "provincia di enna (sicily)"
+        },
+        {
+          "valore": "fermo",
+          "etichetta": "provincia di fermo (marche)"
+        },
+        {
+          "valore": "ferrara",
+          "etichetta": "provincia di ferrara (emilia-romagna)"
+        },
+        {
+          "valore": "florence",
+          "etichetta": "provincia di florence (tuscany)"
+        },
+        {
+          "valore": "foggia",
+          "etichetta": "provincia di foggia (puglia)"
+        },
+        {
+          "valore": "forli-cesena",
+          "etichetta": "provincia di forli-cesena (emilia-romagna)"
+        },
+        {
+          "valore": "frosinone",
+          "etichetta": "provincia di frosinone (lazio)"
+        },
+        {
+          "valore": "gallura-north-east-sardinia",
+          "etichetta": "provincia di gallura-north-east-sardinia (sardinia)"
+        },
+        {
+          "valore": "genoa",
+          "etichetta": "provincia di genoa (liguria)"
+        },
+        {
+          "valore": "gorizia",
+          "etichetta": "provincia di gorizia (friuli-venezia-giulia)"
+        },
+        {
+          "valore": "grosseto",
+          "etichetta": "provincia di grosseto (tuscany)"
+        },
+        {
+          "valore": "imperia",
+          "etichetta": "provincia di imperia (liguria)"
+        },
+        {
+          "valore": "isernia",
+          "etichetta": "provincia di isernia (molise)"
+        },
+        {
+          "valore": "l-aquila",
+          "etichetta": "provincia di l-aquila (abruzzo)"
+        },
+        {
+          "valore": "la-spezia",
+          "etichetta": "provincia di la-spezia (liguria)"
+        },
+        {
+          "valore": "latina",
+          "etichetta": "provincia di latina (lazio)"
+        },
+        {
+          "valore": "lecce",
+          "etichetta": "provincia di lecce (puglia)"
+        },
+        {
+          "valore": "lecco",
+          "etichetta": "provincia di lecco (lombardy)"
+        },
+        {
+          "valore": "livorno",
+          "etichetta": "provincia di livorno (tuscany)"
+        },
+        {
+          "valore": "lodi",
+          "etichetta": "provincia di lodi (lombardy)"
+        },
+        {
+          "valore": "lucca",
+          "etichetta": "provincia di lucca (tuscany)"
+        },
+        {
+          "valore": "macerata",
+          "etichetta": "provincia di macerata (marche)"
+        },
+        {
+          "valore": "mantua",
+          "etichetta": "provincia di mantua (lombardy)"
+        },
+        {
+          "valore": "massa-carrara",
+          "etichetta": "provincia di massa-carrara (tuscany)"
+        },
+        {
+          "valore": "matera",
+          "etichetta": "provincia di matera (basilicata)"
+        },
+        {
+          "valore": "medio-campidano",
+          "etichetta": "provincia di medio-campidano (sardinia)"
+        },
+        {
+          "valore": "messina",
+          "etichetta": "provincia di messina (sicily)"
+        },
+        {
+          "valore": "milan",
+          "etichetta": "provincia di milan (lombardy)"
+        },
+        {
+          "valore": "modena",
+          "etichetta": "provincia di modena (emilia-romagna)"
+        },
+        {
+          "valore": "monza-and-brianza",
+          "etichetta": "provincia di monza-and-brianza (lombardy)"
+        },
+        {
+          "valore": "naples",
+          "etichetta": "provincia di naples (campania)"
+        },
+        {
+          "valore": "novara",
+          "etichetta": "provincia di novara (piedmont)"
+        },
+        {
+          "valore": "nuoro",
+          "etichetta": "provincia di nuoro (sardinia)"
+        },
+        {
+          "valore": "ogliastra",
+          "etichetta": "provincia di ogliastra (sardinia)"
+        },
+        {
+          "valore": "oristano",
+          "etichetta": "provincia di oristano (sardinia)"
+        },
+        {
+          "valore": "padua",
+          "etichetta": "provincia di padua (veneto)"
+        },
+        {
+          "valore": "palermo",
+          "etichetta": "provincia di palermo (sicily)"
+        },
+        {
+          "valore": "parma",
+          "etichetta": "provincia di parma (emilia-romagna)"
+        },
+        {
+          "valore": "pavia",
+          "etichetta": "provincia di pavia (lombardy)"
+        },
+        {
+          "valore": "perugia",
+          "etichetta": "provincia di perugia (umbria)"
+        },
+        {
+          "valore": "pesaro-and-urbino",
+          "etichetta": "provincia di pesaro-and-urbino (marche)"
+        },
+        {
+          "valore": "pescara",
+          "etichetta": "provincia di pescara (abruzzo)"
+        },
+        {
+          "valore": "piacenza",
+          "etichetta": "provincia di piacenza (emilia-romagna)"
+        },
+        {
+          "valore": "pisa",
+          "etichetta": "provincia di pisa (tuscany)"
+        },
+        {
+          "valore": "pistoia",
+          "etichetta": "provincia di pistoia (tuscany)"
+        },
+        {
+          "valore": "pordenone",
+          "etichetta": "provincia di pordenone (friuli-venezia-giulia)"
+        },
+        {
+          "valore": "potenza",
+          "etichetta": "provincia di potenza (basilicata)"
+        },
+        {
+          "valore": "prato",
+          "etichetta": "provincia di prato (tuscany)"
+        },
+        {
+          "valore": "ragusa",
+          "etichetta": "provincia di ragusa (sicily)"
+        },
+        {
+          "valore": "ravenna",
+          "etichetta": "provincia di ravenna (emilia-romagna)"
+        },
+        {
+          "valore": "reggio-calabria",
+          "etichetta": "provincia di reggio-calabria (calabria)"
+        },
+        {
+          "valore": "reggio-emilia",
+          "etichetta": "provincia di reggio-emilia (emilia-romagna)"
+        },
+        {
+          "valore": "republic-of-san-marino",
+          "etichetta": "provincia di republic-of-san-marino (emilia-romagna)"
+        },
+        {
+          "valore": "rieti",
+          "etichetta": "provincia di rieti (lazio)"
+        },
+        {
+          "valore": "rimini",
+          "etichetta": "provincia di rimini (emilia-romagna)"
+        },
+        {
+          "valore": "rome",
+          "etichetta": "provincia di rome (lazio)"
+        },
+        {
+          "valore": "rovigo",
+          "etichetta": "provincia di rovigo (veneto)"
+        },
+        {
+          "valore": "salerno",
+          "etichetta": "provincia di salerno (campania)"
+        },
+        {
+          "valore": "sassari",
+          "etichetta": "provincia di sassari (sardinia)"
+        },
+        {
+          "valore": "savona",
+          "etichetta": "provincia di savona (liguria)"
+        },
+        {
+          "valore": "siena",
+          "etichetta": "provincia di siena (tuscany)"
+        },
+        {
+          "valore": "sondrio",
+          "etichetta": "provincia di sondrio (lombardy)"
+        },
+        {
+          "valore": "sulcis-iglesiente",
+          "etichetta": "provincia di sulcis-iglesiente (sardinia)"
+        },
+        {
+          "valore": "syracuse",
+          "etichetta": "provincia di syracuse (sicily)"
+        },
+        {
+          "valore": "taranto",
+          "etichetta": "provincia di taranto (puglia)"
+        },
+        {
+          "valore": "teramo",
+          "etichetta": "provincia di teramo (abruzzo)"
+        },
+        {
+          "valore": "terni",
+          "etichetta": "provincia di terni (umbria)"
+        },
+        {
+          "valore": "trapani",
+          "etichetta": "provincia di trapani (sicily)"
+        },
+        {
+          "valore": "trento",
+          "etichetta": "provincia di trento (trentino-south-tyrol)"
+        },
+        {
+          "valore": "treviso",
+          "etichetta": "provincia di treviso (veneto)"
+        },
+        {
+          "valore": "trieste",
+          "etichetta": "provincia di trieste (friuli-venezia-giulia)"
+        },
+        {
+          "valore": "turin",
+          "etichetta": "provincia di turin (piedmont)"
+        },
+        {
+          "valore": "udine",
+          "etichetta": "provincia di udine (friuli-venezia-giulia)"
+        },
+        {
+          "valore": "varese",
+          "etichetta": "provincia di varese (lombardy)"
+        },
+        {
+          "valore": "venice",
+          "etichetta": "provincia di venice (veneto)"
+        },
+        {
+          "valore": "verbano-cusio-ossola",
+          "etichetta": "provincia di verbano-cusio-ossola (piedmont)"
+        },
+        {
+          "valore": "vercelli",
+          "etichetta": "provincia di vercelli (piedmont)"
+        },
+        {
+          "valore": "verona",
+          "etichetta": "provincia di verona (veneto)"
+        },
+        {
+          "valore": "vibo-valentia",
+          "etichetta": "provincia di vibo-valentia (calabria)"
+        },
+        {
+          "valore": "vicenza",
+          "etichetta": "provincia di vicenza (veneto)"
+        },
+        {
+          "valore": "viterbo",
+          "etichetta": "provincia di viterbo (lazio)"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste",
+      "evidenza": "gateaway recording.har voce 0 (documento), breadcrumb 'Trieste (province)' -> /properties/friuli-venezia-giulia/trieste; UrlDictionary.en.js this.province e gateaway-common.js provincia->regione. Richiede comune='*' [prova_mappa \"trieste\" * vendita: 44471->28 (2026-11-03 13:53:45)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "trieste",
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "area_turistica",
+      "etichetta": "Area turistica (Top Areas)",
+      "gruppo": "luogo",
+      "parametro": "/properties/<area>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "abruzzo-national-park",
+          "etichetta": "abruzzo-national-park"
+        },
+        {
+          "valore": "aeolian-islands",
+          "etichetta": "aeolian-islands"
+        },
+        {
+          "valore": "amalfi-coast",
+          "etichetta": "amalfi-coast"
+        },
+        {
+          "valore": "canavese",
+          "etichetta": "canavese"
+        },
+        {
+          "valore": "chianti",
+          "etichetta": "chianti"
+        },
+        {
+          "valore": "cilento",
+          "etichetta": "cilento"
+        },
+        {
+          "valore": "cinque-terre",
+          "etichetta": "cinque-terre"
+        },
+        {
+          "valore": "elba-island",
+          "etichetta": "elba-island"
+        },
+        {
+          "valore": "garfagnana",
+          "etichetta": "garfagnana"
+        },
+        {
+          "valore": "gargano",
+          "etichetta": "gargano"
+        },
+        {
+          "valore": "idro-lake",
+          "etichetta": "idro-lake"
+        },
+        {
+          "valore": "itria-valley",
+          "etichetta": "itria-valley"
+        },
+        {
+          "valore": "lago-trasimeno",
+          "etichetta": "lago-trasimeno"
+        },
+        {
+          "valore": "lake-bolsena",
+          "etichetta": "lake-bolsena"
+        },
+        {
+          "valore": "lake-bracciano",
+          "etichetta": "lake-bracciano"
+        },
+        {
+          "valore": "lake-como",
+          "etichetta": "lake-como"
+        },
+        {
+          "valore": "lake-garda",
+          "etichetta": "lake-garda"
+        },
+        {
+          "valore": "lake-iseo",
+          "etichetta": "lake-iseo"
+        },
+        {
+          "valore": "lake-maggiore",
+          "etichetta": "lake-maggiore"
+        },
+        {
+          "valore": "lake-orta",
+          "etichetta": "lake-orta"
+        },
+        {
+          "valore": "langhe",
+          "etichetta": "langhe"
+        },
+        {
+          "valore": "lunigiana",
+          "etichetta": "lunigiana"
+        },
+        {
+          "valore": "maremma",
+          "etichetta": "maremma"
+        },
+        {
+          "valore": "medio-campidano",
+          "etichetta": "medio-campidano"
+        },
+        {
+          "valore": "montferrat",
+          "etichetta": "montferrat"
+        },
+        {
+          "valore": "ogliastra",
+          "etichetta": "ogliastra"
+        },
+        {
+          "valore": "sabina",
+          "etichetta": "sabina"
+        },
+        {
+          "valore": "salento",
+          "etichetta": "salento"
+        },
+        {
+          "valore": "tigullio-gulf",
+          "etichetta": "tigullio-gulf"
+        },
+        {
+          "valore": "tuscia",
+          "etichetta": "tuscia"
+        },
+        {
+          "valore": "valpolicella",
+          "etichetta": "valpolicella"
+        },
+        {
+          "valore": "versilia",
+          "etichetta": "versilia"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/lake-como",
+      "evidenza": "gateaway recording.har voce 0 (documento), menu Quick Search 'Top Areas'; UrlDictionary.en.js this.zone (32 aree). Richiede comune='*' [prova_mappa \"lake-como\" * vendita: 44471->1252 (2026-11-03 13:54:03)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "lake-como",
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "raggio",
+      "etichetta": "Cerchio disegnato sulla mappa (Draw a circle)",
+      "gruppo": "luogo",
+      "parametro": "circle[]={radius,center_lat,center_lon}",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties?circle[]={\"radius\":1131.59,\"center_lat\":45.6807,\"center_lon\":13.7560}",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): 'Draw a circle' sulla mappa Leaflet -> pushState /properties?circle[]={\"radius\":1131.586...,\"center_lat\":45.6806...,\"center_lon\":13.7560...}. Valore del client 'lat,lon,metri'. Richiede comune='*'. Il server ignora un raggio intero (1000, 5000, 5000.0 -> 44472 su 44472; 3000.5 -> 14): il client aggiunge 0.5 m a un raggio intero [prova_mappa \"45.6495,13.7768,5000\" * vendita: 44472->20 (2026-11-03 13:37:05)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.6495,13.7768,5000",
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Poligono disegnato sulla mappa (Draw a polygon)",
+      "gruppo": "luogo",
+      "parametro": "polygon[]=[\"lat lon\",...]",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties?polygon[]=[\"45.7 13.7\",\"45.7 13.82\",\"45.6 13.82\",\"45.6 13.7\",\"45.7 13.7\"]",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): il disegno del poligono non si e' chiuso con eventi sintetici; forma da search.js (vertici 'lat lng' di getLatLngs, chiuso ripetendo il primo, in search.polygon) e da getSimpleQueryStringFromParams (array di oggetti -> polygon[]=<JSON>). Valore del client 'lat lon;lat lon;...'. Richiede comune='*' [prova_mappa \"45.70 13.70;45.70 13.82;45.60 13.82;45.60 13.70\" * vendita: 44471->21 (2026-11-03 13:54:22)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.70 13.70;45.70 13.82;45.60 13.82;45.60 13.70",
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia (Property Type)",
+      "gruppo": "tipologia",
+      "parametro": "/<categoria>/... (piu' valori: /properties/...?cat[]=<id>)",
+      "posizione": "percorso",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "houses",
+          "etichetta": "categoria 1"
+        },
+        {
+          "valore": "farmhouses",
+          "etichetta": "categoria 9"
+        },
+        {
+          "valore": "apartments",
+          "etichetta": "categoria 11"
+        },
+        {
+          "valore": "loft-penthouses",
+          "etichetta": "categoria 12"
+        },
+        {
+          "valore": "commercial-properties",
+          "etichetta": "categoria 2"
+        },
+        {
+          "valore": "lands",
+          "etichetta": "categoria 6"
+        },
+        {
+          "valore": "unusual-properties",
+          "etichetta": "categoria 3"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/apartments/friuli-venezia-giulia/trieste/trieste",
+      "evidenza": "gateaway recording.har voce 0 (documento), menu Quick Search 'Property Types' (link a livello Italia, senza luogo); scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con cat[]=11&cat[]=1 (Apartments+Houses); getUrlBreadcrumbFromParams mette una sola categoria nel percorso (urlDictionary.category) [prova_mappa \"houses\" * vendita: 44471->24348 (2026-11-03 13:54:41); \"farmhouses\" * vendita: 44471->3767 (2026-11-03 13:54:59); \"apartments\" * vendita: 44471->12179 (2026-11-03 13:55:18); \"loft-penthouses\" * vendita: 44471->844 (2026-11-03 13:55:36); \"commercial-properties\" * vendita: 44471->2250 (2026-11-03 13:55:54); \"lands\" * vendita: 44471->1664 (2026-11-03 13:56:12); \"unusual-properties\" * vendita: 44471->682 (2026-11-03 13:56:30)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "houses",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "farmhouses",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "apartments",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "loft-penthouses",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "commercial-properties",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "lands",
+          "attesa": "meno",
+          "comune": "*"
+        },
+        {
+          "valore": "unusual-properties",
+          "attesa": "meno",
+          "comune": "*"
+        }
+      ]
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Price (min)",
+      "gruppo": "prezzo",
+      "parametro": "min_price",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "20000",
+          "etichetta": "20000 EUR"
+        },
+        {
+          "valore": "50000",
+          "etichetta": "50000 EUR"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000 EUR"
+        },
+        {
+          "valore": "150000",
+          "etichetta": "150000 EUR"
+        },
+        {
+          "valore": "200000",
+          "etichetta": "200000 EUR"
+        },
+        {
+          "valore": "250000",
+          "etichetta": "250000 EUR"
+        },
+        {
+          "valore": "300000",
+          "etichetta": "300000 EUR"
+        },
+        {
+          "valore": "400000",
+          "etichetta": "400000 EUR"
+        },
+        {
+          "valore": "500000",
+          "etichetta": "500000 EUR"
+        },
+        {
+          "valore": "600000",
+          "etichetta": "600000 EUR"
+        },
+        {
+          "valore": "700000",
+          "etichetta": "700000 EUR"
+        },
+        {
+          "valore": "800000",
+          "etichetta": "800000 EUR"
+        },
+        {
+          "valore": "900000",
+          "etichetta": "900000 EUR"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000 EUR"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?min_price=100000&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con min_price=100000. Prima prova con 100000: 21 -> 21 perche' l'annuncio piu' economico di Trieste costa 106000 (orderby=priceasc) [prova_mappa 200000 Trieste vendita: 21->19 (2026-11-03 13:37:42)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Price (max)",
+      "gruppo": "prezzo",
+      "parametro": "max_price",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "50000",
+          "etichetta": "50000 EUR"
+        },
+        {
+          "valore": "100000",
+          "etichetta": "100000 EUR"
+        },
+        {
+          "valore": "150000",
+          "etichetta": "150000 EUR"
+        },
+        {
+          "valore": "200000",
+          "etichetta": "200000 EUR"
+        },
+        {
+          "valore": "250000",
+          "etichetta": "250000 EUR"
+        },
+        {
+          "valore": "300000",
+          "etichetta": "300000 EUR"
+        },
+        {
+          "valore": "400000",
+          "etichetta": "400000 EUR"
+        },
+        {
+          "valore": "500000",
+          "etichetta": "500000 EUR"
+        },
+        {
+          "valore": "600000",
+          "etichetta": "600000 EUR"
+        },
+        {
+          "valore": "700000",
+          "etichetta": "700000 EUR"
+        },
+        {
+          "valore": "800000",
+          "etichetta": "800000 EUR"
+        },
+        {
+          "valore": "900000",
+          "etichetta": "900000 EUR"
+        },
+        {
+          "valore": "1000000",
+          "etichetta": "1000000 EUR"
+        },
+        {
+          "valore": "2000000",
+          "etichetta": "2000000 EUR"
+        },
+        {
+          "valore": "3000000",
+          "etichetta": "3000000 EUR"
+        },
+        {
+          "valore": "4000000",
+          "etichetta": "4000000 EUR"
+        },
+        {
+          "valore": "5000000",
+          "etichetta": "5000000 EUR"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?max_price=300000&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con max_price=300000 [prova_mappa 300000 Trieste vendita: 21->5 (2026-11-03 13:56:49)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 300000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "camere_min",
+      "etichetta": "Bedrooms (min)",
+      "gruppo": "locali",
+      "parametro": "bedrooms",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1+"
+        },
+        {
+          "valore": "2",
+          "etichetta": "2+"
+        },
+        {
+          "valore": "3",
+          "etichetta": "3+"
+        },
+        {
+          "valore": "4",
+          "etichetta": "4+"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5+"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?bedrooms=2&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con bedrooms=2 (radio bedrooms_radio 0..5). Camere da letto, non locali [prova_mappa 2 Trieste vendita: 21->14 (2026-11-03 13:57:08)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_min",
+      "etichetta": "Bathrooms (min)",
+      "gruppo": "bagni",
+      "parametro": "bathrooms",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1+"
+        },
+        {
+          "valore": "2",
+          "etichetta": "2+"
+        },
+        {
+          "valore": "3",
+          "etichetta": "3+"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?bathrooms=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con bathrooms=1 (radio bathrooms_radio 0..3) [prova_mappa 2 Trieste vendita: 21->12 (2026-11-03 13:57:27)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "stato_immobile",
+      "etichetta": "Condition",
+      "gruppo": "stato",
+      "parametro": "conditions[]",
+      "posizione": "query",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "restaurato",
+          "etichetta": "Completely restored/Habitable (1)"
+        },
+        {
+          "valore": "nuovo",
+          "etichetta": "New (2)"
+        },
+        {
+          "valore": "parzialmente-restaurato",
+          "etichetta": "Partially restored (3)"
+        },
+        {
+          "valore": "da-restaurare",
+          "etichetta": "To be restored (4)"
+        },
+        {
+          "valore": "non-indicato",
+          "etichetta": "N/A (5)"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?conditions[]=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con conditions[]=1 (checkbox property-condition 1..5); SSR: preloadedData.searchParams.filter.conditions=['1'], count 4 con bagni e giardino [prova_mappa \"restaurato\" Trieste vendita: 21->17 (2026-11-03 13:57:48)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "restaurato",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Living area (min)",
+      "gruppo": "superficie",
+      "parametro": "sqm_min",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "20",
+          "etichetta": "20 m²"
+        },
+        {
+          "valore": "40",
+          "etichetta": "40 m²"
+        },
+        {
+          "valore": "60",
+          "etichetta": "60 m²"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80 m²"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100 m²"
+        },
+        {
+          "valore": "120",
+          "etichetta": "120 m²"
+        },
+        {
+          "valore": "140",
+          "etichetta": "140 m²"
+        },
+        {
+          "valore": "160",
+          "etichetta": "160 m²"
+        },
+        {
+          "valore": "180",
+          "etichetta": "180 m²"
+        },
+        {
+          "valore": "200",
+          "etichetta": "200 m²"
+        },
+        {
+          "valore": "250",
+          "etichetta": "250 m²"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300 m²"
+        },
+        {
+          "valore": "350",
+          "etichetta": "350 m²"
+        },
+        {
+          "valore": "400",
+          "etichetta": "400 m²"
+        },
+        {
+          "valore": "450",
+          "etichetta": "450 m²"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500 m²"
+        },
+        {
+          "valore": "600",
+          "etichetta": "600 m²"
+        },
+        {
+          "valore": "700",
+          "etichetta": "700 m²"
+        },
+        {
+          "valore": "800",
+          "etichetta": "800 m²"
+        },
+        {
+          "valore": "900",
+          "etichetta": "900 m²"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000 m²"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?sqm_min=60&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con sqm_min=60 [prova_mappa 80 Trieste vendita: 21->18 (2026-11-03 13:58:07)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Living area (max)",
+      "gruppo": "superficie",
+      "parametro": "sqm_max",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "20",
+          "etichetta": "20 m²"
+        },
+        {
+          "valore": "40",
+          "etichetta": "40 m²"
+        },
+        {
+          "valore": "60",
+          "etichetta": "60 m²"
+        },
+        {
+          "valore": "80",
+          "etichetta": "80 m²"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100 m²"
+        },
+        {
+          "valore": "120",
+          "etichetta": "120 m²"
+        },
+        {
+          "valore": "140",
+          "etichetta": "140 m²"
+        },
+        {
+          "valore": "160",
+          "etichetta": "160 m²"
+        },
+        {
+          "valore": "180",
+          "etichetta": "180 m²"
+        },
+        {
+          "valore": "200",
+          "etichetta": "200 m²"
+        },
+        {
+          "valore": "250",
+          "etichetta": "250 m²"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300 m²"
+        },
+        {
+          "valore": "350",
+          "etichetta": "350 m²"
+        },
+        {
+          "valore": "400",
+          "etichetta": "400 m²"
+        },
+        {
+          "valore": "450",
+          "etichetta": "450 m²"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500 m²"
+        },
+        {
+          "valore": "600",
+          "etichetta": "600 m²"
+        },
+        {
+          "valore": "700",
+          "etichetta": "700 m²"
+        },
+        {
+          "valore": "800",
+          "etichetta": "800 m²"
+        },
+        {
+          "valore": "900",
+          "etichetta": "900 m²"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000 m²"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?sqm_max=200&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con sqm_max=200 [prova_mappa 100 Trieste vendita: 21->6 (2026-11-03 13:58:26)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "terreno_mq_min",
+      "etichetta": "Land / Garden (min area)",
+      "gruppo": "superficie",
+      "parametro": "land_sqm (con land=1 o garden=1)",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "200",
+          "etichetta": "200+ m2"
+        },
+        {
+          "valore": "300",
+          "etichetta": "300+ m2"
+        },
+        {
+          "valore": "400",
+          "etichetta": "400+ m2"
+        },
+        {
+          "valore": "500",
+          "etichetta": "500+ m2"
+        },
+        {
+          "valore": "750",
+          "etichetta": "750+ m2"
+        },
+        {
+          "valore": "1000",
+          "etichetta": "1000+ m2"
+        },
+        {
+          "valore": "2000",
+          "etichetta": "2000+ m2"
+        },
+        {
+          "valore": "5000",
+          "etichetta": "5000+ m2"
+        },
+        {
+          "valore": "10000",
+          "etichetta": "1+ ha"
+        },
+        {
+          "valore": "20000",
+          "etichetta": "2+ ha"
+        },
+        {
+          "valore": "50000",
+          "etichetta": "5+ ha"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?land_sqm=500&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con land_sqm=500; soglie da landMinSizes.int in gateaway-common.js. land_sqm vale solo con Land o Garden spuntati: land=1 9841 -> land=1&land_sqm=5000 5906, garden=1 23631 -> 1991, land_sqm=500 da solo 44472 -> 44472 (03/11). Senza giardino o con_terreno il client aggiunge land=1 [prova_mappa 500 * vendita: 44472->8770 (2026-11-03 13:38:02)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 500,
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "giardino",
+      "etichetta": "Garden (Main Features)",
+      "gruppo": "caratteristiche",
+      "parametro": "garden",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?garden=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con garden=1 (checkbox property-features) [prova_mappa true Trieste vendita: 21->7 (2026-11-03 13:58:44)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_terreno",
+      "etichetta": "Land (Main Features)",
+      "gruppo": "caratteristiche",
+      "parametro": "land",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?land=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con land=1 (checkbox property-features) [prova_mappa true * vendita: 44471->9841 (2026-11-03 13:59:03)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "box_auto",
+      "etichetta": "Garage (Main Features)",
+      "gruppo": "caratteristiche",
+      "parametro": "garage",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?garage=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con garage=1 (checkbox property-features) [prova_mappa true Trieste vendita: 21->6 (2026-11-03 13:59:21)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "cantina",
+      "etichetta": "Cellar (Main Features)",
+      "gruppo": "caratteristiche",
+      "parametro": "cellar",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?cellar=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con cellar=1 (checkbox property-features) [prova_mappa true Trieste vendita: 21->7 (2026-11-03 13:59:39)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piscina",
+      "etichetta": "Pool (Main Features)",
+      "gruppo": "caratteristiche",
+      "parametro": "pool",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?pool=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con pool=1 (checkbox property-features) [prova_mappa true * vendita: 44471->7719 (2026-11-03 13:59:58)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "terrazzo",
+      "etichetta": "Terrace (Main Features)",
+      "gruppo": "caratteristiche",
+      "parametro": "terrace",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?terrace=1&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con terrace=1 (checkbox property-features) [prova_mappa true Trieste vendita: 21->7 (2026-11-03 14:00:16)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "distanza_mare_max",
+      "etichetta": "Near to: Coast, max distance",
+      "gruppo": "vicino_a",
+      "parametro": "coastline",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1 km"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5 km"
+        },
+        {
+          "valore": "10",
+          "etichetta": "10 km"
+        },
+        {
+          "valore": "20",
+          "etichetta": "20 km"
+        },
+        {
+          "valore": "30",
+          "etichetta": "30 km"
+        },
+        {
+          "valore": "50",
+          "etichetta": "50 km"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?coastline=10&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con coastline=<km> (radio poi-types, un solo punto alla volta; select Max distance); distanze da nearTo*Distances in gateaway-common.js [prova_mappa 1 * vendita: 44471->5894 (2026-11-03 14:00:35)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 1,
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "distanza_sci_max",
+      "etichetta": "Near to: Ski resort, max distance",
+      "gruppo": "vicino_a",
+      "parametro": "skiresort",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "1 km"
+        },
+        {
+          "valore": "5",
+          "etichetta": "5 km"
+        },
+        {
+          "valore": "10",
+          "etichetta": "10 km"
+        },
+        {
+          "valore": "20",
+          "etichetta": "20 km"
+        },
+        {
+          "valore": "30",
+          "etichetta": "30 km"
+        },
+        {
+          "valore": "50",
+          "etichetta": "50 km"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?skiresort=10&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con skiresort=<km> (radio poi-types, un solo punto alla volta; select Max distance); distanze da nearTo*Distances in gateaway-common.js [prova_mappa 5 * vendita: 44471->2581 (2026-11-03 14:00:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 5,
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "distanza_aeroporto_max",
+      "etichetta": "Near to: Airport, max distance",
+      "gruppo": "vicino_a",
+      "parametro": "airport",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [
+        {
+          "valore": "10",
+          "etichetta": "10 km"
+        },
+        {
+          "valore": "20",
+          "etichetta": "20 km"
+        },
+        {
+          "valore": "30",
+          "etichetta": "30 km"
+        },
+        {
+          "valore": "50",
+          "etichetta": "50 km"
+        },
+        {
+          "valore": "100",
+          "etichetta": "100 km"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?airport=30&currency=EUR",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): clic nel pannello, la pagina chiama /api/properties/count?q={...filter...} e dopo 'View N properties' fa pushState con airport=<km> (radio poi-types, un solo punto alla volta; select Max distance); distanze da nearTo*Distances in gateaway-common.js [prova_mappa 10 * vendita: 44471->3856 (2026-11-03 14:01:12)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 10,
+        "attesa": "meno",
+        "comune": "*"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Sort by",
+      "gruppo": "ordinamento",
+      "parametro": "orderby",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "latest",
+          "etichetta": "Latest"
+        },
+        {
+          "valore": "priceasc",
+          "etichetta": "Min Price"
+        },
+        {
+          "valore": "pricedesc",
+          "etichetta": "Max Price"
+        },
+        {
+          "valore": "city",
+          "etichetta": "Cities"
+        }
+      ],
+      "esempio": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste?orderby=priceasc",
+      "evidenza": "scoperta al clic 03/11/2026 (risultati/scoperta/gateaway/appunti.md): menu Sort by -> pushState ?orderby=latest|priceasc|pricedesc|city; 'Most Relevant' = nessun orderby (default mostrel) [prova_mappa \"priceasc\" Trieste vendita: 21->21 (2026-11-03 14:03:24); \"pricedesc\" Trieste vendita: 21->21 (2026-11-03 14:03:43); \"latest\" Trieste vendita: 21->21 (2026-11-03 14:04:01); \"city\" * vendita: 44471->44472 (2026-11-03 14:04:46)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "priceasc",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "pricedesc",
+          "attesa": "ordine_desc"
+        },
+        {
+          "valore": "latest",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "city",
+          "attesa": "ordine_diverso",
+          "comune": "*"
+        }
+      ]
+    }
+  ],
+  "non_trovati": [
+    "Draw a polygon: il disegno con eventi sintetici non si e' chiuso; la forma polygon[] viene dal codice di search.js e la prova live la conferma o no",
+    "lake e only_feat: chiavi accettate da getSimpleQueryStringFromParams ma senza un controllo nell'interfaccia: non mappate",
+    "Currency e Units: preferenze di visualizzazione (currency=EUR, units=int), non filtri"
+  ],
+  "note": "Solo vendita, interfaccia in inglese. URL: /<categoria>[/<luogo>]?<filtri>: una sola tipologia nel percorso (/apartments/...), piu' tipologie in /properties con cat[]=; un solo luogo (comune, provincia, regione o area) nel percorso; cerchio e poligono in query senza luogo, quindi regione, provincia, area_turistica, raggio e mappa_area richiedono comune='*' e si escludono a vicenda. I filtri vanno in query con i nomi di preloadedData.searchParams.filter, piu' currency=EUR come fa l'interfaccia. Near to (mare, sci, aeroporto) e' una scelta sola. Tolta la voce comune_id (search.city: id interno, l'URL usa lo slug). Tolta la voce contratto: un solo valore (vendita), nessun controllo, spostata in assenti. Pagina 2 restituisce anche additionalResults (comuni vicini), che il client scarta. currency=EUR non cambia la ricerca: misura 03/11 14:44, Trieste senza filtri 21 annunci e con solo currency=EUR 21, stessi 12 id in pagina 1 (risultati/scoperta/gateaway/valuta.py, richieste.log). Le prove con filtro, che portano currency=EUR contro una base senza, misurano quindi il filtro. giardino, cantina e terrazzo danno 7 su 21 per caso: misura 14:45, tre insiemi di id diversi (garden 613771 784344 801938 803259 826057 837340 844930; cellar 613771 696102 784344 803259 826057 844930 855684; terrace 613771 784344 801938 803259 823005 837340 857650), e ogni annuncio di garden ha Garden=1, ogni annuncio di terrace ha Terrace=1 in searchResults.",
+  "assenti": [
+    {
+      "chiave": "contratto",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: nessuna scelta vendita/affitto: il sito pubblica solo vendite (titolo 'Property for sale', schema.org businessFunction Sell); il client accetta solo contratto='vendita'"
+    },
+    {
+      "chiave": "zona",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per zona o quartiere del comune; le 'Top Areas' sono aree turistiche, mappate come area_turistica"
+    },
+    {
+      "chiave": "locali_min",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per i locali: c'e' Bedrooms (camere da letto), mappato come camere_min"
+    },
+    {
+      "chiave": "locali_max",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per i locali, ne' un massimo di camere"
+    },
+    {
+      "chiave": "piano",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per il piano"
+    },
+    {
+      "chiave": "ascensore",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per l'ascensore"
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per il balcone"
+    },
+    {
+      "chiave": "posto_auto",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per il posto auto (c'e' solo Garage, mappato box_auto)"
+    },
+    {
+      "chiave": "arredato",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per l'arredamento"
+    },
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per la classe energetica"
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per il riscaldamento"
+    },
+    {
+      "chiave": "aria_condizionata",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per l'aria condizionata"
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per la vista mare (c'e' Near to Coast, mappato distanza_mare_max)"
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per le nuove costruzioni (Condition 'New' e' mappato come stato_immobile=nuovo)"
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per le aste"
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per la nuda proprieta'"
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per gli immobili a reddito"
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per immobile libero"
+    },
+    {
+      "chiave": "da_privato",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per privati o agenzie"
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per tipo di inserzionista"
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per annunci con foto"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per la planimetria"
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per i video"
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per il virtual tour"
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per i ribassi"
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "https://www.gate-away.com/properties/friuli-venezia-giulia/trieste/trieste, 03/11/2026: pannelli Price, Bedrooms, Property Type e More filters (Bathrooms, Condition, Living area, Land/Garden, Main Features, Near to): nessun controllo per una parola chiave: la casella Location cerca solo luoghi (/api/locations2)"
+    }
+  ]
+}

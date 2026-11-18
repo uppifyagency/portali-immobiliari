@@ -1,0 +1,6 @@
+{
+  "name": "portali-immobiliari",
+  "version": "0.3.0",
+  "description": "Ricerca di annunci immobiliari su 13 portali italiani: filtri provati dal vivo, unione dei doppioni, dettaglio dell'annuncio.",
+  "license": "MIT"
+}

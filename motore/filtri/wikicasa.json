@@ -1,0 +1,1212 @@
+{
+  "portale": "wikicasa",
+  "descrizione": "Portale nazionale di annunci: a Trieste circa 325 case in vendita il 03/11/2026; permette di escludere aste e nude proprietà.",
+  "url_base_ricerca": "https://www.wikicasa.it/vendita-case/trieste/",
+  "come_si_applicano": "misto: /<contratto>-<tipologia>/<comune>/[<zona>/][vista-mare/] nel percorso, filtri del pannello in query string (PrezzoMinimo, Ascensore=true...), ?p= per la pagina; con mappa_area il luogo diventa /ricerca/ e il poligono va in ?Poligono=",
+  "fonte_catalogo": "pannello 'Filtri' (attributi data-cy) e menu Ordina provati al clic il 03/11 (risultati/scoperta/wikicasa/clic.tsv, risultati/scoperta/wikicasa/ordina.tsv); zone e SEO da __NUXT_DATA__ pinia.seoFilterStoreId",
+  "filtri": [
+    {
+      "chiave": "contratto",
+      "etichetta": "Contratto",
+      "gruppo": "contratto",
+      "parametro": "<contratto>-<tipologia>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "Vendita (predefinito)"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "Affitto"
+        },
+        {
+          "valore": "asta",
+          "etichetta": "Asta"
+        }
+      ],
+      "esempio": "https://www.wikicasa.it/affitto-case/trieste/",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:18) contract-tab-rent -> /affitto-case/trieste/, contract-tab-auction -> /asta-case/trieste/ [prova_mappa \"affitto\" Trieste vendita: 326->234 (2026-11-03 14:05:46); \"asta\" Trieste vendita: 326->2 (2026-11-03 14:06:05); \"vendita\" Trieste vendita: 234->326 (2026-11-03 14:06:05)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "asta",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia",
+      "gruppo": "tipologia",
+      "parametro": "<contratto>-<tipologia>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "case",
+          "etichetta": "Case - Qualsiasi (predefinita)"
+        },
+        {
+          "valore": "appartamenti",
+          "etichetta": "Appartamenti"
+        },
+        {
+          "valore": "ville",
+          "etichetta": "Ville"
+        },
+        {
+          "valore": "ville-a-schiera",
+          "etichetta": "Ville a schiera"
+        },
+        {
+          "valore": "ville-bifamiliari",
+          "etichetta": "Ville bifamiliari"
+        },
+        {
+          "valore": "attici",
+          "etichetta": "Attici"
+        },
+        {
+          "valore": "case-indipendenti",
+          "etichetta": "Case indipendenti"
+        },
+        {
+          "valore": "rustici",
+          "etichetta": "Rustici"
+        },
+        {
+          "valore": "loft",
+          "etichetta": "Loft"
+        },
+        {
+          "valore": "monolocali",
+          "etichetta": "Monolocali"
+        },
+        {
+          "valore": "bilocali",
+          "etichetta": "Bilocali"
+        },
+        {
+          "valore": "trilocali",
+          "etichetta": "Trilocali"
+        },
+        {
+          "valore": "quadrilocali",
+          "etichetta": "Quadrilocali"
+        },
+        {
+          "valore": "nuove-costruzioni",
+          "etichetta": "Nuove costruzioni"
+        },
+        {
+          "valore": "box",
+          "etichetta": "Box e garage"
+        },
+        {
+          "valore": "palazzi",
+          "etichetta": "Palazzi"
+        },
+        {
+          "valore": "commerciale",
+          "etichetta": "Commerciale - Qualsiasi"
+        },
+        {
+          "valore": "uffici",
+          "etichetta": "Uffici"
+        },
+        {
+          "valore": "negozi",
+          "etichetta": "Negozi"
+        },
+        {
+          "valore": "terreni",
+          "etichetta": "Terreni - Qualsiasi"
+        }
+      ],
+      "esempio": "https://www.wikicasa.it/vendita-appartamenti/trieste/",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:19-13:24) una tipologia -> /vendita-<slug>/trieste/; più tipologie -> ?listingTypologyID=<id> ripetuto (non usato dal client); slug HAR voce 0 link 'Tipologie' [prova_mappa \"appartamenti\" Trieste vendita: 326->266 (2026-11-03 15:08:13); \"ville\" Trieste vendita: 326->48 (2026-11-03 15:08:31); \"ville-a-schiera\" Trieste vendita: 326->5 (2026-11-03 15:08:49); \"ville-bifamiliari\" Trieste vendita: 326->2 (2026-11-03 15:09:08); \"attici\" Trieste vendita: 326->13 (2026-11-03 15:09:26); \"case-indipendenti\" Trieste vendita: 326->10 (2026-11-03 15:09:44); \"rustici\" Trieste vendita: 326->1 (2026-11-03 15:10:03); \"loft\" Milano vendita: 7152->128 (2026-11-03 15:10:39); \"monolocali\" Trieste vendita: 326->10 (2026-11-03 15:10:57); \"bilocali\" Trieste vendita: 326->48 (2026-11-03 15:11:15); \"trilocali\" Trieste vendita: 326->116 (2026-11-03 15:11:33); \"quadrilocali\" Trieste vendita: 326->33 (2026-11-03 15:11:51); \"nuove-costruzioni\" Trieste vendita: 326->85 (2026-11-03 15:12:09); \"box\" Trieste vendita: 326->41 (2026-11-03 15:12:27); \"palazzi\" Trieste vendita: 326->3 (2026-11-03 15:12:46); \"commerciale\" Trieste vendita: 326->91 (2026-11-03 15:13:04); \"uffici\" Trieste vendita: 326->12 (2026-11-03 15:13:22); \"negozi\" Trieste vendita: 326->61 (2026-11-03 15:13:42); \"terreni\" Trieste vendita: 326->22 (2026-11-03 15:14:00)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "appartamenti",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "ville",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "ville-a-schiera",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "ville-bifamiliari",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "attici",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "case-indipendenti",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "rustici",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "loft",
+          "attesa": "diverso",
+          "comune": "Milano"
+        },
+        {
+          "valore": "monolocali",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "bilocali",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "trilocali",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "quadrilocali",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "nuove-costruzioni",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "box",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "palazzi",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "commerciale",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "uffici",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "negozi",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "terreni",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "comune",
+      "etichetta": "Comune (o provincia-<sigla>)",
+      "gruppo": "luogo",
+      "parametro": "<comune>",
+      "posizione": "percorso",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/",
+      "evidenza": "HAR voce 0 URL /vendita-case/trieste/, breadcrumb /vendita-case/provincia-ts/ [prova_mappa \"Muggia\" Trieste vendita: 326->31 (2026-11-03 15:14:18); \"provincia-ts\" Trieste vendita: 326->396 (2026-11-03 15:14:37)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "Muggia",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "provincia-ts",
+          "attesa": "diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "zona",
+      "etichetta": "Zona di Trieste",
+      "gruppo": "luogo",
+      "parametro": "<comune>/<zona>",
+      "posizione": "percorso",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "zona-campanelle-altura-cattinara",
+          "etichetta": "zona-campanelle-altura-cattinara"
+        },
+        {
+          "valore": "zona-centro-storico-citta-vecchia-rive-san-giusto",
+          "etichetta": "zona-centro-storico-citta-vecchia-rive-san-giusto"
+        },
+        {
+          "valore": "zona-gretta-barcola-roiano",
+          "etichetta": "zona-gretta-barcola-roiano"
+        },
+        {
+          "valore": "zona-opicina-altipiano-trebiciano-basovizza",
+          "etichetta": "zona-opicina-altipiano-trebiciano-basovizza"
+        },
+        {
+          "valore": "zona-rozzol-chiadino-san-luigi-melara",
+          "etichetta": "zona-rozzol-chiadino-san-luigi-melara"
+        },
+        {
+          "valore": "zona-san-giacomo-ippodromo-fiera",
+          "etichetta": "zona-san-giacomo-ippodromo-fiera"
+        },
+        {
+          "valore": "zona-san-vito-sant-andrea-campi-elisi",
+          "etichetta": "zona-san-vito-sant-andrea-campi-elisi"
+        },
+        {
+          "valore": "zona-santa-croce-miramare-grignano-costiera",
+          "etichetta": "zona-santa-croce-miramare-grignano-costiera"
+        },
+        {
+          "valore": "zona-scorcola-guardiella-cologna-san-giovanni",
+          "etichetta": "zona-scorcola-guardiella-cologna-san-giovanni"
+        },
+        {
+          "valore": "zona-valmaura-chiarbola-ponziana-maddalena",
+          "etichetta": "zona-valmaura-chiarbola-ponziana-maddalena"
+        }
+      ],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/zona-gretta-barcola-roiano/",
+      "evidenza": "HAR voce 0 blocco 'Scegli una zona' (data-cy zones) con link /vendita-case/trieste/zona-.../ [prova_mappa \"zona-gretta-barcola-roiano\" Trieste vendita: 326->30 (2026-11-03 15:14:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "zona-gretta-barcola-roiano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Disegna su mappa (poligono lon,lat;...)",
+      "gruppo": "luogo",
+      "parametro": "Poligono",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/ricerca/?Poligono=13.75,45.66;13.78,45.66;13.78,45.64;13.75,45.64;13.75,45.66",
+      "evidenza": "risultati/scoperta/wikicasa/clic.tsv 13:27 'Disegna su mappa', 4 vertici, Conferma -> /vendita-case/ricerca/?Poligono=lon,lat;... (326 -> 284) [prova_mappa \"13.75,45.66;13.78,45.66;13.78,45.64;13.75,45.64;13.75,45.66\" Trieste vendita: 326->113 (2026-11-03 15:15:13)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "13.75,45.66;13.78,45.66;13.78,45.64;13.75,45.64;13.75,45.66",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo min (€)",
+      "gruppo": "prezzo",
+      "parametro": "PrezzoMinimo",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?PrezzoMinimo=100000",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14, campo min-price) -> ?PrezzoMinimo=100000 [prova_mappa 100000 Trieste vendita: 326->296 (2026-11-03 15:15:32)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 100000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo max (€)",
+      "gruppo": "prezzo",
+      "parametro": "PrezzoMassimo",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?PrezzoMassimo=300000",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14, campo max-price) -> ?PrezzoMassimo=300000 [prova_mappa 200000 Trieste vendita: 326->77 (2026-11-03 15:15:50); 700 Trieste affitto: 234->55 (2026-11-03 15:16:27)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": 200000,
+          "attesa": "meno"
+        },
+        {
+          "valore": 700,
+          "attesa": "meno",
+          "contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie min (m2)",
+      "gruppo": "superficie",
+      "parametro": "SuperficieMinima",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?SuperficieMinima=60",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?SuperficieMinima=60 [prova_mappa 80 Trieste vendita: 326->240 (2026-11-03 15:16:46)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie max (m2)",
+      "gruppo": "superficie",
+      "parametro": "SuperficieMassima",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?SuperficieMassima=120",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?SuperficieMassima=120 [prova_mappa 80 Trieste vendita: 326->89 (2026-11-03 15:17:04)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 80,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Locali min",
+      "gruppo": "locali",
+      "parametro": "NumeroMinimoLocali",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?NumeroMinimoLocali=2",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?NumeroMinimoLocali=2 [prova_mappa 3 Trieste vendita: 326->250 (2026-11-03 15:17:23)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 3,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Locali max",
+      "gruppo": "locali",
+      "parametro": "NumeroMassimoLocali",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?NumeroMassimoLocali=4",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?NumeroMassimoLocali=4 [prova_mappa 2 Trieste vendita: 326->61 (2026-11-03 15:17:42)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_min",
+      "etichetta": "Bagni min",
+      "gruppo": "bagni",
+      "parametro": "NumeroMinimoBagni",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?NumeroMinimoBagni=1",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?NumeroMinimoBagni=1 [prova_mappa 2 Trieste vendita: 326->164 (2026-11-03 15:18:00)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "bagni_max",
+      "etichetta": "Bagni max",
+      "gruppo": "bagni",
+      "parametro": "NumeroMassimoBagni",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?NumeroMassimoBagni=2",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?NumeroMassimoBagni=2 [prova_mappa 1 Trieste vendita: 326->136 (2026-11-03 15:18:18)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 1,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "escludi_aste",
+      "etichetta": "Escludi aste",
+      "gruppo": "contratto",
+      "parametro": "EscludiAste",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?EscludiAste=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:15) -> ?EscludiAste=true [prova_mappa true Trieste vendita: 326->323 (2026-11-03 15:18:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "etichetta": "Solo nuda proprietà",
+      "gruppo": "contratto",
+      "parametro": "SoloNudaProprieta",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?SoloNudaProprieta=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?SoloNudaProprieta=true [prova_mappa true Milano vendita: 7152->85 (2026-11-03 15:18:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "escludi_nuda_proprieta",
+      "etichetta": "Escludi nuda proprietà",
+      "gruppo": "contratto",
+      "parametro": "EscludiNudaProprieta",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?EscludiNudaProprieta=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?EscludiNudaProprieta=true [prova_mappa true Milano vendita: 7152->7067 (2026-11-03 15:19:13)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "parola_chiave",
+      "etichetta": "Parole chiave",
+      "gruppo": "testo",
+      "parametro": "ParoleChiave",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?ParoleChiave=caminetto",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17, chips-input-field + Invio) -> ?ParoleChiave=caminetto [prova_mappa \"caminetto\" Trieste vendita: 326->16 (2026-11-03 15:19:31)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "caminetto",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_video",
+      "etichetta": "Video",
+      "gruppo": "media",
+      "parametro": "Media",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Media=VIDEO",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14, media-filter-video) -> ?Media=VIDEO [prova_mappa true Trieste vendita: 326->38 (2026-11-03 15:19:52)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "etichetta": "3D Tour",
+      "gruppo": "media",
+      "parametro": "Media",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Media=VIRTUAL_TOUR",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:15, media-filter-virtual-tour) -> ?Media=VIRTUAL_TOUR [prova_mappa true Trieste vendita: 326->23 (2026-11-03 15:20:11)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tour_matterport",
+      "etichetta": "3D Tour Matterport",
+      "gruppo": "media",
+      "parametro": "Media",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Media=MATTERPORT_TOUR",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16, media-filter-matterport-tour) -> ?Media=MATTERPORT_TOUR [prova_mappa true Trieste vendita: 326->8 (2026-11-03 15:20:30)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "stato_immobile",
+      "etichetta": "Stato immobile",
+      "gruppo": "stato",
+      "parametro": "StatoImmobile",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "5",
+          "etichetta": "Nuovo/In costruzione"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Ottimo/Ristrutturato"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Buono/Abitabile"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Da ristrutturare"
+        }
+      ],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?StatoImmobile=2",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:15-13:17, scelta singola) -> ?StatoImmobile=2 [prova_mappa \"1\" Trieste vendita: 326->153 (2026-11-03 15:20:48); \"3\" Trieste vendita: 326->255 (2026-11-03 15:21:06); \"2\" Trieste vendita: 326->20 (2026-11-03 15:21:25)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "attesa": "meno"
+        },
+        {
+          "valore": "3",
+          "attesa": "meno"
+        },
+        {
+          "valore": "2",
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "etichetta": "Nuovo/In costruzione",
+      "gruppo": "stato",
+      "parametro": "StatoImmobile",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?StatoImmobile=5",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17, property-condition-Nuovo/In costruzione) -> ?StatoImmobile=5 [prova_mappa true Trieste vendita: 326->85 (2026-11-03 15:21:43)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "classe_energetica",
+      "etichetta": "Classe energetica",
+      "gruppo": "energia",
+      "parametro": "ClasseEnergetica",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Alta"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Media"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Bassa"
+        }
+      ],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?ClasseEnergetica=1",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14-13:16, energy-class-alta/media/bassa) -> ?ClasseEnergetica=1 [prova_mappa \"1\" Trieste vendita: 326->67 (2026-11-03 15:22:02); \"2\" Trieste vendita: 326->120 (2026-11-03 15:22:20); \"3\" Trieste vendita: 326->228 (2026-11-03 15:22:38)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "attesa": "meno"
+        },
+        {
+          "valore": "2",
+          "attesa": "meno"
+        },
+        {
+          "valore": "3",
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "piano",
+      "etichetta": "Piano",
+      "gruppo": "piano",
+      "parametro": "Piano",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Terra"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Intermedio"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Ultimo"
+        }
+      ],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Piano=1",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14-13:17, floor-type-terra/intermedio/ultimo) -> ?Piano=1 [prova_mappa \"1\" Trieste vendita: 326->55 (2026-11-03 15:22:56); \"2\" Trieste vendita: 326->198 (2026-11-03 15:23:14); \"3\" Trieste vendita: 326->7 (2026-11-03 15:23:33)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "attesa": "meno"
+        },
+        {
+          "valore": "2",
+          "attesa": "meno"
+        },
+        {
+          "valore": "3",
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "ascensore",
+      "etichetta": "Ascensore",
+      "gruppo": "caratteristiche",
+      "parametro": "Ascensore",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Ascensore=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?Ascensore=true [prova_mappa true Trieste vendita: 326->183 (2026-11-03 15:23:52)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "giardino",
+      "etichetta": "Giardino privato",
+      "gruppo": "caratteristiche",
+      "parametro": "GiardinoPrivato",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?GiardinoPrivato=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?GiardinoPrivato=true [prova_mappa true Trieste vendita: 326->71 (2026-11-03 15:24:10)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "giardino_condominiale",
+      "etichetta": "Giardino condominiale",
+      "gruppo": "caratteristiche",
+      "parametro": "GiardinoPubblico",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?GiardinoPubblico=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?GiardinoPubblico=true [prova_mappa true Trieste vendita: 326->35 (2026-11-03 15:24:28)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "aria_condizionata",
+      "etichetta": "Aria condizionata",
+      "gruppo": "caratteristiche",
+      "parametro": "AriaCondizionata",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?AriaCondizionata=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?AriaCondizionata=true [prova_mappa true Trieste vendita: 326->131 (2026-11-03 15:24:47)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "balcone",
+      "etichetta": "Balcone",
+      "gruppo": "caratteristiche",
+      "parametro": "Balcone",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Balcone=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:14) -> ?Balcone=true [prova_mappa true Trieste vendita: 326->89 (2026-11-03 15:25:05)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "cantina",
+      "etichetta": "Cantina",
+      "gruppo": "caratteristiche",
+      "parametro": "Cantina",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Cantina=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?Cantina=true [prova_mappa true Trieste vendita: 326->52 (2026-11-03 15:25:23)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "box_auto",
+      "etichetta": "Box",
+      "gruppo": "caratteristiche",
+      "parametro": "Box",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Box=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?Box=true [prova_mappa true Trieste vendita: 326->42 (2026-11-03 15:25:42)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "arredato",
+      "etichetta": "Arredato",
+      "gruppo": "caratteristiche",
+      "parametro": "Arredato",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Arredato=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?Arredato=true [prova_mappa true Trieste vendita: 326->78 (2026-11-03 15:26:00)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "terrazzo",
+      "etichetta": "Terrazzo",
+      "gruppo": "caratteristiche",
+      "parametro": "Terrazzo",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Terrazzo=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?Terrazzo=true [prova_mappa true Trieste vendita: 326->120 (2026-11-03 15:26:18)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "posto_auto",
+      "etichetta": "Posto auto",
+      "gruppo": "caratteristiche",
+      "parametro": "PostoAuto",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?PostoAuto=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?PostoAuto=true [prova_mappa true Trieste vendita: 326->63 (2026-11-03 15:26:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "piscina_condominiale",
+      "etichetta": "Piscina condominiale",
+      "gruppo": "caratteristiche",
+      "parametro": "PiscinaCondominiale",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?PiscinaCondominiale=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16; zero a Trieste) -> ?PiscinaCondominiale=true [prova_mappa true Milano vendita: 7153->1 (2026-11-03 13:58:29)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "piscina",
+      "etichetta": "Piscina",
+      "gruppo": "caratteristiche",
+      "parametro": "PiscinaPrivata",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?PiscinaPrivata=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:15; zero a Trieste) -> ?PiscinaPrivata=true [prova_mappa true Milano vendita: 7153->1 (2026-11-03 13:58:47)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "ribassato",
+      "etichetta": "Sconto",
+      "gruppo": "altri",
+      "parametro": "Sconto",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Sconto=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?Sconto=true [prova_mappa true Trieste vendita: 326->46 (2026-11-03 15:26:55)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "lusso",
+      "etichetta": "Lusso",
+      "gruppo": "altri",
+      "parametro": "Lusso",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Lusso=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:15; zero a Trieste) -> ?Lusso=true [prova_mappa true Milano vendita: 7153->385 (2026-11-03 13:59:05)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "vicino_scuola",
+      "etichetta": "Vicino a: scuola",
+      "gruppo": "vicino",
+      "parametro": "Istruzione",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Istruzione=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:16) -> ?Istruzione=true [prova_mappa true Trieste vendita: 326->282 (2026-11-03 15:27:14)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vicino_supermercato",
+      "etichetta": "Vicino a: supermercato",
+      "gruppo": "vicino",
+      "parametro": "Supermercati",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Supermercati=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?Supermercati=true [prova_mappa true Trieste vendita: 326->273 (2026-11-03 15:27:32)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vicino_ricarica",
+      "etichetta": "Vicino a: stazione di ricarica",
+      "gruppo": "vicino",
+      "parametro": "Ricarica",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Ricarica=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?Ricarica=true [prova_mappa true Trieste vendita: 326->234 (2026-11-03 15:27:50)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vicino_farmacia",
+      "etichetta": "Vicino a: farmacia",
+      "gruppo": "vicino",
+      "parametro": "Farmacie",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Farmacie=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?Farmacie=true [prova_mappa true Trieste vendita: 326->270 (2026-11-03 15:28:08)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vicino_ospedale",
+      "etichetta": "Vicino a: ospedale",
+      "gruppo": "vicino",
+      "parametro": "Ospedali",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Ospedali=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?Ospedali=true [prova_mappa true Trieste vendita: 326->150 (2026-11-03 15:28:26)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vicino_ufficio_postale",
+      "etichetta": "Vicino a: ufficio postale",
+      "gruppo": "vicino",
+      "parametro": "UfficioPostale",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?UfficioPostale=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?UfficioPostale=true [prova_mappa true Trieste vendita: 326->252 (2026-11-03 15:28:44)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vicino_banca",
+      "etichetta": "Vicino a: banca",
+      "gruppo": "vicino",
+      "parametro": "Banche",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Banche=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:15) -> ?Banche=true [prova_mappa true Trieste vendita: 326->249 (2026-11-03 15:29:03)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vicino_trasporti",
+      "etichetta": "Vicino a: trasporto pubblico",
+      "gruppo": "vicino",
+      "parametro": "Trasporti",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Trasporti=true",
+      "evidenza": "pannello 'Filtri' (risultati/scoperta/wikicasa/clic.tsv 13:17) -> ?Trasporti=true [prova_mappa true Trieste vendita: 326->285 (2026-11-03 15:29:21)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "vista_mare",
+      "etichetta": "Vista mare (pagina SEO)",
+      "gruppo": "caratteristiche",
+      "parametro": "vista-mare",
+      "posizione": "percorso",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/vista-mare/",
+      "evidenza": "HAR voce 0 seoFilters SEA_VIEW -> /vista-mare/; etichetta seo-filter-SEA_VIEW nella pagina 03/11; nessun controllo nel pannello [prova_mappa true Trieste vendita: 326->32 (2026-11-03 15:29:39)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina",
+      "gruppo": "ordinamento",
+      "parametro": "Ordinamento",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "0",
+          "etichetta": "Più rilevanti (predefinito)"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Più costosi"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Più economici"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Più grandi"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Più piccoli"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Più recenti"
+        },
+        {
+          "valore": "6",
+          "etichetta": "Meno recenti"
+        },
+        {
+          "valore": "7",
+          "etichetta": "Più cari €/mq"
+        },
+        {
+          "valore": "8",
+          "etichetta": "Meno cari €/mq"
+        }
+      ],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?Ordinamento=1",
+      "evidenza": "risultati/scoperta/wikicasa/ordina.tsv 13:22: menu Ordina -> ?Ordinamento=1,3..8; 'Più economici' -> pagina SEO /economiche/; ?Ordinamento=2 non ordina (prova_mappa 03/11: prezzi 58000, 73000, 77000, 62400): il client usa il segmento economiche/ come l'interfaccia. Anche /economiche/ non è in ordine stretto di prezzo (03/11: 58000, 73000, 77000, 62400, 84500; non per prezzo originale né per €/mq): l'ordine del portale ha un'anomalia [prova_mappa \"1\" Trieste vendita: 325->325 (2026-11-03 15:33:47); \"2\" Trieste vendita: 325->325 (2026-11-03 15:34:23); \"3\" Trieste vendita: 325->325 (2026-11-03 15:35:00); \"4\" Trieste vendita: 325->325 (2026-11-03 15:35:36); \"5\" Trieste vendita: 325->325 (2026-11-03 15:36:12); \"6\" Trieste vendita: 325->325 (2026-11-03 15:36:48); \"7\" Trieste vendita: 325->325 (2026-11-03 15:37:24); \"8\" Trieste vendita: 325->325 (2026-11-03 15:38:01)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "attesa": "ordine_desc"
+        },
+        {
+          "valore": "2",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "3",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "4",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "5",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "6",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "7",
+          "attesa": "ordine_diverso"
+        },
+        {
+          "valore": "8",
+          "attesa": "ordine_diverso"
+        }
+      ]
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "pagina",
+      "parametro": "p",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://www.wikicasa.it/vendita-case/trieste/?p=2",
+      "evidenza": "HAR voce 0 link ?p=2..14, 25 annunci per pagina [prova_mappa 2 Trieste vendita: 326->325 (2026-11-03 15:32:23)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    }
+  ],
+  "non_trovati": [],
+  "note": "Decisioni 03/11 in risultati/decisioni/wikicasa.tsv. Le pagine SEO (prezzo-fino-a-N, con-ascensore, con-doppi-servizi, ristrutturate, economiche...) sono sostituite dai parametri del pannello, che si combinano tra loro: prezzo_max_affitto, economiche (= Ordinamento=2) e provincia (comune='provincia-ts') tolte come voci a sé. Prezzi, superfici, locali e bagni sono campi liberi (interi). Media, StatoImmobile, ClasseEnergetica e Piano sono a scelta singola: due chiavi sullo stesso parametro danno ValueError. Più tipologie insieme (listingTypologyID ripetuto) non sono usate. Cloudflare: serve il trasporto chrome. Ordinamento 2 (Più economici, /economiche/): misurato il 03/11 che il portale non ordina i prezzi in modo stretto (58000, 73000, 77000, 62400, 84500), ne per prezzo originale ne per euro/mq; la prova verifica che l'ordine cambi, non che sia crescente. Un agente che vuole i piu economici deve ordinare da se.",
+  "assenti": [
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "nessun filtro riscaldamento. pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "nessun filtro immobile a reddito. pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "nessun filtro libero/disponibile subito. pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "da_privato",
+      "evidenza": "nessun filtro per tipo di inserzionista. pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "nessun filtro per tipo di inserzionista. pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "nessun filtro 'con foto'. pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "nessun filtro planimetria. pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "le aste sono un contratto (tab Asta -> /asta-case/, risultati/scoperta/wikicasa/clic.tsv 13:18), mappate in contratto=asta; il filtro del pannello è 'Escludi aste' (escludi_aste). pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    },
+    {
+      "chiave": "raggio",
+      "evidenza": "nessun raggio su un punto scelto: la Mappa offre 'Disegna su mappa' (mappa_area) e 'Cerca vicino a me', che usa la posizione GPS del dispositivo (non provato: chiede il permesso di geolocalizzazione). pannello 'Filtri', menu Ordina, Mappa e etichette SEO della pagina /vendita-case/trieste/ il 03/11/2026"
+    }
+  ]
+}

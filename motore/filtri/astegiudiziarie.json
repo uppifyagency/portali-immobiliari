@@ -1,0 +1,2448 @@
+{
+  "portale": "astegiudiziarie",
+  "descrizione": "Aste giudiziarie di immobili dei tribunali di tutta Italia, anche già svolte con il loro esito: per chi cerca pignoramenti e fallimenti, con prezzo base, data e tribunale.",
+  "url_base_ricerca": "https://www.astegiudiziarie.it/results",
+  "come_si_applicano": "corpo JSON di POST https://webapi.astegiudiziarie.it/api/search/map (searchParameters)",
+  "fonte_catalogo": "select e caselle di form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html; tipologie e categorie dalla pagina resa in Chrome; client/catalogo.json",
+  "filtri": [
+    {
+      "chiave": "comune",
+      "etichetta": "Luogo (comune, provincia o regione)",
+      "gruppo": "luogo",
+      "parametro": "comune | provincia | regione",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"comune\": \"Trieste\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: campi nascosti comune, provincia, regione riempiti dall'autocompletamento (sonda: Trieste comune -> 6, provincia -> 9); client/map-comune-null.json 6 lotti [prova_mappa \"Milano\" Trieste vendita: 6->6 (2026-11-16 14:16:57)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Milano",
+        "attesa": "diverso"
+      },
+      "note": "'Trieste' -> comune; 'Provincia di Trieste' -> provincia; 'Regione Lombardia' -> regione. Il nome va scritto come nell'autocompletamento del sito."
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina (20 lotti)",
+      "gruppo": "paginazione",
+      "parametro": "fetta di 20 idLotto di search/map mandata a search/Data",
+      "posizione": "corpo",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map poi POST /api/search/Data [id 21..40]",
+      "evidenza": "prove/scoperta-2026-11-16/astegiudiziarie/ricerca.js searchData: resultsMapVisible.slice(currentPage*itemsPerPage, ...) con itemsPerPage 20, allo scorrimento [prova_mappa 2 Regione Lombardia vendita: 1070->1070 (2026-11-16 14:17:57)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "comune": "Regione Lombardia",
+        "attesa": "pagina"
+      },
+      "note": "Il sito non pagina sul server: search/map dà tutti gli id, il client ne chiede i dettagli 20 per volta."
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Categoria",
+      "gruppo": "tipologia",
+      "parametro": "idTipologie",
+      "posizione": "corpo",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Immobile residenziale"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Immobile commerciale"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Immobile industriale"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Impianto sportivo"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Altra categoria"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"idTipologie\": [1], ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: select #tipologia v-model idTipologia, setTipologie() lo copia in searchParameters.idTipologie; valori dalla pagina resa (client/catalogo.json) [prova_mappa \"1\" Regione Lombardia vendita: 1075->613 (2026-11-17 14:21:14); \"2\" Regione Lombardia vendita: 1075->171 (2026-11-17 14:21:27); \"3\" Regione Lombardia vendita: 1075->24 (2026-11-17 14:21:41); \"4\" Regione Lombardia vendita: 1075->1 (2026-11-17 14:21:54); \"5\" Regione Lombardia vendita: 1075->266 (2026-11-17 14:22:07)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "2",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "3",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "4",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        },
+        {
+          "valore": "5",
+          "comune": "Regione Lombardia",
+          "attesa": "meno"
+        }
+      ]
+    },
+    {
+      "chiave": "sottocategoria",
+      "etichetta": "Tipologia del bene",
+      "gruppo": "tipologia",
+      "parametro": "idCategorie",
+      "posizione": "corpo",
+      "tipo": "multiplo",
+      "valori": [
+        {
+          "valore": "2",
+          "etichetta": "Abitazione di tipo civile"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Abitazione di tipo economico"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Abitazione di tipo popolare"
+        },
+        {
+          "valore": "6",
+          "etichetta": "Abitazione di tipo rurale"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Abitazione di tipo signorile"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Abitazione di tipo ultrapopolare"
+        },
+        {
+          "valore": "8",
+          "etichetta": "Abitazione in ville"
+        },
+        {
+          "valore": "7",
+          "etichetta": "Abitazione in villini"
+        },
+        {
+          "valore": "10",
+          "etichetta": "Abitazioni e alloggi tipici dei luoghi"
+        },
+        {
+          "valore": "43",
+          "etichetta": "Alberghi e pensioni"
+        },
+        {
+          "valore": "35",
+          "etichetta": "Albergo e pensione"
+        },
+        {
+          "valore": "11",
+          "etichetta": "Appartamento"
+        },
+        {
+          "valore": "57",
+          "etichetta": "Cantina"
+        },
+        {
+          "valore": "51",
+          "etichetta": "Casa di cura o ospedale"
+        },
+        {
+          "valore": "39",
+          "etichetta": "Case di cura e ospedali"
+        },
+        {
+          "valore": "9",
+          "etichetta": "Castelli, palazzi di eminenti pregi artistici"
+        },
+        {
+          "valore": "13",
+          "etichetta": "Castello, immobile di pregio artistico e storico"
+        },
+        {
+          "valore": "58",
+          "etichetta": "Compendio pignorato"
+        },
+        {
+          "valore": "52",
+          "etichetta": "Convento, convitto o istituto similare"
+        },
+        {
+          "valore": "17",
+          "etichetta": "Deposito"
+        },
+        {
+          "valore": "47",
+          "etichetta": "Edifici a destinazione particolare"
+        },
+        {
+          "valore": "46",
+          "etichetta": "Edifici galleggianti o sospesi fissati al suolo"
+        },
+        {
+          "valore": "25",
+          "etichetta": "Fabbricati costruiti per esigenze commerciali"
+        },
+        {
+          "valore": "31",
+          "etichetta": "Fabbricati costruiti per esigenze industriali"
+        },
+        {
+          "valore": "32",
+          "etichetta": "Fabbricati e locali per esercizi sportivi"
+        },
+        {
+          "valore": "26",
+          "etichetta": "Fabbricati per attività agricole"
+        },
+        {
+          "valore": "33",
+          "etichetta": "Fabbricati, locali sportivi con fini di lucro"
+        },
+        {
+          "valore": "15",
+          "etichetta": "Fabbricato"
+        },
+        {
+          "valore": "12",
+          "etichetta": "Fabbricato in corso di costruzione"
+        },
+        {
+          "valore": "54",
+          "etichetta": "Fabbricato rurale"
+        },
+        {
+          "valore": "18",
+          "etichetta": "Garage o autorimessa"
+        },
+        {
+          "valore": "45",
+          "etichetta": "Istituto di credito, cambio e assicurazioni"
+        },
+        {
+          "valore": "24",
+          "etichetta": "Laboratori per arti e mestieri"
+        },
+        {
+          "valore": "19",
+          "etichetta": "Laboratorio artigiano"
+        },
+        {
+          "valore": "37",
+          "etichetta": "Lastrico solare"
+        },
+        {
+          "valore": "38",
+          "etichetta": "Lotto edificabile"
+        },
+        {
+          "valore": "23",
+          "etichetta": "Magazzini e locali di deposito"
+        },
+        {
+          "valore": "21",
+          "etichetta": "Magazzini sotterranei, deposito di derrate"
+        },
+        {
+          "valore": "20",
+          "etichetta": "Magazzino"
+        },
+        {
+          "valore": "22",
+          "etichetta": "Negozi, botteghe"
+        },
+        {
+          "valore": "27",
+          "etichetta": "Negozio"
+        },
+        {
+          "valore": "30",
+          "etichetta": "Opifici"
+        },
+        {
+          "valore": "29",
+          "etichetta": "Opificio industriale"
+        },
+        {
+          "valore": "36",
+          "etichetta": "Palco teatrale"
+        },
+        {
+          "valore": "34",
+          "etichetta": "Palestra o altro immobile di uso sportivo"
+        },
+        {
+          "valore": "53",
+          "etichetta": "Porzione di fabbricato in corso di costruzione"
+        },
+        {
+          "valore": "48",
+          "etichetta": "Porzione di immobile"
+        },
+        {
+          "valore": "49",
+          "etichetta": "Posto auto"
+        },
+        {
+          "valore": "50",
+          "etichetta": "Pozzo"
+        },
+        {
+          "valore": "40",
+          "etichetta": "Stabilimenti balneari e di acque curative"
+        },
+        {
+          "valore": "55",
+          "etichetta": "Stabilimento balneare"
+        },
+        {
+          "valore": "41",
+          "etichetta": "Stalle, scuderie, rimesse, autorimesse"
+        },
+        {
+          "valore": "44",
+          "etichetta": "Teatri, cinematografi, sale per concerti"
+        },
+        {
+          "valore": "56",
+          "etichetta": "Terreno"
+        },
+        {
+          "valore": "42",
+          "etichetta": "Tettoie chiuse o aperte"
+        },
+        {
+          "valore": "16",
+          "etichetta": "Uffici e studi privati"
+        },
+        {
+          "valore": "28",
+          "etichetta": "Ufficio"
+        },
+        {
+          "valore": "14",
+          "etichetta": "Villa"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"idCategorie\": [2, 11], ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: caselle chkTipologia<id> name idCategorie (updateSelezioneCategorie); valori dalla pagina resa [prova_mappa \"2\" Regione Lombardia vendita: 1075->125 (2026-11-17 14:30:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2",
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo base da",
+      "gruppo": "prezzo",
+      "parametro": "prezzoDa",
+      "posizione": "corpo",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"prezzoDa\": 200000, ...}",
+      "evidenza": "prove/scoperta-2026-11-16/astegiudiziarie/ricerca.js: rangePrezzo onFinish searchParameters.prezzoDa = data.from_value [prova_mappa 200000 Milano vendita: 6->2 (2026-11-16 14:09:33)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo base fino a",
+      "gruppo": "prezzo",
+      "parametro": "prezzoA",
+      "posizione": "corpo",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"prezzoA\": 200000, ...}",
+      "evidenza": "prove/scoperta-2026-11-16/astegiudiziarie/ricerca.js: rangePrezzo onFinish searchParameters.prezzoA = data.to_value [prova_mappa 200000 Milano vendita: 6->4 (2026-11-16 14:09:51)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 200000,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tribunale",
+      "etichetta": "Tribunale / ente",
+      "gruppo": "procedura",
+      "parametro": "idTribunale",
+      "posizione": "corpo",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Agrigento"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Alessandria"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Ancona"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Aosta"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Arezzo"
+        },
+        {
+          "valore": "6",
+          "etichetta": "Ascoli Piceno"
+        },
+        {
+          "valore": "7",
+          "etichetta": "Asti"
+        },
+        {
+          "valore": "8",
+          "etichetta": "Avellino"
+        },
+        {
+          "valore": "119",
+          "etichetta": "Avezzano"
+        },
+        {
+          "valore": "128",
+          "etichetta": "Barcellona Pozzo di Gotto"
+        },
+        {
+          "valore": "9",
+          "etichetta": "Bari"
+        },
+        {
+          "valore": "10",
+          "etichetta": "Belluno"
+        },
+        {
+          "valore": "11",
+          "etichetta": "Benevento"
+        },
+        {
+          "valore": "12",
+          "etichetta": "Bergamo"
+        },
+        {
+          "valore": "13",
+          "etichetta": "Biella"
+        },
+        {
+          "valore": "14",
+          "etichetta": "Bologna"
+        },
+        {
+          "valore": "15",
+          "etichetta": "Bolzano"
+        },
+        {
+          "valore": "16",
+          "etichetta": "Brescia"
+        },
+        {
+          "valore": "17",
+          "etichetta": "Brindisi"
+        },
+        {
+          "valore": "127",
+          "etichetta": "Busto Arsizio"
+        },
+        {
+          "valore": "18",
+          "etichetta": "Cagliari"
+        },
+        {
+          "valore": "168",
+          "etichetta": "Caltagirone"
+        },
+        {
+          "valore": "19",
+          "etichetta": "Caltanissetta"
+        },
+        {
+          "valore": "20",
+          "etichetta": "Campobasso"
+        },
+        {
+          "valore": "135",
+          "etichetta": "Cassino"
+        },
+        {
+          "valore": "151",
+          "etichetta": "Castrovillari"
+        },
+        {
+          "valore": "22",
+          "etichetta": "Catania"
+        },
+        {
+          "valore": "23",
+          "etichetta": "Catanzaro"
+        },
+        {
+          "valore": "24",
+          "etichetta": "Chieti"
+        },
+        {
+          "valore": "131",
+          "etichetta": "Civitavecchia"
+        },
+        {
+          "valore": "25",
+          "etichetta": "Como"
+        },
+        {
+          "valore": "26",
+          "etichetta": "Cosenza"
+        },
+        {
+          "valore": "27",
+          "etichetta": "Cremona"
+        },
+        {
+          "valore": "28",
+          "etichetta": "Crotone"
+        },
+        {
+          "valore": "29",
+          "etichetta": "Cuneo"
+        },
+        {
+          "valore": "30",
+          "etichetta": "Enna"
+        },
+        {
+          "valore": "158",
+          "etichetta": "Fermo"
+        },
+        {
+          "valore": "31",
+          "etichetta": "Ferrara"
+        },
+        {
+          "valore": "32",
+          "etichetta": "Firenze"
+        },
+        {
+          "valore": "33",
+          "etichetta": "Foggia"
+        },
+        {
+          "valore": "34",
+          "etichetta": "Forlì"
+        },
+        {
+          "valore": "35",
+          "etichetta": "Frosinone"
+        },
+        {
+          "valore": "145",
+          "etichetta": "Gela"
+        },
+        {
+          "valore": "36",
+          "etichetta": "Genova"
+        },
+        {
+          "valore": "37",
+          "etichetta": "Gorizia"
+        },
+        {
+          "valore": "38",
+          "etichetta": "Grosseto"
+        },
+        {
+          "valore": "39",
+          "etichetta": "Imperia"
+        },
+        {
+          "valore": "40",
+          "etichetta": "Isernia"
+        },
+        {
+          "valore": "130",
+          "etichetta": "Ivrea"
+        },
+        {
+          "valore": "42",
+          "etichetta": "La Spezia"
+        },
+        {
+          "valore": "157",
+          "etichetta": "Lagonegro"
+        },
+        {
+          "valore": "117",
+          "etichetta": "Lamezia Terme"
+        },
+        {
+          "valore": "132",
+          "etichetta": "Lanciano"
+        },
+        {
+          "valore": "156",
+          "etichetta": "Lanusei"
+        },
+        {
+          "valore": "41",
+          "etichetta": "L'Aquila"
+        },
+        {
+          "valore": "153",
+          "etichetta": "Larino"
+        },
+        {
+          "valore": "43",
+          "etichetta": "Latina"
+        },
+        {
+          "valore": "44",
+          "etichetta": "Lecce"
+        },
+        {
+          "valore": "45",
+          "etichetta": "Lecco"
+        },
+        {
+          "valore": "46",
+          "etichetta": "Livorno"
+        },
+        {
+          "valore": "147",
+          "etichetta": "Locri"
+        },
+        {
+          "valore": "47",
+          "etichetta": "Lodi"
+        },
+        {
+          "valore": "48",
+          "etichetta": "Lucca"
+        },
+        {
+          "valore": "49",
+          "etichetta": "Macerata"
+        },
+        {
+          "valore": "50",
+          "etichetta": "Mantova"
+        },
+        {
+          "valore": "150",
+          "etichetta": "Marsala"
+        },
+        {
+          "valore": "51",
+          "etichetta": "Massa"
+        },
+        {
+          "valore": "52",
+          "etichetta": "Matera"
+        },
+        {
+          "valore": "53",
+          "etichetta": "Messina"
+        },
+        {
+          "valore": "54",
+          "etichetta": "Milano"
+        },
+        {
+          "valore": "55",
+          "etichetta": "Modena"
+        },
+        {
+          "valore": "107",
+          "etichetta": "Monza"
+        },
+        {
+          "valore": "56",
+          "etichetta": "Napoli"
+        },
+        {
+          "valore": "241",
+          "etichetta": "Napoli Nord"
+        },
+        {
+          "valore": "120",
+          "etichetta": "Nocera Inferiore"
+        },
+        {
+          "valore": "116",
+          "etichetta": "Nola"
+        },
+        {
+          "valore": "57",
+          "etichetta": "Novara"
+        },
+        {
+          "valore": "58",
+          "etichetta": "Nuoro"
+        },
+        {
+          "valore": "59",
+          "etichetta": "Oristano"
+        },
+        {
+          "valore": "60",
+          "etichetta": "Padova"
+        },
+        {
+          "valore": "61",
+          "etichetta": "Palermo"
+        },
+        {
+          "valore": "133",
+          "etichetta": "Palmi"
+        },
+        {
+          "valore": "162",
+          "etichetta": "Paola"
+        },
+        {
+          "valore": "62",
+          "etichetta": "Parma"
+        },
+        {
+          "valore": "126",
+          "etichetta": "Patti"
+        },
+        {
+          "valore": "63",
+          "etichetta": "Pavia"
+        },
+        {
+          "valore": "64",
+          "etichetta": "Perugia"
+        },
+        {
+          "valore": "65",
+          "etichetta": "Pesaro"
+        },
+        {
+          "valore": "66",
+          "etichetta": "Pescara"
+        },
+        {
+          "valore": "67",
+          "etichetta": "Piacenza"
+        },
+        {
+          "valore": "68",
+          "etichetta": "Pisa"
+        },
+        {
+          "valore": "69",
+          "etichetta": "Pistoia"
+        },
+        {
+          "valore": "70",
+          "etichetta": "Pordenone"
+        },
+        {
+          "valore": "71",
+          "etichetta": "Potenza"
+        },
+        {
+          "valore": "72",
+          "etichetta": "Prato"
+        },
+        {
+          "valore": "73",
+          "etichetta": "Ragusa"
+        },
+        {
+          "valore": "74",
+          "etichetta": "Ravenna"
+        },
+        {
+          "valore": "75",
+          "etichetta": "Reggio di Calabria"
+        },
+        {
+          "valore": "76",
+          "etichetta": "Reggio nell'Emilia"
+        },
+        {
+          "valore": "77",
+          "etichetta": "Rieti"
+        },
+        {
+          "valore": "78",
+          "etichetta": "Rimini"
+        },
+        {
+          "valore": "79",
+          "etichetta": "Roma"
+        },
+        {
+          "valore": "160",
+          "etichetta": "Rovereto"
+        },
+        {
+          "valore": "80",
+          "etichetta": "Rovigo"
+        },
+        {
+          "valore": "81",
+          "etichetta": "Salerno"
+        },
+        {
+          "valore": "144",
+          "etichetta": "Santa Maria Capua Vetere"
+        },
+        {
+          "valore": "82",
+          "etichetta": "Sassari"
+        },
+        {
+          "valore": "83",
+          "etichetta": "Savona"
+        },
+        {
+          "valore": "165",
+          "etichetta": "Sciacca"
+        },
+        {
+          "valore": "84",
+          "etichetta": "Siena"
+        },
+        {
+          "valore": "85",
+          "etichetta": "Siracusa"
+        },
+        {
+          "valore": "86",
+          "etichetta": "Sondrio"
+        },
+        {
+          "valore": "118",
+          "etichetta": "Spoleto"
+        },
+        {
+          "valore": "124",
+          "etichetta": "Sulmona"
+        },
+        {
+          "valore": "87",
+          "etichetta": "Taranto"
+        },
+        {
+          "valore": "110",
+          "etichetta": "Tempio Pausania"
+        },
+        {
+          "valore": "88",
+          "etichetta": "Teramo"
+        },
+        {
+          "valore": "146",
+          "etichetta": "Termini Imerese"
+        },
+        {
+          "valore": "89",
+          "etichetta": "Terni"
+        },
+        {
+          "valore": "148",
+          "etichetta": "Tivoli"
+        },
+        {
+          "valore": "90",
+          "etichetta": "Torino"
+        },
+        {
+          "valore": "112",
+          "etichetta": "Torre Annunziata"
+        },
+        {
+          "valore": "129",
+          "etichetta": "Trani"
+        },
+        {
+          "valore": "91",
+          "etichetta": "Trapani"
+        },
+        {
+          "valore": "92",
+          "etichetta": "Trento"
+        },
+        {
+          "valore": "93",
+          "etichetta": "Treviso"
+        },
+        {
+          "valore": "94",
+          "etichetta": "Trieste"
+        },
+        {
+          "valore": "95",
+          "etichetta": "Udine"
+        },
+        {
+          "valore": "125",
+          "etichetta": "Urbino"
+        },
+        {
+          "valore": "154",
+          "etichetta": "Vallo della Lucania"
+        },
+        {
+          "valore": "96",
+          "etichetta": "Varese"
+        },
+        {
+          "valore": "111",
+          "etichetta": "Vasto"
+        },
+        {
+          "valore": "123",
+          "etichetta": "Velletri"
+        },
+        {
+          "valore": "97",
+          "etichetta": "Venezia"
+        },
+        {
+          "valore": "98",
+          "etichetta": "Verbania"
+        },
+        {
+          "valore": "99",
+          "etichetta": "Vercelli"
+        },
+        {
+          "valore": "100",
+          "etichetta": "Verona"
+        },
+        {
+          "valore": "101",
+          "etichetta": "Vibo Valentia"
+        },
+        {
+          "valore": "102",
+          "etichetta": "Vicenza"
+        },
+        {
+          "valore": "103",
+          "etichetta": "Viterbo"
+        },
+        {
+          "valore": "301",
+          "etichetta": "Agenzia Nazionale Beni Sequestrati e Confiscati"
+        },
+        {
+          "valore": "208",
+          "etichetta": "AGESP Servizi S.r.l"
+        },
+        {
+          "valore": "303",
+          "etichetta": "AMAIE S.p.A."
+        },
+        {
+          "valore": "276",
+          "etichetta": "Amsterdam"
+        },
+        {
+          "valore": "274",
+          "etichetta": "Comune di Abbiategrasso"
+        },
+        {
+          "valore": "243",
+          "etichetta": "Comune di Benevento"
+        },
+        {
+          "valore": "285",
+          "etichetta": "Comune di Bracciano"
+        },
+        {
+          "valore": "235",
+          "etichetta": "Comune di Casale Monferrato"
+        },
+        {
+          "valore": "309",
+          "etichetta": "Comune di Casatenovo"
+        },
+        {
+          "valore": "294",
+          "etichetta": "Comune di Castel San Giorgio"
+        },
+        {
+          "valore": "304",
+          "etichetta": "Comune di Castiglione della Pescaia"
+        },
+        {
+          "valore": "302",
+          "etichetta": "Comune di Cesano Boscone"
+        },
+        {
+          "valore": "278",
+          "etichetta": "Comune di Figline e Incisa Valdarno"
+        },
+        {
+          "valore": "193",
+          "etichetta": "Comune di Firenze"
+        },
+        {
+          "valore": "291",
+          "etichetta": "Comune di Front"
+        },
+        {
+          "valore": "237",
+          "etichetta": "Comune di Gallicano nel Lazio"
+        },
+        {
+          "valore": "703",
+          "etichetta": "Comune di Greve in Chianti"
+        },
+        {
+          "valore": "200",
+          "etichetta": "Comune di Grosseto"
+        },
+        {
+          "valore": "236",
+          "etichetta": "Comune di Guspini"
+        },
+        {
+          "valore": "201",
+          "etichetta": "Comune di Imperia"
+        },
+        {
+          "valore": "238",
+          "etichetta": "Comune di Impruneta"
+        },
+        {
+          "valore": "194",
+          "etichetta": "Comune di Massa Marittima"
+        },
+        {
+          "valore": "702",
+          "etichetta": "Comune di Mirabella Eclano"
+        },
+        {
+          "valore": "216",
+          "etichetta": "Comune di Montecorvino Rovella"
+        },
+        {
+          "valore": "224",
+          "etichetta": "Comune di Montorfano"
+        },
+        {
+          "valore": "204",
+          "etichetta": "Comune di Monza"
+        },
+        {
+          "valore": "214",
+          "etichetta": "Comune di Napoli"
+        },
+        {
+          "valore": "231",
+          "etichetta": "Comune di Osimo"
+        },
+        {
+          "valore": "277",
+          "etichetta": "Comune di Pienza"
+        },
+        {
+          "valore": "271",
+          "etichetta": "Comune di Pisogne"
+        },
+        {
+          "valore": "280",
+          "etichetta": "Comune di Putignano"
+        },
+        {
+          "valore": "226",
+          "etichetta": "Comune di Ragusa"
+        },
+        {
+          "valore": "299",
+          "etichetta": "Comune di Revello"
+        },
+        {
+          "valore": "221",
+          "etichetta": "Comune di Ronco Scrivia"
+        },
+        {
+          "valore": "311",
+          "etichetta": "Comune di Russi"
+        },
+        {
+          "valore": "223",
+          "etichetta": "Comune di San Bonifacio"
+        },
+        {
+          "valore": "228",
+          "etichetta": "Comune di San Casciano Val di Pesa"
+        },
+        {
+          "valore": "283",
+          "etichetta": "Comune di San Giacomo degli Schiavoni"
+        },
+        {
+          "valore": "219",
+          "etichetta": "Comune di San Giovanni in Persiceto"
+        },
+        {
+          "valore": "206",
+          "etichetta": "Comune di San Giuliano Terme"
+        },
+        {
+          "valore": "211",
+          "etichetta": "Comune di Sassuolo"
+        },
+        {
+          "valore": "213",
+          "etichetta": "Comune di Seregno"
+        },
+        {
+          "valore": "242",
+          "etichetta": "Comune di Solesino"
+        },
+        {
+          "valore": "287",
+          "etichetta": "Comune di Trezzano sul Naviglio"
+        },
+        {
+          "valore": "203",
+          "etichetta": "Comune di Trieste"
+        },
+        {
+          "valore": "218",
+          "etichetta": "Comune di Uboldo"
+        },
+        {
+          "valore": "704",
+          "etichetta": "Comune di Vercelli"
+        },
+        {
+          "valore": "273",
+          "etichetta": "Comune di Verona"
+        },
+        {
+          "valore": "220",
+          "etichetta": "Comune di Vicenza"
+        },
+        {
+          "valore": "225",
+          "etichetta": "Comune di Vimodrone"
+        },
+        {
+          "valore": "288",
+          "etichetta": "Comunità Montana Alta Umbria"
+        },
+        {
+          "valore": "295",
+          "etichetta": "Comunità Montana Monti Martani Serano e Subasio"
+        },
+        {
+          "valore": "286",
+          "etichetta": "Consorzio Asi di Caserta"
+        },
+        {
+          "valore": "296",
+          "etichetta": "Consorzio Canale Camuzzoni"
+        },
+        {
+          "valore": "701",
+          "etichetta": "Consorzio di Bonifica della Sardegna Meridionale"
+        },
+        {
+          "valore": "240",
+          "etichetta": "Educandato Regina Elena"
+        },
+        {
+          "valore": "310",
+          "etichetta": "Ente Ospedaliero Ospedali Galliera Genova"
+        },
+        {
+          "valore": "186",
+          "etichetta": "Equitalia Biella S.p.A."
+        },
+        {
+          "valore": "217",
+          "etichetta": "Equitalia Centro"
+        },
+        {
+          "valore": "176",
+          "etichetta": "Equitalia Cerit S.p.A. -  Firenze"
+        },
+        {
+          "valore": "190",
+          "etichetta": "Equitalia Foggia S.p.A."
+        },
+        {
+          "valore": "196",
+          "etichetta": "Equitalia Gerit Roma S.p.A."
+        },
+        {
+          "valore": "170",
+          "etichetta": "Equitalia Gerit S.p.A. -  Grosseto"
+        },
+        {
+          "valore": "169",
+          "etichetta": "Equitalia Gerit S.p.A. - Frosinone"
+        },
+        {
+          "valore": "192",
+          "etichetta": "Equitalia Gerit S.p.A. - Rieti"
+        },
+        {
+          "valore": "181",
+          "etichetta": "Equitalia Gerit S.p.A. Livorno"
+        },
+        {
+          "valore": "195",
+          "etichetta": "Equitalia Gerit Viterbo S.p.A"
+        },
+        {
+          "valore": "172",
+          "etichetta": "Equitalia GET S.p.A. -  Pisa"
+        },
+        {
+          "valore": "187",
+          "etichetta": "Equitalia La Spezia S.p.A"
+        },
+        {
+          "valore": "182",
+          "etichetta": "Equitalia Marche S.p.A"
+        },
+        {
+          "valore": "227",
+          "etichetta": "Equitalia Nord S.p.A"
+        },
+        {
+          "valore": "191",
+          "etichetta": "Equitalia Piacenza S.p.A"
+        },
+        {
+          "valore": "189",
+          "etichetta": "Equitalia Polis Avellino"
+        },
+        {
+          "valore": "188",
+          "etichetta": "Equitalia Polis Viterbo"
+        },
+        {
+          "valore": "209",
+          "etichetta": "Equitalia Pragma S.p.A"
+        },
+        {
+          "valore": "281",
+          "etichetta": "Equitalia Servizi di Riscossione SpA"
+        },
+        {
+          "valore": "222",
+          "etichetta": "Equitalia Sud S.p.A"
+        },
+        {
+          "valore": "279",
+          "etichetta": "Fondazione Teatro Comunale di Bologna"
+        },
+        {
+          "valore": "177",
+          "etichetta": "G.E.T. Arezzo"
+        },
+        {
+          "valore": "178",
+          "etichetta": "G.E.T. Pistoia"
+        },
+        {
+          "valore": "171",
+          "etichetta": "Gest Line Genova"
+        },
+        {
+          "valore": "173",
+          "etichetta": "Gest Line Prato"
+        },
+        {
+          "valore": "184",
+          "etichetta": "Gest Line Venezia"
+        },
+        {
+          "valore": "293",
+          "etichetta": "IPAB - Opera Pia Casa di Ospitalita Mangione"
+        },
+        {
+          "valore": "300",
+          "etichetta": "IPAB - Pia Opera Rosa Serraino Vulpitta"
+        },
+        {
+          "valore": "289",
+          "etichetta": "IPAB di Vicenza"
+        },
+        {
+          "valore": "706",
+          "etichetta": "Istituti Raggruppati Azienda Pubblica di Servizi alla persona"
+        },
+        {
+          "valore": "298",
+          "etichetta": "ISTITUTO I.S.S.G.CABOTO"
+        },
+        {
+          "valore": "700",
+          "etichetta": "Ministero del Lavoro e delle Politiche Sociali"
+        },
+        {
+          "valore": "306",
+          "etichetta": "Ministero delle Imprese e del Made in Italy"
+        },
+        {
+          "valore": "699",
+          "etichetta": "Ministero delle imprese e della mobilità sostenibile"
+        },
+        {
+          "valore": "307",
+          "etichetta": "Ministero delle infrastrutture e dei trasporti"
+        },
+        {
+          "valore": "233",
+          "etichetta": "Ministero dello Sviluppo Economico"
+        },
+        {
+          "valore": "282",
+          "etichetta": "Ofanto Sviluppo s.r.l"
+        },
+        {
+          "valore": "705",
+          "etichetta": "ORDINE INTERPROVINCIALE DEI FARMACISTI DI BARI E BAT"
+        },
+        {
+          "valore": "305",
+          "etichetta": "Parigi"
+        },
+        {
+          "valore": "205",
+          "etichetta": "Patrimonio del Trentino Spa"
+        },
+        {
+          "valore": "198",
+          "etichetta": "Provincia della Spezia"
+        },
+        {
+          "valore": "199",
+          "etichetta": "Provincia di Alessandria"
+        },
+        {
+          "valore": "202",
+          "etichetta": "Provincia di Milano"
+        },
+        {
+          "valore": "272",
+          "etichetta": "Provincia di Pavia"
+        },
+        {
+          "valore": "297",
+          "etichetta": "Provincia di Pisa"
+        },
+        {
+          "valore": "230",
+          "etichetta": "Regione Puglia"
+        },
+        {
+          "valore": "210",
+          "etichetta": "Romeo Gestioni S.p.A."
+        },
+        {
+          "valore": "179",
+          "etichetta": "S.N.R.T. Roma"
+        },
+        {
+          "valore": "180",
+          "etichetta": "S.R.T. Bergamo"
+        },
+        {
+          "valore": "175",
+          "etichetta": "S.R.T. Lecce"
+        },
+        {
+          "valore": "183",
+          "etichetta": "S.R.T. Potenza"
+        },
+        {
+          "valore": "185",
+          "etichetta": "S.R.T. Sardegna OR"
+        },
+        {
+          "valore": "197",
+          "etichetta": "Sa.Mo. Italia srl"
+        },
+        {
+          "valore": "212",
+          "etichetta": "Sassuolo Gestioni Patrimoniali Srl"
+        },
+        {
+          "valore": "308",
+          "etichetta": "Scuola Superiore Sant’Anna"
+        },
+        {
+          "valore": "232",
+          "etichetta": "SE.RI.T Sicilia S.p.A"
+        },
+        {
+          "valore": "207",
+          "etichetta": "SICIM srl"
+        },
+        {
+          "valore": "229",
+          "etichetta": "SO.G.E.T. SpA"
+        },
+        {
+          "valore": "215",
+          "etichetta": "Soris Riscossioni Torino"
+        },
+        {
+          "valore": "284",
+          "etichetta": "Unioncamere del Veneto"
+        },
+        {
+          "valore": "698",
+          "etichetta": "Unioncamere Emilia-Romagna"
+        },
+        {
+          "valore": "239",
+          "etichetta": "Università di Ferrara"
+        },
+        {
+          "valore": "251",
+          "etichetta": "Corte d'Appello di Ancona"
+        },
+        {
+          "valore": "259",
+          "etichetta": "Corte d'Appello di Bari"
+        },
+        {
+          "valore": "250",
+          "etichetta": "Corte d'Appello di Bologna"
+        },
+        {
+          "valore": "245",
+          "etichetta": "Corte d'Appello di Brescia"
+        },
+        {
+          "valore": "270",
+          "etichetta": "Corte d'Appello di Cagliari"
+        },
+        {
+          "valore": "269",
+          "etichetta": "Corte d'Appello di Cagliari - Sez. Dist. Sassari"
+        },
+        {
+          "valore": "267",
+          "etichetta": "Corte d'Appello di Caltanissetta"
+        },
+        {
+          "valore": "258",
+          "etichetta": "Corte d'Appello di Campobasso"
+        },
+        {
+          "valore": "268",
+          "etichetta": "Corte d'Appello di Catania"
+        },
+        {
+          "valore": "263",
+          "etichetta": "Corte d'Appello di Catanzaro"
+        },
+        {
+          "valore": "252",
+          "etichetta": "Corte d'Appello di Firenze"
+        },
+        {
+          "valore": "290",
+          "etichetta": "Corte d'Appello di Genova"
+        },
+        {
+          "valore": "257",
+          "etichetta": "Corte d'Appello di L'Aquila"
+        },
+        {
+          "valore": "261",
+          "etichetta": "Corte d'Appello di Lecce"
+        },
+        {
+          "valore": "260",
+          "etichetta": "Corte d'Appello di Lecce - Sez. Dist. Taranto"
+        },
+        {
+          "valore": "266",
+          "etichetta": "Corte d'Appello di Messina"
+        },
+        {
+          "valore": "244",
+          "etichetta": "Corte d'Appello di Milano"
+        },
+        {
+          "valore": "255",
+          "etichetta": "Corte d'Appello di Napoli"
+        },
+        {
+          "valore": "265",
+          "etichetta": "Corte d'Appello di Palermo"
+        },
+        {
+          "valore": "253",
+          "etichetta": "Corte d'Appello di Perugia"
+        },
+        {
+          "valore": "262",
+          "etichetta": "Corte d'Appello di Potenza"
+        },
+        {
+          "valore": "264",
+          "etichetta": "Corte d'Appello di Reggio di Calabria"
+        },
+        {
+          "valore": "254",
+          "etichetta": "Corte d'Appello di Roma"
+        },
+        {
+          "valore": "256",
+          "etichetta": "Corte d'Appello di Salerno"
+        },
+        {
+          "valore": "275",
+          "etichetta": "Corte d'Appello di Torino"
+        },
+        {
+          "valore": "247",
+          "etichetta": "Corte d'Appello di Trento"
+        },
+        {
+          "valore": "246",
+          "etichetta": "Corte d'Appello di Trento - Sez Dist. Bolzano"
+        },
+        {
+          "valore": "249",
+          "etichetta": "Corte d'Appello di Trieste"
+        },
+        {
+          "valore": "248",
+          "etichetta": "Corte d'Appello di Venezia"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"idTribunale\": 54, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: select #immobiliTribunale v-model searchParameters.idTribunale; valori dalle sue option (client/catalogo.json) [prova_mappa \"54\" Provincia di Milano vendita: 69->13 (2026-11-17 14:18:59)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "54",
+        "comune": "Provincia di Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "procedura",
+      "etichetta": "Procedura (numero/anno)",
+      "gruppo": "procedura",
+      "parametro": "numeroProcedura + annoProcedura",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"numeroProcedura\": \"35\", \"annoProcedura\": 2026, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: input numeroProcedura e annoProcedura [prova_mappa \"35/2026\" Trieste vendita: 6->1 (2026-11-17 14:19:26)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "35/2026",
+        "attesa": "meno"
+      },
+      "note": "Valore 'numero/anno', es. '35/2026'."
+    },
+    {
+      "chiave": "tipo_procedura",
+      "etichetta": "Tipo di procedura",
+      "gruppo": "procedura",
+      "parametro": "idTipologiaProcedura",
+      "posizione": "corpo",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "50",
+          "etichetta": "Accordi di ristrutturazione CCI"
+        },
+        {
+          "valore": "36",
+          "etichetta": "Accordo di composizione della crisi"
+        },
+        {
+          "valore": "21",
+          "etichetta": "Accordo di ristrutturazione"
+        },
+        {
+          "valore": "28",
+          "etichetta": "Agraria"
+        },
+        {
+          "valore": "16",
+          "etichetta": "Amministrazione controllata"
+        },
+        {
+          "valore": "35",
+          "etichetta": "Amministrazione di sostegno"
+        },
+        {
+          "valore": "24",
+          "etichetta": "Amministrazione Giudiziaria MP"
+        },
+        {
+          "valore": "18",
+          "etichetta": "Amministrazione straordinaria"
+        },
+        {
+          "valore": "74",
+          "etichetta": "Amministrazione straordinaria Prodi Bis (CCI)"
+        },
+        {
+          "valore": "12",
+          "etichetta": "Appalto"
+        },
+        {
+          "valore": "6",
+          "etichetta": "Causa Civile"
+        },
+        {
+          "valore": "11",
+          "etichetta": "Cessione Credito"
+        },
+        {
+          "valore": "73",
+          "etichetta": "Composizione negoziata"
+        },
+        {
+          "valore": "14",
+          "etichetta": "Concordato Fallimentare"
+        },
+        {
+          "valore": "44",
+          "etichetta": "Concordato minore CCI"
+        },
+        {
+          "valore": "47",
+          "etichetta": "Concordato minore PU"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Concordato Preventivo"
+        },
+        {
+          "valore": "41",
+          "etichetta": "Concordato Preventivo CCII"
+        },
+        {
+          "valore": "42",
+          "etichetta": "Concordato Preventivo CCII PU"
+        },
+        {
+          "valore": "64",
+          "etichetta": "Concordato Semplificato"
+        },
+        {
+          "valore": "52",
+          "etichetta": "Concordato Semplificato CCII"
+        },
+        {
+          "valore": "26",
+          "etichetta": "Contenzioso"
+        },
+        {
+          "valore": "22",
+          "etichetta": "Crisi da sovraindebitamento"
+        },
+        {
+          "valore": "71",
+          "etichetta": "Curatela"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Divisione Giudiziale"
+        },
+        {
+          "valore": "33",
+          "etichetta": "Eredità giacente"
+        },
+        {
+          "valore": "46",
+          "etichetta": "Esdebitazione del debitore incapiente"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Esecuzione Immobiliare"
+        },
+        {
+          "valore": "13",
+          "etichetta": "Esecuzione Mobiliare"
+        },
+        {
+          "valore": "31",
+          "etichetta": "Esecuzione Penale"
+        },
+        {
+          "valore": "34",
+          "etichetta": "Esecuzione testamentaria"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Espropriazione"
+        },
+        {
+          "valore": "68",
+          "etichetta": "Espropriazione immobiliare (Cartabia)"
+        },
+        {
+          "valore": "69",
+          "etichetta": "Espropriazione mobiliare (Cartabia)"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Fallimento"
+        },
+        {
+          "valore": "70",
+          "etichetta": "Giudice di pace"
+        },
+        {
+          "valore": "27",
+          "etichetta": "Lavoro"
+        },
+        {
+          "valore": "10",
+          "etichetta": "Liquidazione Coatta"
+        },
+        {
+          "valore": "51",
+          "etichetta": "Liquidazione Coatta CCI"
+        },
+        {
+          "valore": "45",
+          "etichetta": "Liquidazione controllata"
+        },
+        {
+          "valore": "48",
+          "etichetta": "Liquidazione controllata PU"
+        },
+        {
+          "valore": "38",
+          "etichetta": "Liquidazione del patrimonio del debitore"
+        },
+        {
+          "valore": "40",
+          "etichetta": "Liquidazione Giudiziale"
+        },
+        {
+          "valore": "20",
+          "etichetta": "Liquidazione Volontaria-Giudiziale"
+        },
+        {
+          "valore": "30",
+          "etichetta": "Misura di Prevenzione"
+        },
+        {
+          "valore": "37",
+          "etichetta": "Piano del consumatore"
+        },
+        {
+          "valore": "67",
+          "etichetta": "PianoRistr.DaOmologare CCII PU"
+        },
+        {
+          "valore": "66",
+          "etichetta": "PianoRistr.Omologato CCII"
+        },
+        {
+          "valore": "32",
+          "etichetta": "Prefallimento"
+        },
+        {
+          "valore": "65",
+          "etichetta": "Proc. riserva deposito CCII PU"
+        },
+        {
+          "valore": "8",
+          "etichetta": "Procedura Esattoriale"
+        },
+        {
+          "valore": "61",
+          "etichetta": "Ricorso concordato minore"
+        },
+        {
+          "valore": "54",
+          "etichetta": "Ricorso fissazione termine per deposito proposta o accordi"
+        },
+        {
+          "valore": "62",
+          "etichetta": "Ricorso liquidazione controllata"
+        },
+        {
+          "valore": "55",
+          "etichetta": "Ricorso per ammissione concordato preventivo"
+        },
+        {
+          "valore": "59",
+          "etichetta": "Ricorso per la dichiarazione stato insolvenza (asm)"
+        },
+        {
+          "valore": "58",
+          "etichetta": "Ricorso per la dichiarazione stato insolvenza (asp)"
+        },
+        {
+          "valore": "57",
+          "etichetta": "Ricorso per la dichiarazione stato insolvenza (lca)"
+        },
+        {
+          "valore": "53",
+          "etichetta": "Ricorso per liquidazione giudiziale"
+        },
+        {
+          "valore": "56",
+          "etichetta": "Ricorso per omologa accordi di ristrutturazione"
+        },
+        {
+          "valore": "63",
+          "etichetta": "Ricorso per omologazione piano di ristrutturazione"
+        },
+        {
+          "valore": "60",
+          "etichetta": "Ricorso ristrutturazione debiti del consumatore"
+        },
+        {
+          "valore": "43",
+          "etichetta": "Ristrutturazione debiti consumatore"
+        },
+        {
+          "valore": "49",
+          "etichetta": "Ristrutturazione debiti consumatore PU"
+        },
+        {
+          "valore": "19",
+          "etichetta": "Scioglimento per Atto d'autorità"
+        },
+        {
+          "valore": "39",
+          "etichetta": "Selezione soggetto per intermediazione"
+        },
+        {
+          "valore": "23",
+          "etichetta": "Sequestro Preventivo"
+        },
+        {
+          "valore": "25",
+          "etichetta": "Speciale"
+        },
+        {
+          "valore": "72",
+          "etichetta": "Tutela"
+        },
+        {
+          "valore": "15",
+          "etichetta": "Usucapione"
+        },
+        {
+          "valore": "7",
+          "etichetta": "Vendita Immobiliare"
+        },
+        {
+          "valore": "9",
+          "etichetta": "Vendita Mobiliare"
+        },
+        {
+          "valore": "29",
+          "etichetta": "Volontaria giurisdizione"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"idTipologiaProcedura\": 1, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: select #tipoProcedura v-model searchParameters.idTipologiaProcedura; valori dalle sue option (client/catalogo.json) [prova_mappa \"1\" Milano vendita: 6->4 (2026-11-16 14:11:33)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "1",
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "professionista",
+      "etichetta": "Professionista",
+      "gruppo": "procedura",
+      "parametro": "professionista",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"professionista\": \"Ceballos\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: input #professionista v-model searchParameters.professionista; nome del delegato dalla scheda client/dettaglio-2347702.html ('Delegato alla vendita Ceballos Mariela carolina') [prova_mappa \"Ceballos\" Trieste vendita: 6->1 (2026-11-17 14:19:53)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Ceballos",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "tipo_vendita",
+      "etichetta": "Tipo di vendita",
+      "gruppo": "procedura",
+      "parametro": "idTipologiaVendita",
+      "posizione": "corpo",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "2",
+          "etichetta": "A trattativa privata"
+        },
+        {
+          "valore": "9",
+          "etichetta": "Asta privata"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Atto pubblico notarile"
+        },
+        {
+          "valore": "14",
+          "etichetta": "Competitiva"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Con incanto"
+        },
+        {
+          "valore": "12",
+          "etichetta": "Gara informale"
+        },
+        {
+          "valore": "0",
+          "etichetta": "Ignota"
+        },
+        {
+          "valore": "10",
+          "etichetta": "Invito a manifestare interesse"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Invito a offrire"
+        },
+        {
+          "valore": "13",
+          "etichetta": "Licitazione privata"
+        },
+        {
+          "valore": "7",
+          "etichetta": "Mezzo commissionario"
+        },
+        {
+          "valore": "11",
+          "etichetta": "Offerta segreta"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Senza incanto"
+        },
+        {
+          "valore": "20",
+          "etichetta": "Senza incanto aumento di quinto"
+        },
+        {
+          "valore": "16",
+          "etichetta": "Sollecitazione di locazione"
+        },
+        {
+          "valore": "6",
+          "etichetta": "Udienza di assegnazione"
+        },
+        {
+          "valore": "8",
+          "etichetta": "Vendita da definire"
+        },
+        {
+          "valore": "21",
+          "etichetta": "Vendita diretta"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"idTipologiaVendita\": 3, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: select #tipoVendita v-model searchParameters.idTipologiaVendita; valori dalle sue option (client/catalogo.json) [prova_mappa \"3\" Regione Lombardia vendita: 1075->1039 (2026-11-17 14:31:21)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "3",
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "modalita_vendita",
+      "etichetta": "Modalità di vendita",
+      "gruppo": "procedura",
+      "parametro": "idModalitaVendita",
+      "posizione": "corpo",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "5",
+          "etichetta": "Acquisto immediato"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Asincrona telematica"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Presso il venditore"
+        },
+        {
+          "valore": "6",
+          "etichetta": "Raccolta offerte"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Sincrona mista"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Sincrona telematica"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"idModalitaVendita\": 4, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: select #modalitaVendita v-model searchParameters.idModalitaVendita; valori dalle sue option (client/catalogo.json) [prova_mappa \"3\" Regione Lombardia vendita: 1075->268 (2026-11-17 14:31:48)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "3",
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "numero_pubblicazione",
+      "etichetta": "N° pubblicazione",
+      "gruppo": "procedura",
+      "parametro": "idPubblicazione",
+      "posizione": "corpo",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "2",
+          "etichetta": "seconda"
+        },
+        {
+          "valore": "3",
+          "etichetta": "terza"
+        },
+        {
+          "valore": "4",
+          "etichetta": "quarta"
+        },
+        {
+          "valore": "5",
+          "etichetta": "quinta"
+        },
+        {
+          "valore": "6-10",
+          "etichetta": "tra la sesta e la decima"
+        },
+        {
+          "valore": ">1",
+          "etichetta": "almeno seconda"
+        },
+        {
+          "valore": ">2",
+          "etichetta": "almeno terza"
+        },
+        {
+          "valore": ">3",
+          "etichetta": "almeno quarta"
+        },
+        {
+          "valore": ">4",
+          "etichetta": "almeno quinta"
+        },
+        {
+          "valore": ">10",
+          "etichetta": "oltre la decima"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"idPubblicazione\": \">1\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: select #numeroPubblicazione v-model searchParameters.idPubblicazione; valori dalle sue option (client/catalogo.json); è il campo che la pagina riceve come stringa \"null\" e ricerca.js riporta a null prima di search/map [prova_mappa \">1\" Regione Lombardia vendita: 1075->655 (2026-11-17 14:32:17)]",
+      "verifica": "live",
+      "prova": {
+        "valore": ">1",
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "codice_asta",
+      "etichetta": "Codice asta",
+      "gruppo": "procedura",
+      "parametro": "codiceAsta",
+      "posizione": "corpo",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"codiceAsta\": 4361839, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: input #idAsta type number name codiceAsta; idAsta 4361839 da api-search-data-comune.json [prova_mappa 4361839 Trieste vendita: 6->1 (2026-11-16 14:14:41)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 4361839,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "data_asta_da",
+      "etichetta": "Data vendita dal",
+      "gruppo": "data",
+      "parametro": "dataVenditaDa",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"dataVenditaDa\": \"2027-01-01\", ...}",
+      "evidenza": "prove/scoperta-2026-11-16/astegiudiziarie/ricerca.js: easepick setta searchParameters.dataVenditaDa = dateUTCFormat(...) cioè AAAA-MM-GG [prova_mappa \"2027-01-01\" Milano vendita: 6->1 (2026-11-16 14:14:59)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2027-01-01",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Data AAAA-MM-GG."
+    },
+    {
+      "chiave": "data_asta_a",
+      "etichetta": "Data vendita al",
+      "gruppo": "data",
+      "parametro": "dataVenditaA",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"dataVenditaA\": \"2026-12-31\", ...}",
+      "evidenza": "prove/scoperta-2026-11-16/astegiudiziarie/ricerca.js: easepick setta searchParameters.dataVenditaA = dateUTCFormat(...) cioè AAAA-MM-GG [prova_mappa \"2026-12-31\" Milano vendita: 6->5 (2026-11-17 14:15:22)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "2026-12-31",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Data AAAA-MM-GG."
+    },
+    {
+      "chiave": "con_foto",
+      "etichetta": "Con foto",
+      "gruppo": "allegati",
+      "parametro": "hasFoto",
+      "posizione": "corpo",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"hasFoto\": \"true\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: casella #foto name hasFoto true-value=\"true\" false-value=\"null\" (la pagina manda la stringa) [prova_mappa true Regione Lombardia vendita: 1075->994 (2026-11-17 14:32:44)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_planimetria",
+      "etichetta": "Con planimetria",
+      "gruppo": "allegati",
+      "parametro": "hasPlanimetrie",
+      "posizione": "corpo",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"hasPlanimetrie\": \"true\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: casella #planimetria name hasPlanimetrie true-value=\"true\" false-value=\"null\" (la pagina manda la stringa) [prova_mappa true Milano vendita: 6->5 (2026-11-17 14:16:17)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_video",
+      "etichetta": "Con video",
+      "gruppo": "allegati",
+      "parametro": "hasVideo",
+      "posizione": "corpo",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"hasVideo\": \"true\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: casella #video name hasVideo true-value=\"true\" false-value=\"null\" (la pagina manda la stringa) [prova_mappa true Regione Lazio vendita: 1722->1 (2026-11-17 14:33:39)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Regione Lazio",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "etichetta": "Con virtual tour",
+      "gruppo": "allegati",
+      "parametro": "hasVirtualTour",
+      "posizione": "corpo",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"hasVirtualTour\": \"true\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: casella #virtualTour name hasVirtualTour true-value=\"true\" false-value=\"null\" (la pagina manda la stringa) [prova_mappa true Regione Lombardia vendita: 1075->109 (2026-11-17 14:20:46)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "escludi_aste_bandite",
+      "etichetta": "Escludi aste bandite",
+      "gruppo": "procedura",
+      "parametro": "bandita",
+      "posizione": "corpo",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"bandita\": \"true\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: casella #escludiAsteBandite name bandita true-value=\"true\" false-value=\"null\" (la pagina manda la stringa) [prova_mappa true Milano vendita: 6->5 (2026-11-17 14:16:44)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Milano",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "solo_telematiche",
+      "etichetta": "Solo aste telematiche",
+      "gruppo": "procedura",
+      "parametro": "telematica",
+      "posizione": "corpo",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"telematica\": \"true\", ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: casella #telematiche name telematica true-value=\"true\" false-value=\"null\" (la pagina manda la stringa) [prova_mappa true Regione Lombardia vendita: 1075->1031 (2026-11-17 14:33:12)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "comune": "Regione Lombardia",
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "ordinamento",
+      "etichetta": "Ordina per",
+      "gruppo": "ordinamento",
+      "parametro": "orderBy",
+      "posizione": "corpo",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "6",
+          "etichetta": "Data di pubblicazione più recente"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Data di pubblicazione meno recente"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Prezzo base più alto"
+        },
+        {
+          "valore": "1",
+          "etichetta": "Prezzo base più basso"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Data di vendita più recente"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Data di vendita meno recente"
+        },
+        {
+          "valore": "8",
+          "etichetta": "Ruolo procedura più recente"
+        },
+        {
+          "valore": "7",
+          "etichetta": "Ruolo procedura meno recente"
+        }
+      ],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"orderBy\": 1, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: select #orderBy v-model searchParameters.orderBy; valori dalle sue option (client/catalogo.json); il cambio rilancia searchMap [prova_mappa \"1\" Milano vendita: 6->6 (2026-11-17 14:17:38); \"2\" Milano vendita: 6->6 (2026-11-17 14:18:05)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "comune": "Milano",
+          "attesa": "ordine_asc"
+        },
+        {
+          "valore": "2",
+          "comune": "Milano",
+          "attesa": "ordine_desc"
+        }
+      ]
+    },
+    {
+      "chiave": "mappa_area",
+      "etichetta": "Rettangolo sulla mappa",
+      "gruppo": "luogo",
+      "parametro": "latitudineNW, longitudineNW, latitudineSE, longitudineSE",
+      "posizione": "corpo",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "POST https://webapi.astegiudiziarie.it/api/search/map {\"latitudineNW\": 45.48, \"longitudineNW\": 9.17, \"latitudineSE\": 45.45, \"longitudineSE\": 9.21, ...}",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: campi nascosti latitudineNW/longitudineNW/latitudineSE/longitudineSE; prove/scoperta-2026-11-16/astegiudiziarie/ricerca.js li usa come riquadro (PolygonData per ATP) [prova_mappa \"45.48,9.17;45.45,9.21\" Milano vendita: 6->3 (2026-11-17 14:18:31)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "45.48,9.17;45.45,9.21",
+        "comune": "Milano",
+        "attesa": "meno"
+      },
+      "note": "Due angoli opposti 'lat,lng;lat,lng'. Il rettangolo prende il posto del luogo."
+    }
+  ],
+  "assenti": [
+    {
+      "chiave": "contratto",
+      "evidenza": "Solo vendite all'asta: nessun controllo vendita/affitto nel form (16/11/2026)."
+    },
+    {
+      "chiave": "zona",
+      "evidenza": "L'autocompletamento del luogo dà regione, provincia, comune, cap o indirizzo con coordinate; nessuna zona di quartiere tra i campi. form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "mq_min",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "mq_max",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "locali_min",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "locali_max",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "bagni_min",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "piano",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "ascensore",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "terrazzo",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "giardino",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "box_auto",
+      "evidenza": "Solo come tipologia del bene (Garage o autorimessa, Posto auto): usa sottocategoria. form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "posto_auto",
+      "evidenza": "Solo come tipologia del bene (Posto auto): usa sottocategoria. form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "Solo come tipologia del bene (Cantina): usa sottocategoria. form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "arredato",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "stato_immobile",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "aria_condizionata",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "evidenza": "Solo come tipologia del bene (Fabbricato in corso di costruzione). form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "Ogni annuncio di astegiudiziarie è un'asta: il filtro coincide con tutto il portale."
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "da_privato",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html: l'input #descrizione esiste ma per gli immobili ha il segnaposto del luogo; ricerca.js lo usa come 'Cosa cerchi?' solo per beni mobili e crediti (tipoRicerca 2 e 3). form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    },
+    {
+      "chiave": "raggio",
+      "evidenza": "Il form ha solo il riquadro NW/SE (mappa_area) e l'indirizzo geolocalizzato, nessun raggio. form #formSearchResults di prove/scoperta-2026-11-16/astegiudiziarie/http-risultati-comune.html (16/11/2026): i campi che la pagina manda a search/map e che il form imposta sono tipoRicerca, comune, provincia, regione, coordinate del riquadro, idTipologie, idCategorie, prezzoDa, prezzoA, idTribunale, numeroProcedura, annoProcedura, idTipologiaProcedura, giudice, professionista, idTipologiaVendita, idModalitaVendita, idPubblicazione, codiceAsta, dataVenditaDa, dataVenditaA, bandita, telematica, hasFoto, hasPlanimetrie, hasVideo, hasVirtualTour, orderBy. Nessun controllo per questo filtro."
+    }
+  ],
+  "non_trovati": [],
+  "note": "La pagina /results non ha annunci: ricerca.js manda searchParameters a search/map (tutti gli idLotto, in ordine) e chiede i dettagli a search/Data 20 id per volta. Il corpo va mandato con idPubblicazione null: con la stringa \"null\", come arriva nella pagina, search/map risponde [] (client/map-comune-pubblicazione-stringa.json contro client/map-comune-null.json, 16/11/2026). Le aste già svolte compaiono tra i risultati con il loro esito. Nessuna offerta minima nei dati."
+}

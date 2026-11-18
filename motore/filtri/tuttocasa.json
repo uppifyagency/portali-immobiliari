@@ -1,0 +1,783 @@
+{
+  "portale": "tuttocasa",
+  "descrizione": "Piccolo portale di agenzie e privati con pochi filtri (prezzo, mq, vani, agenzia o privato) e 10 annunci a pagina.",
+  "url_base_ricerca": "https://tuttocasa.it/?act=annunci",
+  "come_si_applicano": "query string",
+  "fonte_catalogo": "form HTML GET action=/index.php nella pagina risultati (input hidden act=annunci e agenzia=no, input#location key, select#contratto, select#tipologia con optgroup, input number prezzoda/prezzoa/mqda/mqa/vanida/vania, checkbox privati)",
+  "filtri": [
+    {
+      "chiave": "comune",
+      "etichetta": "Cerca per provincia, città o zona",
+      "gruppo": "luogo",
+      "parametro": "key",
+      "posizione": "query",
+      "tipo": "testo",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=muggia&contratto=no&tipologia=no&prezzoda=no&prezzoa=no&mqda=no&mqa=no&vanida=no&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input#location name=key (testo libero) [prova_mappa \"Milano\" Trieste vendita: 269->4471 (2026-11-16 13:46:56)]",
+      "verifica": "live",
+      "prova": {
+        "valore": "Milano",
+        "attesa": "diverso"
+      }
+    },
+    {
+      "chiave": "contratto",
+      "etichetta": "Contratto",
+      "gruppo": "contratto",
+      "parametro": "contratto",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "vendita",
+          "etichetta": "Vendita"
+        },
+        {
+          "valore": "affitto",
+          "etichetta": "Affitto"
+        },
+        {
+          "valore": "affitto-vacanze",
+          "etichetta": "Affitto vacanze"
+        }
+      ],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=1&tipologia=no&prezzoda=no&prezzoa=no&mqda=no&mqa=no&vanida=no&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, select#contratto name=contratto (1 Vendita, 2 Affitto, 3 Affitto vacanze; ricontrollato in fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40)) [prova_mappa \"affitto\" Trieste vendita: 269->53 (2026-11-16 14:23:07); \"affitto-vacanze\" Roma vendita: 5192->3 (2026-11-16 14:23:29); \"vendita\" Trieste vendita: 53->269 (2026-11-16 14:23:29)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "affitto",
+          "attesa": "diverso"
+        },
+        {
+          "valore": "affitto-vacanze",
+          "attesa": "diverso",
+          "comune": "Roma"
+        },
+        {
+          "valore": "vendita",
+          "attesa": "diverso",
+          "base_contratto": "affitto"
+        }
+      ]
+    },
+    {
+      "chiave": "tipologia",
+      "etichetta": "Tipologia",
+      "gruppo": "tipologia",
+      "parametro": "tipologia",
+      "posizione": "query",
+      "tipo": "enum",
+      "valori": [
+        {
+          "valore": "1",
+          "etichetta": "Residenziali: Appartamento"
+        },
+        {
+          "valore": "2",
+          "etichetta": "Residenziali: Loft/open space"
+        },
+        {
+          "valore": "3",
+          "etichetta": "Residenziali: Attico"
+        },
+        {
+          "valore": "4",
+          "etichetta": "Residenziali: Mansarda"
+        },
+        {
+          "valore": "5",
+          "etichetta": "Residenziali: Camere"
+        },
+        {
+          "valore": "6",
+          "etichetta": "Residenziali: Casa indipendente"
+        },
+        {
+          "valore": "7",
+          "etichetta": "Residenziali: Casa semi-indipendente"
+        },
+        {
+          "valore": "8",
+          "etichetta": "Residenziali: Villetta"
+        },
+        {
+          "valore": "9",
+          "etichetta": "Residenziali: Villetta a schiera"
+        },
+        {
+          "valore": "11",
+          "etichetta": "Residenziali: Viareggina"
+        },
+        {
+          "valore": "12",
+          "etichetta": "Residenziali: Villa"
+        },
+        {
+          "valore": "13",
+          "etichetta": "Residenziali: Terratetto"
+        },
+        {
+          "valore": "14",
+          "etichetta": "Residenziali: Palazzo"
+        },
+        {
+          "valore": "15",
+          "etichetta": "Residenziali: Rustico"
+        },
+        {
+          "valore": "16",
+          "etichetta": "Residenziali: Colonica"
+        },
+        {
+          "valore": "17",
+          "etichetta": "Residenziali: Fienile"
+        },
+        {
+          "valore": "18",
+          "etichetta": "Residenziali: Cascinale"
+        },
+        {
+          "valore": "19",
+          "etichetta": "Residenziali: Residence"
+        },
+        {
+          "valore": "22",
+          "etichetta": "Residenziali: Garage/box/posto auto"
+        },
+        {
+          "valore": "23",
+          "etichetta": "Residenziali: Castello/torre"
+        },
+        {
+          "valore": "24",
+          "etichetta": "Residenziali: Seminterrato"
+        },
+        {
+          "valore": "25",
+          "etichetta": "Residenziali: Multiproprietà"
+        },
+        {
+          "valore": "26",
+          "etichetta": "Residenziali: Duplex"
+        },
+        {
+          "valore": "27",
+          "etichetta": "Residenziali: Porzione di casa"
+        },
+        {
+          "valore": "48",
+          "etichetta": "Residenziali: Azienda agricola"
+        },
+        {
+          "valore": "53",
+          "etichetta": "Residenziali: Altro"
+        },
+        {
+          "valore": "29",
+          "etichetta": "Uffici-Fondi commerciali: Ufficio"
+        },
+        {
+          "valore": "30",
+          "etichetta": "Uffici-Fondi commerciali: Capannone"
+        },
+        {
+          "valore": "31",
+          "etichetta": "Uffici-Fondi commerciali: Laboratorio"
+        },
+        {
+          "valore": "33",
+          "etichetta": "Uffici-Fondi commerciali: Fondo commerciale"
+        },
+        {
+          "valore": "34",
+          "etichetta": "Uffici-Fondi commerciali: Fondo artigianale"
+        },
+        {
+          "valore": "35",
+          "etichetta": "Uffici-Fondi commerciali: Magazzino"
+        },
+        {
+          "valore": "36",
+          "etichetta": "Uffici-Fondi commerciali: Negozio"
+        },
+        {
+          "valore": "37",
+          "etichetta": "Uffici-Fondi commerciali: Show room"
+        },
+        {
+          "valore": "54",
+          "etichetta": "Uffici-Fondi commerciali: Altro"
+        },
+        {
+          "valore": "38",
+          "etichetta": "Attivita': Azienda agricola"
+        },
+        {
+          "valore": "39",
+          "etichetta": "Attivita': Albergo/hotel"
+        },
+        {
+          "valore": "40",
+          "etichetta": "Attivita': Ristorazione"
+        },
+        {
+          "valore": "41",
+          "etichetta": "Attivita': Attività commerciale"
+        },
+        {
+          "valore": "42",
+          "etichetta": "Attivita': Azienda agrituristica"
+        },
+        {
+          "valore": "46",
+          "etichetta": "Attivita': Bar"
+        },
+        {
+          "valore": "55",
+          "etichetta": "Attivita': Altro"
+        },
+        {
+          "valore": "49",
+          "etichetta": "Terreni: Terreno agricolo"
+        },
+        {
+          "valore": "50",
+          "etichetta": "Terreni: Terreno edificabile"
+        },
+        {
+          "valore": "51",
+          "etichetta": "Terreni: Terreno industriale"
+        },
+        {
+          "valore": "52",
+          "etichetta": "Terreni: Annesso agricolo"
+        },
+        {
+          "valore": "56",
+          "etichetta": "Terreni: Altro"
+        }
+      ],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=1&prezzoda=no&prezzoa=no&mqda=no&mqa=no&vanida=no&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, select#tipologia name=tipologia con optgroup Residenziali, Uffici-Fondi commerciali, Attivita', Terreni [prova_mappa \"1\" Milano vendita: 4471->2429 (2026-11-16 14:37:19); \"2\" Milano vendita: 4471->26 (2026-11-16 14:37:29); \"3\" Milano vendita: 4471->67 (2026-11-16 14:37:40); \"4\" Torino vendita: 4008->1 (2026-11-16 17:26:03); \"5\" Milano affitto: 3932->77 (2026-11-16 14:38:23); \"6\" Milano vendita: 4471->61 (2026-11-16 14:38:34); \"7\" Milano vendita: 4471->27 (2026-11-16 14:38:44); \"8\" Milano vendita: 4471->23 (2026-11-16 14:38:54); \"9\" Milano vendita: 4471->46 (2026-11-16 14:39:06); \"11\" Lucca vendita: 5722->43 (2026-11-16 14:39:39); \"12\" Milano vendita: 4471->200 (2026-11-16 14:39:49); \"13\" Milano vendita: 4471->16 (2026-11-16 14:40:00); \"14\" Milano vendita: 4471->62 (2026-11-16 14:40:10); \"15\" Milano vendita: 4471->20 (2026-11-16 14:40:20); \"16\" Firenze vendita: 4144->221 (2026-11-16 14:40:43); \"17\" Firenze vendita: 4144->12 (2026-11-16 17:27:11); \"18\" Milano vendita: 4471->1 (2026-11-16 14:41:03); \"19\" Roma vendita: 5192->2 (2026-11-16 14:41:14); \"22\" Milano vendita: 4471->185 (2026-11-16 14:41:44); \"23\" Siena vendita: 3804->6 (2026-11-16 17:28:37); \"24\" Roma vendita: 5192->13 (2026-11-16 14:42:05); \"25\" Roma vendita: 5192->2 (2026-11-16 14:42:15); \"26\" Milano vendita: 4471->20 (2026-11-16 14:42:26); \"27\" Milano vendita: 4471->2 (2026-11-16 14:42:36); \"48\" Roma vendita: 5192->4 (2026-11-16 14:42:57); \"53\" Milano vendita: 4471->6 (2026-11-16 14:43:07); \"29\" Milano vendita: 4471->209 (2026-11-16 14:43:17); \"30\" Milano vendita: 4471->153 (2026-11-16 14:43:28); \"31\" Milano vendita: 4471->81 (2026-11-16 14:43:38); \"33\" Milano vendita: 4471->200 (2026-11-16 14:43:58); \"34\" Roma vendita: 5192->1 (2026-11-16 14:44:09); \"35\" Milano vendita: 4471->85 (2026-11-16 14:44:19); \"36\" Milano vendita: 4471->200 (2026-11-16 14:44:30); \"37\" Milano vendita: 4471->13 (2026-11-16 14:44:40); \"54\" Milano vendita: 4471->17 (2026-11-16 14:44:50); \"38\" Grosseto vendita: 1158->1 (2026-11-16 17:30:01); \"39\" Milano vendita: 4471->5 (2026-11-16 14:45:11); \"40\" Milano vendita: 4471->17 (2026-11-16 14:45:21); \"41\" Milano vendita: 4471->50 (2026-11-16 14:45:32); \"42\" Milano vendita: 4471->5 (2026-11-16 14:45:42); \"46\" Milano vendita: 4471->57 (2026-11-16 14:46:23); \"55\" Milano vendita: 4471->15 (2026-11-16 14:46:43); \"49\" Milano vendita: 4471->56 (2026-11-16 14:46:54); \"50\" Milano vendita: 4471->88 (2026-11-16 14:47:04); \"51\" Milano vendita: 4471->20 (2026-11-16 14:47:15); \"52\" Grosseto vendita: 1158->3 (2026-11-16 17:32:16); \"56\" Milano vendita: 4471->7 (2026-11-16 14:47:35)]",
+      "verifica": "live",
+      "prova": [
+        {
+          "valore": "1",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "2",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "3",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "4",
+          "attesa": "meno",
+          "comune": "Torino"
+        },
+        {
+          "valore": "5",
+          "attesa": "meno",
+          "comune": "Milano",
+          "contratto": "affitto"
+        },
+        {
+          "valore": "6",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "7",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "8",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "9",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "11",
+          "attesa": "meno",
+          "comune": "Lucca"
+        },
+        {
+          "valore": "12",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "13",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "14",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "15",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "16",
+          "attesa": "meno",
+          "comune": "Firenze"
+        },
+        {
+          "valore": "17",
+          "attesa": "meno",
+          "comune": "Firenze"
+        },
+        {
+          "valore": "18",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "19",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "22",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "23",
+          "attesa": "meno",
+          "comune": "Siena"
+        },
+        {
+          "valore": "24",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "25",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "26",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "27",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "48",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "53",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "29",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "30",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "31",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "33",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "34",
+          "attesa": "meno",
+          "comune": "Roma"
+        },
+        {
+          "valore": "35",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "36",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "37",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "54",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "38",
+          "attesa": "meno",
+          "comune": "Grosseto"
+        },
+        {
+          "valore": "39",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "40",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "41",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "42",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "46",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "55",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "49",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "50",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "51",
+          "attesa": "meno",
+          "comune": "Milano"
+        },
+        {
+          "valore": "52",
+          "attesa": "meno",
+          "comune": "Grosseto"
+        },
+        {
+          "valore": "56",
+          "attesa": "meno",
+          "comune": "Milano"
+        }
+      ],
+      "note": "Il form elenca altre 9 tipologie che il client non offre perché non si possono provare: 10 Residenziali: Villetta a schiera angolare; 20 Residenziali: Baita/chalet/trullo/stazzo; 21 Residenziali: Fabbricato; 28 Residenziali: Posto barca; 32 Uffici-Fondi commerciali: Fondo; 43 Attivita': Attività artigianale; 44 Attivita': Attività industriale; 45 Attivita': Residence; 47 Attivita': Discoteca. Nessun annuncio nei contesti provati il 16/11/2026, e il 17/11/2026 anche una tipologia inesistente (999) dà zero annunci, quindi lo zero non distingue un filtro applicato da un valore ignoto (prove/giro7/tuttocasa-controllo/esiti.json)."
+    },
+    {
+      "chiave": "prezzo_min",
+      "etichetta": "Prezzo da",
+      "gruppo": "prezzo",
+      "parametro": "prezzoda",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=100000&prezzoa=no&mqda=no&mqa=no&vanida=no&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input type=number name=prezzoda [prova_mappa 200000 Trieste vendita: 269->83 (2026-11-16 14:23:40)]",
+      "verifica": "live",
+      "unita": "EUR",
+      "prova": {
+        "valore": 200000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "prezzo_max",
+      "etichetta": "Prezzo a",
+      "gruppo": "prezzo",
+      "parametro": "prezzoa",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=no&prezzoa=250000&mqda=no&mqa=no&vanida=no&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input type=number name=prezzoa [prova_mappa 150000 Trieste vendita: 269->170 (2026-11-16 14:23:52)]",
+      "verifica": "live",
+      "unita": "EUR",
+      "prova": {
+        "valore": 150000,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_min",
+      "etichetta": "Superficie da",
+      "gruppo": "superficie",
+      "parametro": "mqda",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=no&prezzoa=no&mqda=60&mqa=no&vanida=no&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input type=number name=mqda [prova_mappa 100 Trieste vendita: 269->105 (2026-11-16 14:24:03)]",
+      "verifica": "live",
+      "unita": "mq",
+      "prova": {
+        "valore": 100,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "mq_max",
+      "etichetta": "Superficie a",
+      "gruppo": "superficie",
+      "parametro": "mqa",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=no&prezzoa=no&mqda=no&mqa=120&vanida=no&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input type=number name=mqa [prova_mappa 60 Trieste vendita: 269->57 (2026-11-16 14:24:14)]",
+      "verifica": "live",
+      "unita": "mq",
+      "prova": {
+        "valore": 60,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_min",
+      "etichetta": "Vani da",
+      "gruppo": "locali",
+      "parametro": "vanida",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=no&prezzoa=no&mqda=no&mqa=no&vanida=3&vania=no&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input type=number name=vanida (vani, non locali: il portale conta i vani) [prova_mappa 4 Trieste vendita: 269->46 (2026-11-16 14:24:26)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 4,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "locali_max",
+      "etichetta": "Vani a",
+      "gruppo": "locali",
+      "parametro": "vania",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=no&prezzoa=no&mqda=no&mqa=no&vanida=no&vania=5&agenzia=no&privati=no",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input type=number name=vania [prova_mappa 2 Trieste vendita: 269->189 (2026-11-16 14:24:37)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "da_privato",
+      "etichetta": "Solo Annunci di Privati",
+      "gruppo": "inserzionista",
+      "parametro": "privati",
+      "posizione": "query",
+      "tipo": "booleano",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=no&prezzoa=no&mqda=no&mqa=no&vanida=no&vania=no&agenzia=no&privati=1",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input type=checkbox name=privati value=1 [prova_mappa true Milano vendita: 4471->30 (2026-11-16 14:25:40)]",
+      "verifica": "live",
+      "prova": {
+        "valore": true,
+        "attesa": "meno",
+        "comune": "Milano"
+      }
+    },
+    {
+      "chiave": "agenzia",
+      "etichetta": "Annunci di una agenzia",
+      "gruppo": "inserzionista",
+      "parametro": "agenzia",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&agenzia=5366",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 0 (documento), form action=/index.php method=get, input hidden name=agenzia value=no; link /?act=annunci&agenzia=5366 (e 5885, 5892, 1844, 1122) nelle schede risultato [prova_mappa 5366 Trieste vendita: 269->27 (2026-11-16 14:24:58)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 5366,
+        "attesa": "meno"
+      }
+    },
+    {
+      "chiave": "pagina",
+      "etichetta": "Pagina",
+      "gruppo": "paginazione",
+      "parametro": "page",
+      "posizione": "query",
+      "tipo": "intero",
+      "valori": [],
+      "esempio": "https://tuttocasa.it/?act=annunci&key=trieste&contratto=no&tipologia=no&prezzoda=no&prezzoa=no&mqda=no&mqa=no&vanida=no&vania=no&agenzia=no&privati=no&page=2",
+      "evidenza": "tuttocasa har/tuttocasa-trieste-ricerca/recording.har voce 1 URL con &page=2; link paginazione page=1..4 e page=32 nella voce 0 [prova_mappa 2 Trieste vendita: 269->269 (2026-11-16 14:25:10)]",
+      "verifica": "live",
+      "prova": {
+        "valore": 2,
+        "attesa": "pagina"
+      }
+    }
+  ],
+  "non_trovati": [],
+  "note": "Ogni parametro va sempre presente: il valore 'no' significa non impostato (così li scrive il portale nei link di paginazione). Il form invia a /index.php, i link della paginazione usano /?act=annunci: stessa ricerca, due percorsi. I select contratto e tipologia non hanno un'opzione vuota: il form invia sempre un valore; il client scrive tipologia=no quando la tipologia non è data. key è testo libero confrontato col nome di comune e provincia (key=trieste prende tutta la provincia), non un codice e non una zona. 'vani' è la misura del portale, più vicina a 'locali' che a 'camere'. agenzia è l'id dei link 'annunci dell'agenzia' delle schede e si combina con key.",
+  "assenti": [
+    {
+      "chiave": "zona",
+      "evidenza": "GET /?act=annunci&key=roiano (zona di Trieste) e key=trieste+roiano il 16/11/2026: 'Nessun annuncio trovato' (fixtures/scoperta/tuttocasa/key-roiano.html, key-trieste-roiano.html). Il campo key confronta solo il nome di comune e provincia; nessun controllo per la zona. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "bagni_min",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "piano",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "ascensore",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "balcone",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "terrazzo",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "giardino",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "box_auto",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "posto_auto",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "cantina",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "arredato",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "stato_immobile",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "classe_energetica",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "riscaldamento",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "aria_condizionata",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "vista_mare",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "nuova_costruzione",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "asta",
+      "evidenza": "nessun controllo per le aste; 'asta' compare solo nel testo di alcune descrizioni (key-lombardia.html). fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "nuda_proprieta",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "a_reddito",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "libero",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "con_foto",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "con_planimetria",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "con_video",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "con_virtual_tour",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "pubblicato_da",
+      "evidenza": "l'interfaccia offre solo la casella 'Solo Annunci di Privati' (mappata come da_privato), nessuna scelta privato/agenzia. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "ribassato",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "ordinamento",
+      "evidenza": "nessun select o link di ordinamento nella pagina risultati. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "parola_chiave",
+      "evidenza": "key=lombardia il 16/11/2026 dà 7 annunci, tutti a Romano di Lombardia (BG) (fixtures/scoperta/tuttocasa/key-lombardia.html): key cerca nel nome del comune, non nel testo. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "raggio",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    },
+    {
+      "chiave": "mappa_area",
+      "evidenza": "nessun controllo per questo filtro. fixtures/scoperta/tuttocasa/trieste-base.html (GET https://tuttocasa.it/?act=annunci&key=trieste... del 16/11/2026 13:40): il form action=/index.php method=get offre solo key, contratto, tipologia, prezzoda, prezzoa, mqda, mqa, vanida, vania, la casella privati e il campo nascosto agenzia; nessun altro controllo, nessun link o select di ordinamento; gli script della pagina (/assets/js/scripts.js, custom.js, salvati accanto) non aggiungono filtri"
+    }
+  ]
+}
