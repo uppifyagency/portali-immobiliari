@@ -17,7 +17,7 @@ Su Linux manca `osascript`, quindi restano solo i portali con trasporto `http`. 
 ## Installazione
 
 ```sh
-git clone <url-del-repo> portali-immobiliari
+git clone https://github.com/uppifyagency/portali-immobiliari.git
 claude --plugin-dir ./portali-immobiliari
 ```
 
